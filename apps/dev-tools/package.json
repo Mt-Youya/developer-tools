@@ -1,0 +1,27 @@
+{
+  "name": "dev-tools",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "dev": "vite dev --host --open",
+    "build": "vite build",
+    "preview": "pnpm build && vite preview --host --open"
+  },
+  "keywords": [],
+  "author": "Yonjay Doyle",
+  "license": "MIT",
+  "packageManager": "pnpm@10.18.2",
+  "dependencies": {
+    "@monaco-editor/react": "^4.7.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1", 
+    "react-router": "^7.9.4",
+    "react-router-dom": "^7.9.4",
+    "tw-animate-css": "^1.4.0",
+    "tailwindcss": "^4.1.14",
+    "zustand": "^5.0.8"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.14"
+  }
+}

@@ -1,0 +1,6 @@
+packages:
+  - "apps/*"
+  - "commons/*"
+  - "packages/*/*"
+  - "proxys/*"
+  - "server/*"

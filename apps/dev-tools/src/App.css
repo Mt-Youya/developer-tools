@@ -1,0 +1,17 @@
+@keyframes toTop {
+  from {
+    top: 0.3125rem;
+  }
+
+  to {
+    top: -0.3125rem;
+  }
+}
+
+body{
+  height: 100vh;
+}
+
+#root {
+  height: 100%;
+}

@@ -1,0 +1,6 @@
+{
+  "extends": "../../../internal/library.json",
+  "compilerOptions": { "outDir": "dist" },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}
