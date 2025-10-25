@@ -35,6 +35,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeView, onViewChange }) =>
             return (
               <li key={item.id}>
                 <button
+                  type="button"
                   onClick={() => onViewChange(item.id)}
                   className={`w-full flex items-center space-x-4 px-3 py-2 rounded-lg transition-colors ${
                     activeView === item.id ? "bg-gray-800 text-white" : "text-gray-400 hover:text-white"
@@ -55,6 +56,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeView, onViewChange }) =>
               return (
                 <li key={item.id}>
                   <button
+                    type="button"
                     onClick={() => onViewChange(item.id)}
                     className={`w-full flex items-center space-x-4 px-3 py-2 rounded-lg transition-colors ${
                       activeView === item.id ? "bg-gray-800 text-white" : "text-gray-400 hover:text-white"

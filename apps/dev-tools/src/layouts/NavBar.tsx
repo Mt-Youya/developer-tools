@@ -30,9 +30,9 @@ function NavBar({ children }: PropsWithChildren) {
               ))}
             </div>
 
-            <div className="flex items-center space-x-4">
-              <button className="text-gray-800 hover:text-gray-600 transition-colors"></button>
-            </div>
+            {/* <div className="flex items-center space-x-4">
+              <button type="button" className="text-gray-800 hover:text-gray-600 transition-colors"></button>
+            </div> */}
           </div>
         </div>
       </nav>

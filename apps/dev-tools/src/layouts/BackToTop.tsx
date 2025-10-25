@@ -20,7 +20,7 @@ function getPreciseScrollPercentage() {
 
 function BackToTop() {
   const [rate, setRate] = useState(0)
-  const toTopRef = useRef<HTMLDivElement | null>(null)
+  const toTopRef = useRef<HTMLButtonElement | null>(null)
 
   function handleScroll() {
     const rateComputed = getPreciseScrollPercentage() * perimeter
@@ -50,13 +50,15 @@ function BackToTop() {
   )
 
   return (
-    <div
+    <button
       ref={toTopRef}
+      type="button"
       title="Back To Top"
       onClick={() => scrollTo({ top: 0, behavior: "smooth" })}
       className={cn(classes({ variant: window.scrollY < 200 ? "default" : "secondary" }))}
     >
       <svg className="absolute top-0 left-0 w-10.5 h-10.5">
+        <title>Back To Top Icon</title>
         <circle
           cx="21"
           cy="21"
@@ -65,7 +67,7 @@ function BackToTop() {
           fill="#fff"
           strokeWidth="0.125rem"
           className="transition-all ease-in-out duration-300"
-          strokeDasharray={rate + ", " + perimeter}
+          strokeDasharray={`${rate}, ${perimeter}`}
         />
       </svg>
       <svg
@@ -76,6 +78,7 @@ function BackToTop() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title>Back To Top Icon</title>
         <g className="">
           <path fill="currentColor" d="M1.73734 0.5V1.75H14.2373V0.5H1.73734Z" />
           <path
@@ -91,7 +94,7 @@ function BackToTop() {
           />
         </g>
       </svg>
-    </div>
+    </button>
   )
 }
 

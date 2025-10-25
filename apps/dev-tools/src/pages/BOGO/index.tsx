@@ -152,7 +152,7 @@ function FreeGames() {
           {error && <div className="text-sm text-red-500 mb-4">❌ {error}</div>}
 
           {lastUpdated && (
-            <div className="text-xs text-muted-foreground">最后更新：{lastUpdated.toLocaleString("zh-CN")}</div>
+            <div className="text-xs text-muted-foreground">最后更新：{lastUpdated?.toLocaleString("zh-CN")}</div>
           )}
         </div>
 

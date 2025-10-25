@@ -11,7 +11,7 @@ function flattenObject(obj: any, parentKey = "", result: Dictionary = {}) {
     } else if (Array.isArray(obj[key])) {
       if (isStringArray(obj[key])) {
         for (const idx in obj[key]) {
-          result[newKey + `[${idx}]`] = obj[key][idx]
+          result[`${newKey}[${idx}]`] = obj[key][idx]
         }
         continue
       }

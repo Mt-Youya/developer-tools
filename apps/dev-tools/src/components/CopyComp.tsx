@@ -12,13 +12,13 @@ export default function CopyComp({
   const { status, copyToClipboard } = useCopy(copyValue)
 
   async function handleCopy(value: typeof copyValue) {
-    fetch("/api/copy", {
-      method: "POST",
-      body: JSON.stringify({
-        g: "bbb",
-        a: "sss",
-      }),
-    })
+    // fetch("/api/copy", {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     g: "bbb",
+    //     a: "sss",
+    //   }),
+    // })
 
     await copyToClipboard(value)
   }

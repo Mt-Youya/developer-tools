@@ -3,135 +3,45 @@
   "version": "0.0.1",
   "description": "UI components for DevTools",
   "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    "./style.css": "./dist/style.css",
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
-    },
-    "./Alert": {
-      "types": "./dist/Alert.d.ts",
-      "import": "./dist/Alert.mjs",
-      "require": "./dist/Alert.cjs"
-    },
-    "./Badge": {
-      "types": "./dist/Badge.d.ts",
-      "import": "./dist/Badge.mjs",
-      "require": "./dist/Badge.cjs"
-    },
-    "./Button": {
-      "types": "./dist/Button.d.ts",
-      "import": "./dist/Button.mjs",
-      "require": "./dist/Button.cjs"
-    },
-    "./Card": {
-      "types": "./dist/Card.d.ts",
-      "import": "./dist/Card.mjs",
-      "require": "./dist/Card.cjs"
-    },
-    "./Checkbox": {
-      "types": "./dist/Checkbox.d.ts",
-      "import": "./dist/Checkbox.mjs",
-      "require": "./dist/Checkbox.cjs"
-    },
-    "./Collapsible": {
-      "types": "./dist/Collapsible.d.ts",
-      "import": "./dist/Collapsible.mjs",
-      "require": "./dist/Collapsible.cjs"
-    },
-    "./Drawer": {
-      "types": "./dist/Drawer.d.ts",
-      "import": "./dist/Drawer.mjs",
-      "require": "./dist/Drawer.cjs"
-    },
-    "./DropdownMenu": {
-      "types": "./dist/DropdownMenu.d.ts",
-      "import": "./dist/DropdownMenu.mjs",
-      "require": "./dist/DropdownMenu.cjs"
-    },
-    "./Input": {
-      "types": "./dist/Input.d.ts",
-      "import": "./dist/Input.mjs",
-      "require": "./dist/Input.cjs"
-    },
-    "./Label": {
-      "types": "./dist/Label.d.ts",
-      "import": "./dist/Label.mjs",
-      "require": "./dist/Label.cjs"
-    },
-    "./Loader": {
-      "types": "./dist/Loader.d.ts",
-      "import": "./dist/Loader.mjs",
-      "require": "./dist/Loader.cjs"
-    },
-    "./Progress": {
-      "types": "./dist/Progress.d.ts",
-      "import": "./dist/Progress.mjs",
-      "require": "./dist/Progress.cjs"
-    },
-    "./QRCode": {
-      "types": "./dist/QRCode.d.ts",
-      "import": "./dist/QRCode.mjs",
-      "require": "./dist/QRCode.cjs"
-    },
-    "./Select": {
-      "types": "./dist/Select.d.ts",
-      "import": "./dist/Select.mjs",
-      "require": "./dist/Select.cjs"
-    },
-    "./Separator": {
-      "types": "./dist/Separator.d.ts",
-      "import": "./dist/Separator.mjs",
-      "require": "./dist/Separator.cjs"
-    },
-    "./Slider": {
-      "types": "./dist/Slider.d.ts",
-      "import": "./dist/Slider.mjs",
-      "require": "./dist/Slider.cjs"
-    },
-    "./Sonner": {
-      "types": "./dist/Sonner.d.ts",
-      "import": "./dist/Sonner.mjs",
-      "require": "./dist/Sonner.cjs"
-    },
-    "./Table": {
-      "types": "./dist/Table.d.ts",
-      "import": "./dist/Table.mjs",
-      "require": "./dist/Table.cjs"
-    },
-    "./Tabs": {
-      "types": "./dist/Tabs.d.ts",
-      "import": "./dist/Tabs.mjs",
-      "require": "./dist/Tabs.cjs"
-    },
-    "./Textarea": {
-      "types": "./dist/Textarea.d.ts",
-      "import": "./dist/Textarea.mjs",
-      "require": "./dist/Textarea.cjs"
-    },
-    "./Tooltip": {
-      "types": "./dist/Tooltip.d.ts",
-      "import": "./dist/Tooltip.mjs",
-      "require": "./dist/Tooltip.cjs"
-    }
-  },
+  "main": "main.ts",
+  "author": "Yonjay Doyle",
+  "license": "MIT",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "vite build --mode production",
+    "build": "vite build",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
     "dev": "vite build --watch",
     "shadcn-add": "node ../../scripts/autoCreateShadcnComp.ts"
   },
-  "author": "Yonjay Doyle",
-  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts",
+    "./style.css": "./dist/style.css",
+    "./Alert": "./src/components/Alert/index.ts",
+    "./Badge": "./src/components/Badge/index.ts",
+    "./Button": "./src/components/Button/index.ts",
+    "./Card": "./src/components/Card/index.ts",
+    "./Checkbox": "./src/components/Checkbox/index.ts",
+    "./Collapsible": "./src/components/Collapsible/index.ts",
+    "./Drawer": "./src/components/Drawer/index.ts",
+    "./DropdownMenu": "./src/components/DropdownMenu/index.ts",
+    "./Input": "./src/components/Input/index.ts",
+    "./Label": "./src/components/Label/index.ts",
+    "./Loader": "./src/components/Loader/index.ts",
+    "./Progress": "./src/components/Progress/index.ts",
+    "./QRCode": "./src/components/QRCode/index.ts",
+    "./Select": "./src/components/Select/index.ts",
+    "./Separator": "./src/components/Separator/index.ts",
+    "./Slider": "./src/components/Slider/index.ts",
+    "./Sonner": "./src/components/Sonner/index.ts",
+    "./Table": "./src/components/Table/index.ts",
+    "./Tabs": "./src/components/Tabs/index.ts",
+    "./Textarea": "./src/components/Textarea/index.ts",
+    "./Tooltip": "./src/components/Tooltip/index.ts"
+  },
   "devDependencies": {
     "@devtools/libs": "workspace:*",
     "@devtools/utils": "workspace:*",

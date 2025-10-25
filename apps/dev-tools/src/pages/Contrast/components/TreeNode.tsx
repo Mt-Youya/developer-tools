@@ -9,17 +9,17 @@ function TreeNode({ nodeKey, values }: TreeNodeProps) {
 
   if (isObjectOrArray) {
     const childKeys = new Set()
-    values.forEach((val) => {
+    for (const val of values) {
       if (val && typeof val === "object") {
-        Object.keys(val).forEach((k) => childKeys.add(k))
+        Object.keys(val).map((k) => childKeys.add(k))
       }
-    })
+    }
 
     return (
       <div className="ml-4">
-        <div className="cursor-pointer font-bold" onClick={() => setExpanded(!expanded)}>
+        <button type="button" className="cursor-pointer font-bold" onClick={() => setExpanded(!expanded)}>
           {expanded ? "➖" : "➕"} {nodeKey || "root"}
-        </div>
+        </button>
         {expanded && (
           <div className="ml-6">
             {Array.from(childKeys).map((child: any, idx) => {

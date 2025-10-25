@@ -20,7 +20,8 @@ export const SongList: React.FC<SongListProps> = ({ songs, currentSong, isPlayin
         const isCurrentSong = currentSong?.id === song.id
 
         return (
-          <div
+          <button
+            type="button"
             key={song.id}
             className={`group flex items-center space-x-4 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors ${
               isCurrentSong ? "bg-gray-100 dark:bg-gray-800" : ""
@@ -87,7 +88,7 @@ export const SongList: React.FC<SongListProps> = ({ songs, currentSong, isPlayin
                 <MoreHorizontal className="w-5 h-5" />
               </Button>
             </div>
-          </div>
+          </button>
         )
       })}
     </div>

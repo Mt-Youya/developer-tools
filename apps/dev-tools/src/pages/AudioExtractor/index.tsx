@@ -80,7 +80,7 @@ function AudioExtractor() {
       console.log("Wasm Blob URL created:", wasmURL)
 
       const workerBaseURL = loadError ? LocalFFmpeg : "https://cdn.jsdelivr.net/npm/@ffmpeg/core-mt@0.12.10/dist/esm"
-      const workerURL = await await toBlobURL(`${workerBaseURL}/ffmpeg-core.worker.js`, "text/javascript")
+      const workerURL = await toBlobURL(`${workerBaseURL}/ffmpeg-core.worker.js`, "text/javascript")
       console.log("Worker Blob URL created:", wasmURL)
 
       console.log("Loading FFmpeg...")
@@ -142,8 +142,8 @@ function AudioExtractor() {
 
     try {
       const ffmpeg = ffmpegRef.current
-      const inputFileName =
-        "input" + (videoFile.name.includes(".") ? videoFile.name.substring(videoFile.name.lastIndexOf(".")) : ".mp4")
+      const vname = videoFile.name
+      const inputFileName = `input ${vname.includes(".") ? vname.substring(vname.lastIndexOf(".")) : ".mp4"}`
       const outputFileName = `output.${outputFormat}`
 
       console.log("Writing input file...")
@@ -224,7 +224,7 @@ function AudioExtractor() {
 
   if (isLoading) return <Loading />
 
-  if (loadError) return <Error> {loadError} </Error>
+  if (loadError) return <ErrorComp> {loadError} </ErrorComp>
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 p-4 md:p-8">
@@ -473,7 +473,7 @@ function Loading() {
   )
 }
 
-function Error({ children }: PropsWithChildren) {
+function ErrorComp({ children }: PropsWithChildren) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 p-4 md:p-8 flex items-center justify-center">
       <Card className="max-w-lg w-full border-red-200 bg-red-50">

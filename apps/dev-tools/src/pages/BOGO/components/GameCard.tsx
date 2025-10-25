@@ -51,12 +51,11 @@ function GameCard({ game, isFavorite, onToggleFavorite, onHide }) {
         <p className="text-sm text-muted-foreground mb-3 line-clamp-2 h-10">{game.description}</p>
 
         <div className="flex flex-wrap gap-2 mb-3 h-12">
-          {game.genre &&
-            game.genre.split(",").map((g, idx) => (
-              <Badge variant="outline" className="text-xs h-fit" key={idx}>
-                {g.trim()}
-              </Badge>
-            ))}
+          {game?.genre?.split(",").map((g, idx) => (
+            <Badge variant="outline" className="text-xs h-fit" key={g + idx}>
+              {g.trim()}
+            </Badge>
+          ))}
         </div>
 
         <div className="flex items-center gap-1 text-xs text-muted-foreground mb-3">开发商：{game.developer}</div>

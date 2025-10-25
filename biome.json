@@ -6,7 +6,7 @@
     "useIgnoreFile": true
   },
   "files": {
-    "ignoreUnknown": false
+    "ignoreUnknown": true
   },
   "formatter": {
     "enabled": true,
@@ -17,6 +17,9 @@
   "linter": {
     "enabled": true,
     "rules": {
+      "a11y": {
+        "useMediaCaption": "off"
+      },
       "recommended": true,
       "suspicious": {
         "noExplicitAny": "warn"

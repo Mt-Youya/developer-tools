@@ -1,13 +1,10 @@
 /// <reference types="vitest/config" />
-
 import { readdirSync } from "node:fs"
 import path, { resolve } from "node:path"
 import tailwindcss from "@tailwindcss/vite"
 import react from "@vitejs/plugin-react-swc"
 import { defineConfig } from "vite"
 import { oxlintConfig } from "../../configs/oxlint-config"
-
-// import copy from "rollup-plugin-copy";
 
 // 获取 components 目录下的所有组件
 const componentsDir = resolve(__dirname, "src/components")
@@ -22,22 +19,13 @@ const entry = components.reduce(
     return entries
   },
   {
-    index: resolve(__dirname, "index.ts"), // 主入口
+    index: resolve(__dirname, "main.ts"),
   }
 )
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    tailwindcss(),
-    oxlintConfig,
-    // copy({
-    //   targets: [
-    //     { src: "dist/style.css", dest: "." } // 复制到包根
-    //   ]
-    // })
-  ],
+  plugins: [react(), tailwindcss(), oxlintConfig],
   test: {
     globals: true,
     environment: "jsdom",
@@ -55,33 +43,13 @@ export default defineConfig({
     },
   },
   build: {
-    lib: {
-      entry,
-      formats: ["es", "cjs"],
-      fileName: (f, e) => `${e}.${f === "es" ? "mjs" : f}`,
-      cssFileName: "style",
-    },
-    rollupOptions: {
-      external: [
-        "react",
-        "react-dom",
-        "react/jsx-runtime",
-        "@radix-ui/*",
-        "class-variance-authority",
-        "clsx",
-        "tailwind-merge",
-      ],
-      output: {
-        preserveModules: false,
-        globals: {
-          react: "React",
-          "react-dom": "ReactDOM",
-          "react/jsx-runtime": "jsxRuntime",
-        },
-      },
-    },
     outDir: "dist",
     sourcemap: true,
-    minify: false,
+    lib: {
+      entry,
+      formats: ["es"],
+      cssFileName: "style",
+    },
+    minify: true,
   },
 })

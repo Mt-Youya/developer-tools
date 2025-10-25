@@ -1,16 +1,9 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "extends": ["oxlint-typescript.json"],
-  "plugins": [
-    "import",
-    "typescript",
-    "unicorn"
-  ],
+  "plugins": ["import", "typescript", "unicorn"],
   "env": {
     "browser": true
-  },
-  "globals": {
-    "foo": "readonly"
   },
   "settings": {},
   "rules": {
@@ -26,10 +19,7 @@
   },
   "overrides": [
     {
-      "files": [
-        "*.test.ts",
-        "*.spec.ts"
-      ],
+      "files": ["*.test.ts", "*.spec.ts"],
       "rules": {
         "@typescript-eslint/no-explicit-any": "off"
       }
