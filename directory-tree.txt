@@ -1,53 +1,25 @@
 developer-tools/
+├── .DS_Store
 ├── .gitignore
+├── .oxlintrc.json
 ├── .vscode/
-│   ├── settings.json
-│   └── tasks.json
+│   └── settings.json
 ├── README.md
 ├── apps/
 │   └── dev-tools/
-│       ├── .vite-inspect/
-│       │   ├── assets/
-│       │   │   ├── ModuleList-ByxGSHde.js
-│       │   │   ├── QuerySelector-iLRAQoow.js
-│       │   │   ├── _...all_-DVz6Qbfk.js
-│       │   │   ├── _plugin-vue_export-helper-DfavQbjy.js
-│       │   │   ├── diff.worker-CMaeQEBs.js
-│       │   │   ├── dist-Dp-WpU5V.js
-│       │   │   ├── fonts/
-│       │   │   │   ├── dmmono-8beacb38.woff2
-│       │   │   │   ├── dmmono-bb868a37.woff2
-│       │   │   │   ├── dmsans-a41acbfa.woff2
-│       │   │   │   └── dmsans-bde470c1.woff2
-│       │   │   ├── hot-D67q3Up2.js
-│       │   │   ├── index---UmQy10.js
-│       │   │   ├── index-shvuXdj8.css
-│       │   │   ├── metric-D2Mof43y.js
-│       │   │   ├── module-2YhSO2gi.css
-│       │   │   ├── module-BFxZWV4q.js
-│       │   │   ├── options-D_MMddT_.js
-│       │   │   ├── pages-g-EVEhKa.js
-│       │   │   ├── payload-BX9lTMvN.js
-│       │   │   ├── plugins-Ngzgf8uz.js
-│       │   │   ├── runtime-core.esm-bundler-Cyv4obHQ.js
-│       │   │   ├── search-Bklj8tNk.js
-│       │   │   └── vue-router-BxYGFXy-.js
-│       │   ├── favicon.svg
-│       │   ├── index.html
-│       │   └── reports/
-│       │       └── vite3-client/
-│       │           ├── metric-plugins.json
-│       │           ├── modules.json
-│       │           └── transforms/
 │       ├── auto-imports.d.ts
 │       ├── components.json
 │       ├── index.html
 │       ├── package.json
 │       ├── public/
-│       │   └── assets/
-│       │       ├── .DS_Store
-│       │       └── images/
-│       │           └── image-placeholder.png
+│       │   ├── assets/
+│       │   │   ├── .DS_Store
+│       │   │   └── images/
+│       │   │       └── image-placeholder.png
+│       │   └── ffmpeg/
+│       │       ├── ffmpeg-core.js
+│       │       ├── ffmpeg-core.wasm
+│       │       └── ffmpeg-core.worker.js
 │       ├── src/
 │       │   ├── App.css
 │       │   ├── App.tsx
@@ -67,10 +39,13 @@ developer-tools/
 │       │   ├── layouts/
 │       │   │   ├── BackToTop.tsx
 │       │   │   ├── Header.tsx
-│       │   │   └── Main.tsx
+│       │   │   ├── Main.tsx
+│       │   │   └── NavBar.tsx
 │       │   ├── main.tsx
 │       │   ├── pages/
 │       │   │   ├── .DS_Store
+│       │   │   ├── AudioExtractor/
+│       │   │   │   └── index.tsx
 │       │   │   ├── BOGO/
 │       │   │   │   ├── components/
 │       │   │   │   │   └── GameCard.tsx
@@ -90,6 +65,20 @@ developer-tools/
 │       │   │   │   │   ├── Instructions.tsx
 │       │   │   │   │   └── OptionResult.tsx
 │       │   │   │   └── index.tsx
+│       │   │   ├── MusicPlayer/
+│       │   │   │   ├── Mobile/
+│       │   │   │   │   └── MPlayer.tsx
+│       │   │   │   ├── components/
+│       │   │   │   │   ├── HomeView.tsx
+│       │   │   │   │   ├── LibraryView.tsx
+│       │   │   │   │   ├── Player.tsx
+│       │   │   │   │   ├── PlaylistCard.tsx
+│       │   │   │   │   ├── SearchVIew.tsx
+│       │   │   │   │   ├── SideBar.tsx
+│       │   │   │   │   └── SongList.tsx
+│       │   │   │   ├── data/
+│       │   │   │   │   └── mockMusic.ts
+│       │   │   │   └── index.tsx
 │       │   │   ├── QRCodeGenerator/
 │       │   │   │   └── index.tsx
 │       │   │   └── Results/
@@ -102,6 +91,8 @@ developer-tools/
 │       │   │   ├── command.ts
 │       │   │   └── server.ts
 │       │   ├── types/
+│       │   │   ├── music.ts
+│       │   │   ├── type.d.ts
 │       │   │   └── utils.ts
 │       │   └── utils/
 │       │       ├── getLocalIP.ts
@@ -138,6 +129,9 @@ developer-tools/
 │       ├── index.ts
 │       ├── package.json
 │       ├── src/
+│       │   ├── base64ToUnitArray.ts
+│       │   ├── downloadWithURL.ts
+│       │   ├── formatTime.ts
 │       │   └── is.ts
 │       ├── tsconfig.app.json
 │       ├── tsconfig.json
@@ -160,84 +154,13 @@ developer-tools/
 ├── internal/
 │   ├── base.json
 │   └── library.json
+├── oxlint-typescript.json
 ├── package.json
 ├── packages/
 │   ├── .DS_Store
 │   └── ui/
-│       ├── __test__/
-│       │   ├── setup.ts
-│       │   └── util.tsx
-│       ├── components/
-│       │   ├── Alert/
-│       │   │   ├── alert.test.tsx
-│       │   │   ├── alert.tsx
-│       │   │   └── index.ts
-│       │   ├── Badge/
-│       │   │   ├── badge.test.tsx
-│       │   │   ├── badge.tsx
-│       │   │   └── index.ts
-│       │   ├── Button/
-│       │   │   ├── button.test.tsx
-│       │   │   ├── button.tsx
-│       │   │   └── index.ts
-│       │   ├── Card/
-│       │   │   ├── card.test.tsx
-│       │   │   ├── card.tsx
-│       │   │   └── index.ts
-│       │   ├── Checkbox/
-│       │   │   ├── checkbox.test.tsx
-│       │   │   ├── checkbox.tsx
-│       │   │   └── index.ts
-│       │   ├── Collapsible/
-│       │   │   ├── collapsible.test.tsx
-│       │   │   ├── collapsible.tsx
-│       │   │   └── index.ts
-│       │   ├── Input/
-│       │   │   ├── index.ts
-│       │   │   ├── input.test.tsx
-│       │   │   └── input.tsx
-│       │   ├── Label/
-│       │   │   ├── index.ts
-│       │   │   ├── label.test.tsx
-│       │   │   └── label.tsx
-│       │   ├── QRCode/
-│       │   │   ├── Canvas.test.tsx
-│       │   │   ├── Canvas.tsx
-│       │   │   ├── QRCode.ts
-│       │   │   ├── SVG.test.tsx
-│       │   │   ├── SVG.tsx
-│       │   │   ├── index.ts
-│       │   │   ├── type.d.ts
-│       │   │   ├── useQRCode.ts
-│       │   │   └── util.ts
-│       │   ├── Select/
-│       │   │   ├── index.ts
-│       │   │   ├── select.test.tsx
-│       │   │   └── select.tsx
-│       │   ├── Separator/
-│       │   │   ├── index.ts
-│       │   │   ├── separator.test.tsx
-│       │   │   └── separator.tsx
-│       │   ├── Sonner/
-│       │   │   ├── index.ts
-│       │   │   ├── sonner.test.tsx
-│       │   │   └── sonner.tsx
-│       │   ├── Table/
-│       │   │   ├── index.ts
-│       │   │   ├── table.test.tsx
-│       │   │   └── table.tsx
-│       │   ├── Tabs/
-│       │   │   ├── index.ts
-│       │   │   ├── tabs.test.tsx
-│       │   │   └── tabs.tsx
-│       │   ├── Textarea/
-│       │   │   ├── index.ts
-│       │   │   ├── textarea.test.tsx
-│       │   │   └── textarea.tsx
-│       │   └── Tooltip/
-│       │       ├── index.ts
-│       │       ├── tooltip.test.tsx
-│       │       └── tooltip.tsx
+│       ├── .DS_Store
+│       ├── components.json
 │       ├── coverage/
 │       │   └── .tmp/
 │       │       ├── coverage-0.json
@@ -257,12 +180,108 @@ developer-tools/
 │       │       ├── coverage-7.json
 │       │       ├── coverage-8.json
 │       │       └── coverage-9.json
-│       ├── hooks/
-│       │   └── useQRCode.ts
-│       ├── index.ts
-│       ├── lib/
-│       │   └── utils.ts
+│       ├── main.ts
 │       ├── package.json
+│       ├── src/
+│       │   ├── __test__/
+│       │   │   ├── setup.ts
+│       │   │   └── util.tsx
+│       │   ├── components/
+│       │   │   ├── Alert/
+│       │   │   │   ├── alert.test.tsx
+│       │   │   │   ├── alert.tsx
+│       │   │   │   └── index.ts
+│       │   │   ├── Badge/
+│       │   │   │   ├── badge.test.tsx
+│       │   │   │   ├── badge.tsx
+│       │   │   │   └── index.ts
+│       │   │   ├── Button/
+│       │   │   │   ├── button.test.tsx
+│       │   │   │   ├── button.tsx
+│       │   │   │   └── index.ts
+│       │   │   ├── Card/
+│       │   │   │   ├── card.test.tsx
+│       │   │   │   ├── card.tsx
+│       │   │   │   └── index.ts
+│       │   │   ├── Checkbox/
+│       │   │   │   ├── checkbox.test.tsx
+│       │   │   │   ├── checkbox.tsx
+│       │   │   │   └── index.ts
+│       │   │   ├── Collapsible/
+│       │   │   │   ├── collapsible.test.tsx
+│       │   │   │   ├── collapsible.tsx
+│       │   │   │   └── index.ts
+│       │   │   ├── Drawer/
+│       │   │   │   ├── drawer.test.tsx
+│       │   │   │   ├── drawer.tsx
+│       │   │   │   └── index.ts
+│       │   │   ├── DropdownMenu/
+│       │   │   │   ├── dropdown-menu.test.tsx
+│       │   │   │   ├── dropdown-menu.tsx
+│       │   │   │   └── index.ts
+│       │   │   ├── Input/
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── input.test.tsx
+│       │   │   │   └── input.tsx
+│       │   │   ├── Label/
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── label.test.tsx
+│       │   │   │   └── label.tsx
+│       │   │   ├── Loader/
+│       │   │   │   ├── index.ts
+│       │   │   │   └── loader.tsx
+│       │   │   ├── Progress/
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── progress.test.tsx
+│       │   │   │   └── progress.tsx
+│       │   │   ├── QRCode/
+│       │   │   │   ├── Canvas.test.tsx
+│       │   │   │   ├── Canvas.tsx
+│       │   │   │   ├── QRCode.ts
+│       │   │   │   ├── SVG.test.tsx
+│       │   │   │   ├── SVG.tsx
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── type.d.ts
+│       │   │   │   ├── useQRCode.ts
+│       │   │   │   └── util.ts
+│       │   │   ├── Select/
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── select.test.tsx
+│       │   │   │   └── select.tsx
+│       │   │   ├── Separator/
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── separator.test.tsx
+│       │   │   │   └── separator.tsx
+│       │   │   ├── Slider/
+│       │   │   │   ├── index.ts
+│       │   │   │   └── slider.tsx
+│       │   │   ├── Sonner/
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── sonner.test.tsx
+│       │   │   │   └── sonner.tsx
+│       │   │   ├── Table/
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── table.test.tsx
+│       │   │   │   └── table.tsx
+│       │   │   ├── Tabs/
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── tabs.test.tsx
+│       │   │   │   └── tabs.tsx
+│       │   │   ├── Textarea/
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── textarea.test.tsx
+│       │   │   │   └── textarea.tsx
+│       │   │   └── Tooltip/
+│       │   │       ├── index.ts
+│       │   │       ├── tooltip.test.tsx
+│       │   │       └── tooltip.tsx
+│       │   ├── hooks/
+│       │   │   └── useQRCode.ts
+│       │   ├── index.ts
+│       │   ├── lib/
+│       │   │   └── utils.ts
+│       │   └── style/
+│       │       └── global.css
 │       ├── tsconfig.app.json
 │       ├── tsconfig.json
 │       ├── tsconfig.node.json
@@ -279,14 +298,18 @@ developer-tools/
 ├── scripts/
 │   ├── autoCreateShadcnComp.ts
 │   ├── generateDirectoryTree.ts
+│   ├── generateExports.ts
 │   ├── removePkg.ts
+│   ├── shadcnAdd.ts
 │   └── updatePkg.ts
 ├── server/
 │   ├── middlewares/
 │   │   ├── index.ts
+│   │   ├── musicMiddleware.ts
 │   │   └── package.json
 │   └── utils/
 │       ├── index.ts
 │       └── package.json
-└── types/
-    └── auto-imports.d.ts
+├── types/
+│   └── auto-imports.d.ts
+└── wrangler.toml

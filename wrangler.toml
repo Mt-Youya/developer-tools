@@ -2,6 +2,11 @@ name = "developer-tools"
 compatibility_date = "2025-10-25"
 
 [build]
-command = "pnpm install --frozen-lockfile && pnpm --filter dev-tools build"
+command = "cd apps/dev-tools && pnpm install && pnpm run build"
+pages_build_output_dir = "apps/dev-tools/dist"
 
-pages_build_output_dir = "/apps/dev-tools/dist"
+# 部署配置
+[deployment]
+environment_variables = {
+  NODE_ENV = "production"
+}
