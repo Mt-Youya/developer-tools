@@ -1,7 +1,7 @@
 import { Play, AlertCircle } from 'lucide-react';
 import { CommandStore } from "@/stores/command";
-import { Alert, AlertDescription } from "@devtools/alert";
-import { Card, CardHeader, CardTitle, CardContent } from '@devtools/card';
+import { Alert, AlertDescription } from "@devtools/ui/Alert";
+import { Card, CardHeader, CardTitle, CardContent } from '@devtools/ui/Card';
 import { ServerStore } from '@/stores/server';
 import CopyComp from '@/components/CopyComp';
 

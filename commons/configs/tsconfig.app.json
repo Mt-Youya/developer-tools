@@ -5,9 +5,4 @@
     "noEmit": true
   },
   "include": ["src"],
-  "references": [
-    { "path": "../common" },
-    { "path": "../libs" },
-    { "path": "../utils" }
-  ]
 }

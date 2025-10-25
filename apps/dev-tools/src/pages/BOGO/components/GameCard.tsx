@@ -1,7 +1,7 @@
-import { Card, CardContent } from "@devtools/card";
+import { Card, CardContent } from "@devtools/ui/Card";
 import imagePlaceholder from "/public/assets/images/image-placeholder.png?url";
-import { Badge } from "@devtools/badge";
-import { Button } from "@devtools/button";
+import { Badge } from "@devtools/ui/Badge";
+import { Button } from "@devtools/ui/Button";
 import { ExternalLink, Heart, EyeOff, Calendar } from "lucide-react";
 
 function GameCard({ game, isFavorite, onToggleFavorite, onHide }) {

@@ -26,4 +26,6 @@ functions
 *.sln
 *.sw?
 
+coverage
+
 pnpm-lock.yaml

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import MonacoEditor from '@monaco-editor/react';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@devtools/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@devtools/ui/Select';
 
 const languageOptions = [
     { label: 'JavaScript', value: 'javascript' },

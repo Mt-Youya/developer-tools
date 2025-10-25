@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
+import "@devtools/ui/style.css"
 import "./utils/idleCallback"
 import App from './App.tsx'
 

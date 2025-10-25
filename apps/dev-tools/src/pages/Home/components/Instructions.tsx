@@ -1,5 +1,5 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@devtools/tabs';
-import { Card, CardHeader, CardTitle, CardContent } from '@devtools/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@devtools/ui/Tabs';
+import { Card, CardHeader, CardTitle, CardContent } from '@devtools/ui/Card';
 
 function Instructions() {
     return (

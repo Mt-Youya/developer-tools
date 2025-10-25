@@ -1,13 +1,15 @@
 import { useState, useMemo } from "react";
 import { useFreeGames } from "@/hooks/useFreeGames";
-import { Button } from "@devtools/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@devtools/card";
+import { Button } from "@devtools/ui";
+import { Card, CardContent, CardHeader, CardTitle } from "@devtools/ui/Card";
 import { ExternalLink, Gamepad2, RefreshCw, Heart, Star } from "lucide-react";
 import { sortBy } from "lodash-es";
 import GameCard from "./components/GameCard";
 
 interface favoriteGame{
-  
+  id: string;
+  title: string;
+  platform: string;
 }
 function useUserPreferences() {
   const [preferences, setPreferences] = useState({

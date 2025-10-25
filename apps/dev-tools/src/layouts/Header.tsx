@@ -1,8 +1,8 @@
-import { Button } from '@devtools/button';
-import { Input } from '@devtools/input';
-import { Label } from '@devtools/label';
-import { Collapsible, CollapsibleContent, } from '@devtools/collapsible';
-import { Card, CardHeader, CardTitle, CardContent } from '@devtools/card';
+import { Button } from '@devtools/ui/Button';
+import { Input } from '@devtools/ui/Input';
+import { Label } from '@devtools/ui/Label';
+import { Collapsible, CollapsibleContent, } from '@devtools/ui/Collapsible';
+import { Card, CardHeader, CardTitle, CardContent } from '@devtools/ui/Card';
 import { Search, Settings, } from 'lucide-react';
 import { useLocalIP } from '@/hooks/useLocalIP';
 import { CommandStore } from '@/stores/command';

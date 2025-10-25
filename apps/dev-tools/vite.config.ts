@@ -23,9 +23,9 @@ const defaultConf = defineConfig({
     host: true, // 允许外部访问
   },
   resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
+    alias:[
+       { find: "@", replacement: path.resolve(__dirname, "./src") },
+    ],
   },
 
   // 预览服务器配置（用于预览构建结果）

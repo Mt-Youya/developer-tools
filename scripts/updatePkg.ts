@@ -1,5 +1,5 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "node:fs";
+import path from "node:path";
 
 // 获取components文件夹下的所有子目录
 function getDirectories(src: string) {
@@ -16,7 +16,7 @@ getDirectories(componentsDir).forEach((componentName: string) => {
   // fs.writeFileSync(
   //   path.join(componentPath, "package.json"),
   //   JSON.stringify({
-  //     name: `@devtools/${componentName}`,
+  //     name: `@devtools/ui/${componentName}`,
   //     version: "1.0.0",
   //     license: "MIT",
   //     source: "./src/index.ts",
@@ -43,7 +43,6 @@ getDirectories(componentsDir).forEach((componentName: string) => {
   //     files: ["dist", "README.md"],
   //     sideEffects: false,
   //     scripts: {
-  //       lint: "eslint  --max-warnings 0 src",
   //       clean: "rm -rf dist",
   //       typecheck: "tsc --noEmit",
   //     },

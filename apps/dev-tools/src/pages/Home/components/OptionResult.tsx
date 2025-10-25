@@ -1,13 +1,13 @@
 import { AlertCircle, Settings } from "lucide-react";
 import { isEmpty } from "lodash-es";
 import { CommandStore } from "@/stores/command";
-import { Card, CardHeader, CardTitle, CardContent } from "@devtools/card";
-import { Badge } from "@devtools/badge";
-import { Input } from "@devtools/input";
-import { Label } from "@devtools/label";
-import { Separator } from "@devtools/separator";
+import { Card, CardHeader, CardTitle, CardContent } from "@devtools/ui/Card";
+import { Badge } from "@devtools/ui/Badge";
+import { Input } from "@devtools/ui/Input";
+import { Label } from "@devtools/ui/Label";
+import { Separator } from "@devtools/ui/Separator";
 import { FieldTemplates } from "@/constants/FieldTemplates";
-import { Checkbox } from "@devtools/checkbox";
+import { Checkbox } from "@devtools/ui/Checkbox";
 import { isObject } from "@devtools/utils";
 import CopyComp from "@/components/CopyComp";
 

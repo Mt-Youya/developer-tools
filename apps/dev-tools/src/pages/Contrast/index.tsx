@@ -1,5 +1,5 @@
-import { Button } from "@devtools/button";
-import { Textarea } from "@devtools/textarea";
+import { Button } from "@devtools/ui/Button";
+import { Textarea } from "@devtools/ui/Textarea";
 import { Loader2Icon } from "lucide-react";
 import TableView from "./components/TableView";
 import TreeView from "./components/TreeView";

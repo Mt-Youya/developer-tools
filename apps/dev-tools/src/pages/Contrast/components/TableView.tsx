@@ -1,5 +1,5 @@
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@devtools/table";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@devtools/tooltip";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@devtools/ui/Table";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@devtools/ui/Tooltip";
 import type { Dictionary } from "@/stores/command";
 import { isStringArray, isObject } from "@/utils/is";
 

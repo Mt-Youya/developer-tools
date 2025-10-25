@@ -1,5 +1,5 @@
 import { Slot } from "@radix-ui/react-slot"
-import { Button, type ButtonProps } from "@devtools/button";
+import { Button, type ButtonProps } from "@devtools/ui/Button";
 import { CheckCircle } from "lucide-react";
 import useCopy from "@/hooks/useCopy";
 

@@ -1,10 +1,10 @@
 import { Search } from 'lucide-react';
 import { FieldTemplates } from '@/constants/FieldTemplates';
 import { CommandStore, type Dictionary } from '@/stores/command';
-import { Button } from '@devtools/button';
-import { Card, CardHeader, CardTitle, CardContent } from '@devtools/card';
-import { Label } from '@devtools/label';
-import { Textarea } from '@devtools/textarea';
+import { Button } from '@devtools/ui/Button';
+import { Card, CardHeader, CardTitle, CardContent } from '@devtools/ui/Card';
+import { Label } from '@devtools/ui/Label';
+import { Textarea } from '@devtools/ui/Textarea';
 import { parseTextData } from '@/utils/parse';
 import useCopy from '@/hooks/useCopy';
 

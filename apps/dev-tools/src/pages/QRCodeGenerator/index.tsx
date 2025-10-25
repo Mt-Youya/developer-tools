@@ -1,12 +1,12 @@
 'use client';
 import { useState, useRef } from 'react';
-import { Button } from '@devtools/button';
-import { Textarea } from '@devtools/textarea';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@devtools/card';
-import { Alert, AlertDescription } from '@devtools/alert';
+import { Button } from '@devtools/ui/Button';
+import { Textarea } from '@devtools/ui/Textarea';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@devtools/ui/Card';
+import { Alert, AlertDescription } from '@devtools/ui/Alert';
 import { Download, Copy, Share2, RefreshCw } from 'lucide-react';
-import { toast } from '@devtools/sonner';
-import { QRCodeCanvas } from '@devtools/qrcode'; 
+import { toast } from '@devtools/ui/Sonner';
+import { QRCodeCanvas } from '@devtools/ui/QRCode'; 
 import { copyCode } from '@/hooks/useCopy';
 
 function QRCodeGenerator() {

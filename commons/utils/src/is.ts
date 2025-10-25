@@ -3,6 +3,7 @@ export function isJSON(...args: Parameters<JSON['parse']>) {
         const json = JSON.parse(...args);
         return json;
     } catch (e) {
+        console.warn(e);
         return null;
     }
 }
