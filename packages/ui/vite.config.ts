@@ -25,7 +25,7 @@ const entry = components.reduce(
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss(), oxlintConfig as PluginOption],
+  plugins: [react(), tailwindcss(), oxlintConfig],
   test: {
     globals: true,
     environment: "jsdom",
@@ -44,14 +44,21 @@ export default defineConfig({
   },
   server: undefined,
   build: {
-    watch: null,
     outDir: "dist",
-    sourcemap: true,
     lib: {
       entry,
       formats: ["es"],
       cssFileName: "style",
     },
     minify: true,
+    rollupOptions: {
+      external: ["react", "react-dom"],
+      output: {
+        globals: {
+          react: "React",
+          "react-dom": "ReactDOM",
+        },
+      },
+    },
   },
 })

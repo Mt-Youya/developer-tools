@@ -68,14 +68,5 @@
   "engines": {
     "node": ">=22",
     "pnpm": ">=10"
-  },
-  "prettier": {
-    "tabWidth": 2,
-    "printWidth": 120,
-    "endOfLine": "auto",
-    "arrowParens": "avoid",
-    "semi": true,
-    "trailingComma": "all",
-    "proseWrap": "never"
   }
 }

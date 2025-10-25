@@ -29,6 +29,18 @@ const defaultConf = defineConfig({
     exclude: ["@ffmpeg/ffmpeg", "@ffmpeg/util"],
   },
 
+  build: {
+    rollupOptions: {
+      external: ["react", "react-dom"],
+      output: {
+        globals: {
+          react: "React",
+          "react-dom": "ReactDOM",
+        },
+      },
+    },
+  },
+
   // 预览服务器配置（用于预览构建结果）
   preview: {
     port: 4103,
