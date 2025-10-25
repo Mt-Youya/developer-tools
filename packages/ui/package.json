@@ -10,7 +10,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "node ./build.ts",
+    "build": "node ./build.js",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
