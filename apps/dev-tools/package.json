@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "dev": "vite dev --host --open",
-    "build": "vite build",
+    "build": "pnpm -F ui build && vite build --node production",
     "preview": "pnpm build && vite preview --host --open"
   },
   "keywords": [],
