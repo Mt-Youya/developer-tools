@@ -1,17 +1,17 @@
-import { useState, useRef, useEffect, type PropsWithChildren } from 'react'
-import { FFmpeg } from '@ffmpeg/ffmpeg'
-import { fetchFile, toBlobURL } from '@ffmpeg/util'
-import { Button } from '@devtools/ui/Button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@devtools/ui/Card'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@devtools/ui/Select'
-import { Slider } from '@devtools/ui/Slider'
-import { Progress } from '@devtools/ui/Progress'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@devtools/ui/Tabs'
-import { Label } from '@devtools/ui/Label'
-import { Input } from '@devtools/ui/Input'
-import { Upload, Download, Scissors, Music, Video, Loader2, AlertCircle } from 'lucide-react'
-import { IS_PROD } from '@devtools/libs'
-import { downloadURL } from '@devtools/utils'
+import { IS_PROD } from "@devtools/libs"
+import { Button } from "@devtools/ui/Button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@devtools/ui/Card"
+import { Input } from "@devtools/ui/Input"
+import { Label } from "@devtools/ui/Label"
+import { Progress } from "@devtools/ui/Progress"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@devtools/ui/Select"
+import { Slider } from "@devtools/ui/Slider"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@devtools/ui/Tabs"
+import { downloadURL } from "@devtools/utils"
+import { FFmpeg } from "@ffmpeg/ffmpeg"
+import { fetchFile, toBlobURL } from "@ffmpeg/util"
+import { AlertCircle, Download, Loader2, Music, Scissors, Upload, Video } from "lucide-react"
+import { type PropsWithChildren, useEffect, useRef, useState } from "react"
 
 interface AudioFormat {
   value: string
@@ -20,18 +20,18 @@ interface AudioFormat {
 }
 
 const AUDIO_FORMATS: AudioFormat[] = [
-  { value: 'mp3', label: 'MP3', extension: '.mp3' },
-  { value: 'wav', label: 'WAV', extension: '.wav' },
-  { value: 'aac', label: 'AAC', extension: '.aac' },
-  { value: 'ogg', label: 'OGG', extension: '.ogg' },
-  { value: 'flac', label: 'FLAC', extension: '.flac' },
-  { value: 'm4a', label: 'M4A', extension: '.m4a' },
+  { value: "mp3", label: "MP3", extension: ".mp3" },
+  { value: "wav", label: "WAV", extension: ".wav" },
+  { value: "aac", label: "AAC", extension: ".aac" },
+  { value: "ogg", label: "OGG", extension: ".ogg" },
+  { value: "flac", label: "FLAC", extension: ".flac" },
+  { value: "m4a", label: "M4A", extension: ".m4a" },
 ]
 
 function AudioExtractor() {
   const [loaded, setLoaded] = useState(false)
   const [videoFile, setVideoFile] = useState<File | null>(null)
-  const [outputFormat, setOutputFormat] = useState<string>('mp3')
+  const [outputFormat, setOutputFormat] = useState<string>("mp3")
   const [progress, setProgress] = useState<number>(0)
   const [processing, setProcessing] = useState(false)
   const [extractedAudioUrl, setExtractedAudioUrl] = useState<string | null>(null)
@@ -57,49 +57,49 @@ function AudioExtractor() {
   async function loadFFmpeg() {
     const ffmpeg = ffmpegRef.current
 
-    ffmpeg.on('log', ({ message }) => {
-      console.log('log: ', message)
+    ffmpeg.on("log", ({ message }) => {
+      console.log("log: ", message)
     })
 
-    ffmpeg.on('progress', ({ progress: prog }) => {
+    ffmpeg.on("progress", ({ progress: prog }) => {
       setProgress(Math.round(prog * 100))
     })
 
     try {
-      console.log('Loading FFmpeg from local files...')
+      console.log("Loading FFmpeg from local files...")
 
-      const LocalFFmpeg = IS_PROD ? '/public' : '' + '/ffmpeg'
-      const baseURL = loadError ? LocalFFmpeg : 'https://unpkg.com/@ffmpeg/core@latest/dist/esm'
+      const LocalFFmpeg = IS_PROD ? "/public" : "" + "/ffmpeg"
+      const baseURL = loadError ? LocalFFmpeg : "https://unpkg.com/@ffmpeg/core@latest/dist/esm"
 
       // 使用 toBlobURL 转换为 Blob URL，避免 CORS 问题
-      console.log('Converting to Blob URLs...')
-      const coreURL = await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript')
-      console.log('Core Blob URL created:', coreURL)
+      console.log("Converting to Blob URLs...")
+      const coreURL = await toBlobURL(`${baseURL}/ffmpeg-core.js`, "text/javascript")
+      console.log("Core Blob URL created:", coreURL)
 
-      const wasmURL = await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm')
-      console.log('Wasm Blob URL created:', wasmURL)
+      const wasmURL = await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, "application/wasm")
+      console.log("Wasm Blob URL created:", wasmURL)
 
-      const workerBaseURL = loadError ? LocalFFmpeg : 'https://cdn.jsdelivr.net/npm/@ffmpeg/core-mt@0.12.10/dist/esm'
-      const workerURL = await await toBlobURL(`${workerBaseURL}/ffmpeg-core.worker.js`, 'text/javascript')
-      console.log('Worker Blob URL created:', wasmURL)
+      const workerBaseURL = loadError ? LocalFFmpeg : "https://cdn.jsdelivr.net/npm/@ffmpeg/core-mt@0.12.10/dist/esm"
+      const workerURL = await await toBlobURL(`${workerBaseURL}/ffmpeg-core.worker.js`, "text/javascript")
+      console.log("Worker Blob URL created:", wasmURL)
 
-      console.log('Loading FFmpeg...')
+      console.log("Loading FFmpeg...")
       await ffmpeg.load({
         coreURL,
         wasmURL,
         workerURL,
       })
 
-      console.log('FFmpeg loaded successfully!')
+      console.log("FFmpeg loaded successfully!")
       setLoaded(true)
       setLoadError(null)
       setIsLoading(false)
     } catch (error) {
-      console.error('Failed to load FFmpeg:', error)
+      console.error("Failed to load FFmpeg:", error)
       setLoadError(
-        '无法加载 FFmpeg。\n\n' +
-          '错误详情: ' +
-          (error instanceof Error ? ('message' in error ? error.message : error) : String(error)),
+        "无法加载 FFmpeg。\n\n" +
+          "错误详情: " +
+          (error instanceof Error ? ("message" in error ? error.message : error) : String(error))
       )
       setIsLoading(false)
       loadFFmpeg()
@@ -113,15 +113,15 @@ function AudioExtractor() {
       setExtractedAudioUrl(null)
       setProgress(0)
 
-      const video = document.createElement('video')
-      video.preload = 'metadata'
+      const video = document.createElement("video")
+      video.preload = "metadata"
       video.onloadedmetadata = () => {
         setVideoDuration(video.duration)
         setEndTime(video.duration)
         URL.revokeObjectURL(video.src)
       }
       video.onerror = () => {
-        console.error('无法加载视频元数据')
+        console.error("无法加载视频元数据")
         URL.revokeObjectURL(video.src)
       }
       video.src = URL.createObjectURL(file)
@@ -131,7 +131,7 @@ function AudioExtractor() {
   function formatTime(seconds: number) {
     const mins = Math.floor(seconds / 60)
     const secs = Math.floor(seconds % 60)
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`
   }
 
   async function extractAudio() {
@@ -143,47 +143,47 @@ function AudioExtractor() {
     try {
       const ffmpeg = ffmpegRef.current
       const inputFileName =
-        'input' + (videoFile.name.includes('.') ? videoFile.name.substring(videoFile.name.lastIndexOf('.')) : '.mp4')
+        "input" + (videoFile.name.includes(".") ? videoFile.name.substring(videoFile.name.lastIndexOf(".")) : ".mp4")
       const outputFileName = `output.${outputFormat}`
 
-      console.log('Writing input file...')
+      console.log("Writing input file...")
       await ffmpeg.writeFile(inputFileName, await fetchFile(videoFile))
 
-      const ffmpegArgs: string[] = ['-i', inputFileName]
+      const ffmpegArgs: string[] = ["-i", inputFileName]
 
       if (enableTrim && startTime < endTime) {
-        ffmpegArgs.push('-ss', startTime.toString())
-        ffmpegArgs.push('-to', endTime.toString())
+        ffmpegArgs.push("-ss", startTime.toString())
+        ffmpegArgs.push("-to", endTime.toString())
       }
 
       switch (outputFormat) {
-        case 'mp3':
-          ffmpegArgs.push('-q:a', '0')
+        case "mp3":
+          ffmpegArgs.push("-q:a", "0")
           break
-        case 'wav':
-          ffmpegArgs.push('-acodec', 'pcm_s16le')
+        case "wav":
+          ffmpegArgs.push("-acodec", "pcm_s16le")
           break
-        case 'aac':
-          ffmpegArgs.push('-c:a', 'aac', '-b:a', '192k')
+        case "aac":
+          ffmpegArgs.push("-c:a", "aac", "-b:a", "192k")
           break
-        case 'ogg':
-          ffmpegArgs.push('-c:a', 'libvorbis', '-q:a', '5')
+        case "ogg":
+          ffmpegArgs.push("-c:a", "libvorbis", "-q:a", "5")
           break
-        case 'flac':
-          ffmpegArgs.push('-c:a', 'flac')
+        case "flac":
+          ffmpegArgs.push("-c:a", "flac")
           break
-        case 'm4a':
-          ffmpegArgs.push('-c:a', 'aac', '-b:a', '192k')
+        case "m4a":
+          ffmpegArgs.push("-c:a", "aac", "-b:a", "192k")
           break
       }
 
-      ffmpegArgs.push('-vn')
+      ffmpegArgs.push("-vn")
       ffmpegArgs.push(outputFileName)
 
-      console.log('Executing FFmpeg command:', ffmpegArgs.join(' '))
+      console.log("Executing FFmpeg command:", ffmpegArgs.join(" "))
       await ffmpeg.exec(ffmpegArgs)
 
-      console.log('Reading output file...')
+      console.log("Reading output file...")
       const data = await ffmpeg.readFile(outputFileName)
       const blob = new Blob([data], { type: `audio/${outputFormat}` })
 
@@ -195,10 +195,10 @@ function AudioExtractor() {
       setExtractedAudioUrl(url)
       setProgress(100)
 
-      console.log('Audio extraction completed successfully!')
+      console.log("Audio extraction completed successfully!")
     } catch (error) {
-      console.error('Error extracting audio:', error)
-      alert(`提取音频时出错: ${error instanceof Error ? error.message : '未知错误'}`)
+      console.error("Error extracting audio:", error)
+      alert(`提取音频时出错: ${error instanceof Error ? error.message : "未知错误"}`)
     } finally {
       setProcessing(false)
     }
@@ -263,7 +263,7 @@ function AudioExtractor() {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={e => {
+                        onClick={(e) => {
                           e.preventDefault()
                           resetState()
                         }}
@@ -308,7 +308,7 @@ function AudioExtractor() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        {AUDIO_FORMATS.map(format => (
+                        {AUDIO_FORMATS.map((format) => (
                           <SelectItem key={format.value} value={format.value}>
                             {format.label}
                           </SelectItem>

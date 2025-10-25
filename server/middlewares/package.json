@@ -1,5 +1,5 @@
 {
-  "name": "@devtools/ui/server-middlewares",
+  "name": "@devtool/server-middlewares",
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",

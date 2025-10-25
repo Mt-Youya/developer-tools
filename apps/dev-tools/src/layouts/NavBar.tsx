@@ -1,9 +1,17 @@
-import { IS_DEV } from '@devtools/libs'
-import type { PropsWithChildren } from 'react'
-import { Link } from 'react-router'
+import type { PropsWithChildren } from "react"
+import { Link } from "react-router"
 
+const navItems = [
+  { name: "Home", to: "/", title: "Back Home" },
+  { name: "Contrast JSON", to: "/contrast-json", title: "前往 JSON 对比" },
+  { name: "Bogo", to: "/bogo", title: "喜加一" },
+  { name: "QR Code Generator", to: "/qr-code-generator", title: "生成二维码" },
+  { name: "Coding", to: "/coding", title: "coding" },
+  { name: "Audio Extractor", to: "/audio-extractor", title: "AudioExtractor" },
+  { name: "Music Player", to: "/music-player", title: "Music Player" },
+]
 function NavBar({ children }: PropsWithChildren) {
-  const navClass = 'text-xs font-medium text-gray-800 hover:text-gray-600 transition-colors whitespace-nowrap'
+  const navClass = "text-xs font-medium text-gray-800 hover:text-gray-600 transition-colors whitespace-nowrap"
   return (
     <>
       {/* <img src={logo} alt="logo" className="w-10 h-10" /> */}
@@ -15,38 +23,11 @@ function NavBar({ children }: PropsWithChildren) {
             </div>
 
             <div className="md:flex items-center space-x-8">
-              <Link className={navClass} to="/">
-                Back Home
-              </Link>
-              <Link className={navClass} to="/contrast-json">
-                前往 JSON 对比
-              </Link>
-              {IS_DEV && (
-                <Link className={navClass} to="/bogo">
-                  喜加一
+              {navItems.map((item) => (
+                <Link key={item.name} className={navClass} to={item.to}>
+                  {item.title}
                 </Link>
-              )}
-              <Link className={navClass} to="/qr-code-generator">
-                生成二维码
-              </Link>
-              <Link className={navClass} to="/coding">
-                coding
-              </Link>
-              <Link className={navClass} to="/audio-extractor">
-                AudioExtractor
-              </Link>
-              <Link className={navClass} to="/music-player">
-                Music Player
-              </Link>
-              {/* {navItems.map(item => (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  className="text-xs font-medium text-gray-800 hover:text-gray-600 transition-colors whitespace-nowrap"
-                >
-                  {item}
-                </a>
-              ))} */}
+              ))}
             </div>
 
             <div className="flex items-center space-x-4">

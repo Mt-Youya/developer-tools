@@ -1,2 +1,2 @@
-'use client';
-export * from './badge';
+"use client"
+export * from "./badge"

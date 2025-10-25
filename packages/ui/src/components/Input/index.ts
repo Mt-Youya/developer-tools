@@ -1,2 +1,2 @@
-'use client';
-export * from './input';
+"use client"
+export * from "./input"

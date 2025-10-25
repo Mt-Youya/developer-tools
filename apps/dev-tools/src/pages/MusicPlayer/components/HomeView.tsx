@@ -1,22 +1,18 @@
-import React from 'react'
-import { PlaylistCard } from './PlaylistCard'
-
-import { type Playlist } from '@/types/music'
+import type React from "react"
+import type { Playlist } from "@/types/music"
+import { PlaylistCard } from "./PlaylistCard"
 
 interface HomeViewProps {
   playlists: Playlist[]
   onPlaylistPlay: (playlist: Playlist) => void
 }
 
-export const HomeView: React.FC<HomeViewProps> = ({
-  playlists,
-  onPlaylistPlay,
-}) => {
+export const HomeView: React.FC<HomeViewProps> = ({ playlists, onPlaylistPlay }) => {
   const timeOfDay = () => {
     const hour = new Date().getHours()
-    if (hour < 12) return 'Good morning'
-    if (hour < 18) return 'Good afternoon'
-    return 'Good evening'
+    if (hour < 12) return "Good morning"
+    if (hour < 18) return "Good afternoon"
+    return "Good evening"
   }
 
   return (
@@ -28,11 +24,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
         <h3 className="text-2xl font-bold mb-6">Made For You</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
           {playlists.map((playlist) => (
-            <PlaylistCard
-              key={playlist.id}
-              playlist={playlist}
-              onPlay={onPlaylistPlay}
-            />
+            <PlaylistCard key={playlist.id} playlist={playlist} onPlay={onPlaylistPlay} />
           ))}
         </div>
       </section>
@@ -42,11 +34,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
         <h3 className="text-2xl font-bold mb-6">Recently Played</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
           {playlists.slice(0, 3).map((playlist) => (
-            <PlaylistCard
-              key={playlist.id}
-              playlist={playlist}
-              onPlay={onPlaylistPlay}
-            />
+            <PlaylistCard key={playlist.id} playlist={playlist} onPlay={onPlaylistPlay} />
           ))}
         </div>
       </section>

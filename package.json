@@ -8,7 +8,7 @@
     "preview": "pnpm build && pnpm -F dev-tools preview",
     "lint": "biome check ./packages ./apps",
     "lint:fix": "biome check --write ./packages ./apps",
-    "lint:oxlint": "oxlint packages/*/src",
+    "lint:oxlint": "oxlint ./packages ./apps",
     "format": "biome format --write ./packages ./apps",
     "oxlint": "oxlint packages apps",
     "check": "pnpm lint:fix && pnpm oxlint",

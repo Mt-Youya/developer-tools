@@ -1,2 +1,2 @@
-'use client';
-export * from './loader';
+"use client"
+export * from "./loader"

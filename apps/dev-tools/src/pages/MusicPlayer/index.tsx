@@ -1,14 +1,12 @@
-import React, { useState, useEffect, Suspense } from 'react'
-import { Sidebar } from './components/SideBar'
-import { HomeView } from './components/HomeView'
-import { LibraryView } from './components/LibraryView'
-import SearchView from './components/SearchVIew'
-import Player from './components/Player'
-import { songs, playlists } from './data/mockMusic'
-import { Loader } from '@devtools/ui/Loader'
-
-import type { Song, Playlist } from '@/types/music'
-
+import { Loader } from "@devtools/ui/Loader"
+import React, { Suspense, useEffect, useState } from "react"
+import type { Playlist, Song } from "@/types/music"
+import { HomeView } from "./components/HomeView"
+import { LibraryView } from "./components/LibraryView"
+import Player from "./components/Player"
+import SearchView from "./components/SearchVIew"
+import { Sidebar } from "./components/SideBar"
+import { playlists, songs } from "./data/mockMusic"
 
 export interface JamendoTrack {
   id: string
@@ -29,27 +27,27 @@ export const convertJamendoToSong = (track: JamendoTrack) => ({
   duration: track.duration,
   cover: track.image,
   audioUrl: track.audio,
-  genre: 'Various',
+  genre: "Various",
 })
 
 // https://blog.csdn.net/weixin_42465759/article/details/138619479
 
 function Play() {
-  const [activeView, setActiveView] = useState('home')
+  const [activeView, setActiveView] = useState("home")
   const [currentSong, setCurrentSong] = useState<Song | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentPlaylist, setCurrentPlaylist] = useState<Song[]>(songs)
   const [currentIndex, setCurrentIndex] = useState(0)
 
-  const FMA_API_BASE = 'https://freemusicarchive.org/api/get'
+  const FMA_API_BASE = "https://freemusicarchive.org/api/get"
 
-  const JAMENDO_CLIENT_ID = 'cd43f5d1'
+  const JAMENDO_CLIENT_ID = "cd43f5d1"
   // Initialize with first song
   useEffect(() => {
     fetch(
-      `/api/tracks/v3.0/tracks/?client_id=${JAMENDO_CLIENT_ID}&format=json&limit=${20}&order=popularity_total&include=musicinfo`,
+      `/api/tracks/v3.0/tracks/?client_id=${JAMENDO_CLIENT_ID}&format=json&limit=${20}&order=popularity_total&include=musicinfo`
     )
-      .then(res => res.json())
+      .then((res) => res.json())
       .then(({ results = [] }) => {
         const tracks = results.map((track: JamendoTrack) => convertJamendoToSong(track))
         setCurrentPlaylist(tracks)
@@ -58,24 +56,24 @@ function Play() {
   }, [])
 
   const handleSongSelect = (song: Song) => {
-    const index = currentPlaylist.findIndex(s => s.id === song.id)
+    const index = currentPlaylist.findIndex((s) => s.id === song.id)
     setCurrentIndex(index)
     setCurrentSong(song)
     setIsPlaying(true)
   }
 
-  function handlePlayPause () {
+  function handlePlayPause() {
     setIsPlaying(!isPlaying)
   }
 
-  function handleNext () {
+  function handleNext() {
     const nextIndex = (currentIndex + 1) % currentPlaylist.length
     setCurrentIndex(nextIndex)
     setCurrentSong(currentPlaylist[nextIndex])
     setIsPlaying(true)
   }
 
-  function handlePrevious () {
+  function handlePrevious() {
     const prevIndex = currentIndex === 0 ? currentPlaylist.length - 1 : currentIndex - 1
     setCurrentIndex(prevIndex)
     setCurrentSong(currentPlaylist[prevIndex])
@@ -89,15 +87,15 @@ function Play() {
     setIsPlaying(true)
   }
 
-  function renderView () {
+  function renderView() {
     switch (activeView) {
-      case 'home':
+      case "home":
         return (
           <Suspense fallback={<Loader />}>
-          <HomeView playlists={playlists} onPlaylistPlay={handlePlaylistPlay} />
-         </Suspense>
+            <HomeView playlists={playlists} onPlaylistPlay={handlePlaylistPlay} />
+          </Suspense>
         )
-      case 'search':
+      case "search":
         return (
           <SearchView
             songs={songs}
@@ -107,8 +105,8 @@ function Play() {
             onPlayPause={handlePlayPause}
           />
         )
-      case 'library':
-      case 'songs':
+      case "library":
+      case "songs":
         return (
           <LibraryView
             songs={songs}
@@ -122,7 +120,6 @@ function Play() {
         return <HomeView playlists={playlists} onPlaylistPlay={handlePlaylistPlay} />
     }
   }
-  
 
   return (
     <div className="h-screen flex flex-col bg-linear-to-b from-gray-900 to-black text-white overflow-hidden">

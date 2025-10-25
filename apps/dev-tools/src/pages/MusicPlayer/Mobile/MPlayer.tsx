@@ -1,8 +1,8 @@
-import React from 'react'
-import { ChevronDown, MoreHorizontal, Heart } from 'lucide-react'
-import { Button } from '@devtools/ui/Button'
+import { Button } from "@devtools/ui/Button"
+import { ChevronDown, Heart, MoreHorizontal } from "lucide-react"
+import type React from "react"
 
-import { type Song } from '@/types/music'
+import type { Song } from "@/types/music"
 
 interface MobilePlayerProps {
   song: Song
@@ -28,11 +28,7 @@ export const MobilePlayer: React.FC<MobilePlayerProps> = ({ song, onClose }) => 
 
       {/* Album Art */}
       <div className="flex-1 flex items-center justify-center mb-8">
-        <img
-          src={song.cover}
-          alt={song.title}
-          className="w-full max-w-sm aspect-square rounded-lg shadow-2xl"
-        />
+        <img src={song.cover} alt={song.title} className="w-full max-w-sm aspect-square rounded-lg shadow-2xl" />
       </div>
 
       {/* Song Info */}

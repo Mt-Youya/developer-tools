@@ -1,2 +1,2 @@
-'use client';
-export * from './table';
+"use client"
+export * from "./table"

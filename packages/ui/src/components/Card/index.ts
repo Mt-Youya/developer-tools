@@ -1,2 +1,2 @@
-'use client';
-export * from './card';
+"use client"
+export * from "./card"

@@ -1,2 +1,2 @@
-'use client';
-export * from './collapsible';
+"use client"
+export * from "./collapsible"

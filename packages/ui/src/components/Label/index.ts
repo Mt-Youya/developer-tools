@@ -1,2 +1,2 @@
-'use client';
-export * from './label';
+"use client"
+export * from "./label"

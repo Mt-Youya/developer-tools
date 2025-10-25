@@ -1,8 +1,8 @@
-import React from 'react'
-import { Play } from 'lucide-react'
-import { Button } from '@devtools/ui/Button'
+import { Button } from "@devtools/ui/Button"
+import { Play } from "lucide-react"
+import type React from "react"
 
-import { type Playlist } from '@/types/music'
+import type { Playlist } from "@/types/music"
 
 interface PlaylistCardProps {
   playlist: Playlist

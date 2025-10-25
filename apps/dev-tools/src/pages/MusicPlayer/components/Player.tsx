@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Play, Pause, SkipBack, SkipForward, Volume2, Repeat, Shuffle, Heart } from 'lucide-react'
-import { formatTime } from '@devtools/utils'
-import { Slider } from '@devtools/ui/Slider'
-import { Button } from '@devtools/ui/Button'
+import { Button } from "@devtools/ui/Button"
+import { Slider } from "@devtools/ui/Slider"
+import { formatTime } from "@devtools/utils"
+import { Heart, Pause, Play, Repeat, Shuffle, SkipBack, SkipForward, Volume2 } from "lucide-react"
+import type React from "react"
+import { useEffect, useRef, useState } from "react"
 
-import { type Song } from '@/types/music'
+import type { Song } from "@/types/music"
 
 interface PlayerProps {
   currentSong: Song | null
@@ -29,21 +30,21 @@ function Player({ currentSong, isPlaying, onPlayPause, onNext, onPrevious }: Pla
   useEffect(() => {
     const audio = audioRef.current
     if (!audio) return
-    async function playAudio   () {
+    async function playAudio() {
       try {
         setIsLoading(true)
         setError(null)
 
         if (isPlaying) {
           await audio!.play()
-          console.log('播放成功:', currentSong?.title)
+          console.log("播放成功:", currentSong?.title)
         } else {
           audio!.pause()
-          console.log('暂停播放')
+          console.log("暂停播放")
         }
       } catch (err) {
-        console.error('播放错误:', err)
-        setError('播放失败，请检查音频文件')
+        console.error("播放错误:", err)
+        setError("播放失败，请检查音频文件")
       } finally {
         setIsLoading(false)
       }
@@ -58,27 +59,27 @@ function Player({ currentSong, isPlaying, onPlayPause, onNext, onPrevious }: Pla
     }
   }, [volume])
 
-  function handleTimeUpdate () {
+  function handleTimeUpdate() {
     if (audioRef.current) {
       setCurrentTime(audioRef.current.currentTime)
     }
   }
 
-  function handleLoadedMetadata () {
+  function handleLoadedMetadata() {
     if (audioRef.current) {
       setDuration(audioRef.current.duration)
-      console.log('音频加载完成, 时长:', audioRef.current.duration)
+      console.log("音频加载完成, 时长:", audioRef.current.duration)
     }
   }
 
-  function handleSeek  (value: number[]) {
+  function handleSeek(value: number[]) {
     if (audioRef.current) {
       audioRef.current.currentTime = value[0]
       setCurrentTime(value[0])
     }
   }
 
-  function handleEnded () {
+  function handleEnded() {
     if (isRepeat) {
       const audio = audioRef.current
       if (audio) {
@@ -91,12 +92,12 @@ function Player({ currentSong, isPlaying, onPlayPause, onNext, onPrevious }: Pla
   }
 
   const handleError = (e: React.SyntheticEvent<HTMLAudioElement, Event>) => {
-    console.error('音频加载错误:', e)
-    setError('无法加载音频文件')
+    console.error("音频加载错误:", e)
+    setError("无法加载音频文件")
   }
 
-  function handleCanPlay () {
-    console.log('音频可以播放')
+  function handleCanPlay() {
+    console.log("音频可以播放")
     setIsLoading(false)
   }
 
@@ -104,16 +105,16 @@ function Player({ currentSong, isPlaying, onPlayPause, onNext, onPrevious }: Pla
   useEffect(() => {
     const url = currentSong?.audioUrl
     if (url) {
-      if (url.endsWith('.mp3')) {
+      if (url.endsWith(".mp3")) {
         return setAudioUrl(url)
       }
-      const [, query] = url.split('com/')
-        fetch('/api/audio/' + query)
-          .then(res => res.blob())
-          .then(res => {
-            const url = URL.createObjectURL(res)
-            setAudioUrl(url)
-          })
+      const [, query] = url.split("com/")
+      fetch("/api/audio/" + query)
+        .then((res) => res.blob())
+        .then((res) => {
+          const url = URL.createObjectURL(res)
+          setAudioUrl(url)
+        })
     }
   }, [currentSong?.audioUrl])
 
@@ -132,7 +133,7 @@ function Player({ currentSong, isPlaying, onPlayPause, onNext, onPrevious }: Pla
         onError={handleError}
         onCanPlay={handleCanPlay}
         onLoadStart={() => {
-          console.log('开始加载:', currentSong.audioUrl)
+          console.log("开始加载:", currentSong.audioUrl)
           setIsLoading(true)
         }}
         preload="metadata"
@@ -174,7 +175,7 @@ function Player({ currentSong, isPlaying, onPlayPause, onNext, onPrevious }: Pla
               <p className="text-sm text-gray-500 truncate">{currentSong.artist}</p>
             </div>
             <Button variant="secondary" size="icon" onClick={() => setIsLiked(!isLiked)} className="shrink-0">
-              <Heart className={`w-5 h-5 ${isLiked ? 'fill-red-500 text-red-500' : ''}`} />
+              <Heart className={`w-5 h-5 ${isLiked ? "fill-red-500 text-red-500" : ""}`} />
             </Button>
           </div>
 
@@ -184,7 +185,7 @@ function Player({ currentSong, isPlaying, onPlayPause, onNext, onPrevious }: Pla
               variant="secondary"
               size="icon"
               onClick={() => setIsShuffle(!isShuffle)}
-              className={isShuffle ? 'text-primary' : ''}
+              className={isShuffle ? "text-primary" : ""}
             >
               <Shuffle className="w-5 h-5" />
             </Button>
@@ -211,7 +212,7 @@ function Player({ currentSong, isPlaying, onPlayPause, onNext, onPrevious }: Pla
               variant="secondary"
               size="icon"
               onClick={() => setIsRepeat(!isRepeat)}
-              className={isRepeat ? 'text-primary' : ''}
+              className={isRepeat ? "text-primary" : ""}
             >
               <Repeat className="w-5 h-5" />
             </Button>
@@ -220,7 +221,13 @@ function Player({ currentSong, isPlaying, onPlayPause, onNext, onPrevious }: Pla
           {/* Volume Control */}
           <div className="flex items-center space-x-2 flex-1 justify-end">
             <Volume2 className="w-5 h-5 text-gray-500" />
-            <Slider value={[volume]} max={100} step={1} onValueChange={value => setVolume(value[0])} className="w-24" />
+            <Slider
+              value={[volume]}
+              max={100}
+              step={1}
+              onValueChange={(value) => setVolume(value[0])}
+              className="w-24"
+            />
             <span className="text-xs text-gray-500 w-8">{volume}%</span>
           </div>
         </div>

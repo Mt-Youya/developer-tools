@@ -1,17 +1,19 @@
 if (!window.requestIdleCallback) {
-  window.requestIdleCallback = window.requestIdleCallback || function (callback) {
-    const start = Date.now();
-    return setTimeout(function () {
-      callback({
-        didTimeout: false,
-        timeRemaining: function () {
-          return Math.max(0, 50 - (Date.now() - start));
-        },
-      });
-    }, 1);
-  };
+  window.requestIdleCallback =
+    window.requestIdleCallback ||
+    ((callback) => {
+      const start = Date.now()
+      return setTimeout(() => {
+        callback({
+          didTimeout: false,
+          timeRemaining: () => Math.max(0, 50 - (Date.now() - start)),
+        })
+      }, 1)
+    })
 
-  window.cancelIdleCallback = window.cancelIdleCallback || function (id) {
-    clearTimeout(id);
-  };
+  window.cancelIdleCallback =
+    window.cancelIdleCallback ||
+    ((id) => {
+      clearTimeout(id)
+    })
 }

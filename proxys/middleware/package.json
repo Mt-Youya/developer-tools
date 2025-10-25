@@ -1,5 +1,5 @@
 {
-  "name": "@devtools/ui/proxy-middleware",
+  "name": "@devtools/proxy-middleware",
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",

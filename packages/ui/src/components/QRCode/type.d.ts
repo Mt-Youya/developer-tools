@@ -1,49 +1,49 @@
-import type { Ecc, QrCode } from './QRCode';
-import type { CanvasHTMLAttributes, CSSProperties, SVGAttributes } from 'react';
+import type { Ecc, QrCode } from "./QRCode"
+import type { CanvasHTMLAttributes, CSSProperties, SVGAttributes } from "react"
 
-export type Modules = ReturnType<QrCode['getModules']>;
-export type Excavation = { x: number; y: number; w: number; h: number };
-export type ErrorCorrectionLevel = 'L' | 'M' | 'Q' | 'H';
-export type CrossOrigin = 'anonymous' | 'use-credentials' | '' | undefined;
+export type Modules = ReturnType<QrCode["getModules"]>
+export type Excavation = { x: number; y: number; w: number; h: number }
+export type ErrorCorrectionLevel = "L" | "M" | "Q" | "H"
+export type CrossOrigin = "anonymous" | "use-credentials" | "" | undefined
 
 export type ERROR_LEVEL_MAPPED_TYPE = {
-  [index in ErrorCorrectionLevel]: Ecc;
-};
+  [index in ErrorCorrectionLevel]: Ecc
+}
 
 export type ImageSettings = {
   /**
    * The URI of the embedded image.
    */
-  src: string;
+  src: string
   /**
    * The height, in pixels, of the image.
    */
-  height: number;
+  height: number
   /**
    * The width, in pixels, of the image.
    */
-  width: number;
+  width: number
   /**
    * Whether or not to "excavate" the modules around the embedded image. This
    * means that any modules the embedded image overlaps will use the background
    * color.
    */
-  excavate: boolean;
+  excavate: boolean
   /**
    * The horiztonal offset of the embedded image, starting from the top left corner.
    * Will center if not specified.
    */
-  x?: number;
+  x?: number
   /**
    * The vertical offset of the embedded image, starting from the top left corner.
    * Will center if not specified.
    */
-  y?: number;
+  y?: number
   /**
    * The opacity of the embedded image in the range of 0-1.
    * @defaultValue 1
    */
-  opacity?: number;
+  opacity?: number
   /**
    * The cross-origin value to use when loading the image. This is used to
    * ensure compatibility with CORS, particularly when extracting image data
@@ -52,71 +52,71 @@ export type ImageSettings = {
    * empty string. This is intended to align with HTML behavior where omitting
    * the attribute behaves differently than the empty string.
    */
-  crossOrigin?: CrossOrigin;
-};
+  crossOrigin?: CrossOrigin
+}
 
 export type QRProps = {
   /**
    * The value to encode into the QR Code. An array of strings can be passed in
    * to represent multiple segments to further optimize the QR Code.
    */
-  value: string | string[];
+  value: string | string[]
   /**
    * If enabled, the Error Correction Level of the result may be higher than
    * the specified Error Correction Level option if it can be done without
    * increasing the version.
    * @defaultValue true
    */
-  boostLevel?: boolean;
+  boostLevel?: boolean
   /**
    * The size, in pixels, to render the QR Code.
    * @defaultValue 128
    */
-  size?: number;
+  size?: number
   /**
    * The Error Correction Level to use.
    * @see https://www.qrcode.com/en/about/error_correction.html
    * @defaultValue L
    */
-  level?: ErrorCorrectionLevel;
+  level?: ErrorCorrectionLevel
   /**
    * The background color used to render the QR Code.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/color_value
    * @defaultValue #FFFFFF
    */
-  bgColor?: string;
+  bgColor?: string
   /**
    * The foregtound color used to render the QR Code.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/color_value
    * @defaultValue #000000
    */
-  fgColor?: string;
+  fgColor?: string
   /**
    * The style to apply to the QR Code.
    */
-  style?: CSSProperties;
+  style?: CSSProperties
   /**
    * Whether or not a margin of 4 modules should be rendered as a part of the
    * QR Code.
    * @deprecated Use `marginSize` instead.
    * @defaultValue false
    */
-  includeMargin?: boolean;
+  includeMargin?: boolean
   /**
    * The number of _modules_ to use for margin. The QR Code specification
    * requires `4`, however you can specify any number. Values will be turned to
    * integers with `Math.floor`. Overrides `includeMargin` when both are specified.
    * @defaultValue 0
    */
-  marginSize?: number;
+  marginSize?: number
   /**
    * The settings for the embedded image.
    */
-  imageSettings?: ImageSettings;
+  imageSettings?: ImageSettings
   /**
    * The title to assign to the QR Code. Used for accessibility reasons.
    */
-  title?: string;
+  title?: string
   /**
    * The minimum version used when encoding the QR Code. Valid values are 1-40
    * with higher values resulting in more complex QR Codes. The optimal
@@ -124,10 +124,9 @@ export type QRProps = {
    * as the lower bound.
    * @defaultValue 1
    */
-  minVersion?: number;
-};
+  minVersion?: number
+}
 
-export type QRPropsCanvas = QRProps &
-  CanvasHTMLAttributes<HTMLCanvasElement>;
+export type QRPropsCanvas = QRProps & CanvasHTMLAttributes<HTMLCanvasElement>
 
-export type QRPropsSVG = QRProps & SVGAttributes<SVGSVGElement>;
+export type QRPropsSVG = QRProps & SVGAttributes<SVGSVGElement>

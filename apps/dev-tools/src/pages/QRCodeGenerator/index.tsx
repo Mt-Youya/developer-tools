@@ -1,80 +1,82 @@
-'use client';
-import { useState, useRef } from 'react';
-import { Button } from '@devtools/ui/Button';
-import { Textarea } from '@devtools/ui/Textarea';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@devtools/ui/Card';
-import { Alert, AlertDescription } from '@devtools/ui/Alert';
-import { Download, Copy, Share2, RefreshCw } from 'lucide-react';
-import { toast } from '@devtools/ui/Sonner';
-import { QRCodeCanvas } from '@devtools/ui/QRCode'; 
-import { copyCode } from '@/hooks/useCopy';
+"use client"
+import { Alert, AlertDescription } from "@devtools/ui/Alert"
+import { Button } from "@devtools/ui/Button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@devtools/ui/Card"
+import { QRCodeCanvas } from "@devtools/ui/QRCode"
+import { toast } from "@devtools/ui/Sonner"
+import { Textarea } from "@devtools/ui/Textarea"
+import { Copy, Download, RefreshCw, Share2 } from "lucide-react"
+import { useRef, useState } from "react"
+import { copyCode } from "@/hooks/useCopy"
 
 function QRCodeGenerator() {
-  const [url, setUrl] = useState('');
-  const [qrCodeUrl, setQrCodeUrl] = useState('');
-  const [error, setError] = useState('');
- 
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [url, setUrl] = useState("")
+  const [qrCodeUrl, setQrCodeUrl] = useState("")
+  const [error, setError] = useState("")
+
+  const canvasRef = useRef<HTMLCanvasElement>(null)
 
   // 验证URL格式
   function isValidUrl(string: URL | string) {
     try {
-      new URL(string);
-      return true;
+      new URL(string)
+      return true
     } catch (_) {
-      return false;
+      return false
     }
-  };
+  }
 
   // 下载二维码
   async function downloadQRCode() {
-    if (!qrCodeUrl) return;
+    if (!qrCodeUrl) return
 
     try {
-      const response = await fetch(qrCodeUrl);
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'qrcode.png';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
+      const response = await fetch(qrCodeUrl)
+      const blob = await response.blob()
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement("a")
+      link.href = url
+      link.download = "qrcode.png"
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      window.URL.revokeObjectURL(url)
     } catch (err) {
       toast("下载失败，请稍后重试")
     }
-  };
+  }
 
   // 分享功能
   async function shareQRCode() {
     if (!navigator.share) {
       return toast("分享失败", {
-        description: <span> 请确认您的浏览器是否具备分享功能</span>
+        description: <span> 请确认您的浏览器是否具备分享功能</span>,
       })
     }
     if (!qrCodeUrl) {
       return toast("分享失败", {
-        description: <span> 请确认您输入了正确的URL</span>
+        description: <span> 请确认您输入了正确的URL</span>,
       })
     }
-    await navigator.share({
-      title: 'QR码',
-      text: `这是 ${url} 的二维码`,
-      url: url
-    }).catch(err => {
-      toast('分享失败:', {
-        description: <span>{err?.toString()}</span>
+    await navigator
+      .share({
+        title: "QR码",
+        text: `这是 ${url} 的二维码`,
+        url: url,
       })
-    })
-  };
+      .catch((err) => {
+        toast("分享失败:", {
+          description: <span>{err?.toString()}</span>,
+        })
+      })
+  }
 
   // 清除内容
   function clearAll() {
-    setUrl('');
-    setQrCodeUrl('');
-    setError('');
-  };
+    setUrl("")
+    setQrCodeUrl("")
+    setError("")
+  }
 
   useEffect(() => {
     if (!url) {
@@ -83,7 +85,7 @@ function QRCodeGenerator() {
     const valid = isValidUrl(url)
     if (!valid) {
       toast("生成失败", {
-        description: <span> 请确认您输入了正确的URL</span>
+        description: <span> 请确认您输入了正确的URL</span>,
       })
       return
     }
@@ -105,9 +107,7 @@ function QRCodeGenerator() {
               <Share2 className="w-5 h-5 text-blue-600" />
               生成二维码
             </CardTitle>
-            <CardDescription>
-              输入您想要转换的URL地址，即可生成二维码
-            </CardDescription>
+            <CardDescription>输入您想要转换的URL地址，即可生成二维码</CardDescription>
           </CardHeader>
 
           <CardContent className="space-y-4">
@@ -129,12 +129,11 @@ function QRCodeGenerator() {
               </Alert>
             )}
 
-
             <div className="text-center space-y-4">
               <div className="bg-white p-4 rounded-lg border-2 border-dashed border-gray-200 inline-block w-108 h-108">
                 {url && <QRCodeCanvas value={url} size={400} ref={canvasRef} />}
               </div>
- 
+
               <div className="flex gap-2 justify-center flex-wrap">
                 <Button onClick={downloadQRCode} variant="outline" size="sm">
                   <Download className="w-4 h-4 mr-2" />
@@ -154,7 +153,6 @@ function QRCodeGenerator() {
                 )}
               </div>
             </div>
-
           </CardContent>
 
           <CardFooter className="text-center text-sm text-gray-500">
@@ -195,7 +193,7 @@ function QRCodeGenerator() {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default QRCodeGenerator;
+export default QRCodeGenerator

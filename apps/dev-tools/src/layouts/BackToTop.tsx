@@ -1,36 +1,36 @@
-import { useRef, useState } from "react";
-import { cva } from "class-variance-authority";
-import { cn } from "@devtools/libs";
+import { cn } from "@devtools/libs"
+import { cva } from "class-variance-authority"
+import { useRef, useState } from "react"
 
-const perimeter = 2 * 20 * Math.PI;
-const { scrollTo } = window;
+const perimeter = 2 * 20 * Math.PI
+const { scrollTo } = window
 
 function getPreciseScrollPercentage() {
-  const scrollTop = window.scrollY || document.documentElement.scrollTop;
-  const scrollHeight = document.documentElement.scrollHeight;
-  const clientHeight = document.documentElement.clientHeight;
+  const scrollTop = window.scrollY || document.documentElement.scrollTop
+  const scrollHeight = document.documentElement.scrollHeight
+  const clientHeight = document.documentElement.clientHeight
 
   if (scrollHeight <= clientHeight) {
-    return 1;
+    return 1
   }
 
-  const maxScroll = scrollHeight - clientHeight;
-  return scrollTop / maxScroll;
+  const maxScroll = scrollHeight - clientHeight
+  return scrollTop / maxScroll
 }
 
 function BackToTop() {
-  const [rate, setRate] = useState(0);
-  const toTopRef = useRef<HTMLDivElement | null>(null);
+  const [rate, setRate] = useState(0)
+  const toTopRef = useRef<HTMLDivElement | null>(null)
 
   function handleScroll() {
-    const rateComputed = getPreciseScrollPercentage() * perimeter;
-    setRate(rateComputed);
+    const rateComputed = getPreciseScrollPercentage() * perimeter
+    setRate(rateComputed)
   }
 
   useEffect(() => {
-    document.addEventListener("scroll", handleScroll);
-    return () => document.removeEventListener("scroll", handleScroll);
-  }, []);
+    document.addEventListener("scroll", handleScroll)
+    return () => document.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const classes = cva(
     "w-12 h-12 bg-transparent fixed right-12 -bottom-3 text-black flex justify-center items-center cursor-pointer transition-transform transition-opacity ease-in-out duration-50 z-50 drop-shadow",
@@ -47,7 +47,7 @@ function BackToTop() {
         variant: "default",
       },
     }
-  );
+  )
 
   return (
     <div
@@ -92,7 +92,7 @@ function BackToTop() {
         </g>
       </svg>
     </div>
-  );
+  )
 }
 
-export default BackToTop;
+export default BackToTop

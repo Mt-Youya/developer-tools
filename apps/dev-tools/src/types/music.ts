@@ -18,9 +18,9 @@ export interface Playlist {
 }
 
 export interface Album {
-    id: string
-    name: string
-    description: string
-    cover: string
-    songs: Song[]
+  id: string
+  name: string
+  description: string
+  cover: string
+  songs: Song[]
 }

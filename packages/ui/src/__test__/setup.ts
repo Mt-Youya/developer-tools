@@ -1,6 +1,6 @@
-import { expect, afterEach, vi, beforeAll, afterAll } from 'vitest'
-import { cleanup } from '@testing-library/react'
-import * as matchers from '@testing-library/jest-dom/matchers'
+import * as matchers from "@testing-library/jest-dom/matchers"
+import { cleanup } from "@testing-library/react"
+import { afterAll, afterEach, beforeAll, expect, vi } from "vitest"
 
 // 扩展 Vitest 的 expect 方法
 expect.extend(matchers)
@@ -11,9 +11,9 @@ afterEach(() => {
 })
 
 // Mock window.matchMedia
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
-  value: vi.fn().mockImplementation(query => ({
+  value: vi.fn().mockImplementation((query) => ({
     matches: false,
     media: query,
     onchange: null,
@@ -91,9 +91,8 @@ const originalError = console.error
 beforeAll(() => {
   console.error = (...args: any[]) => {
     if (
-      typeof args[0] === 'string' &&
-      (args[0].includes('Not implemented: HTMLCanvasElement') ||
-       args[0].includes('matchMedia'))
+      typeof args[0] === "string" &&
+      (args[0].includes("Not implemented: HTMLCanvasElement") || args[0].includes("matchMedia"))
     ) {
       return
     }

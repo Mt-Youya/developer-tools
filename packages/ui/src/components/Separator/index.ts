@@ -1,2 +1,2 @@
-'use client';
-export * from './separator';
+"use client"
+export * from "./separator"

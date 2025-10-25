@@ -1,46 +1,46 @@
-import { AlertCircle, Settings } from "lucide-react";
-import { isEmpty } from "lodash-es";
-import { CommandStore } from "@/stores/command";
-import { Card, CardHeader, CardTitle, CardContent } from "@devtools/ui/Card";
-import { Badge } from "@devtools/ui/Badge";
-import { Input } from "@devtools/ui/Input";
-import { Label } from "@devtools/ui/Label";
-import { Separator } from "@devtools/ui/Separator";
-import { FieldTemplates } from "@/constants/FieldTemplates";
-import { Checkbox } from "@devtools/ui/Checkbox";
-import { isObject } from "@devtools/utils";
-import CopyComp from "@/components/CopyComp";
+import { Badge } from "@devtools/ui/Badge"
+import { Card, CardContent, CardHeader, CardTitle } from "@devtools/ui/Card"
+import { Checkbox } from "@devtools/ui/Checkbox"
+import { Input } from "@devtools/ui/Input"
+import { Label } from "@devtools/ui/Label"
+import { Separator } from "@devtools/ui/Separator"
+import { isObject } from "@devtools/utils"
+import { isEmpty } from "lodash-es"
+import { AlertCircle, Settings } from "lucide-react"
+import CopyComp from "@/components/CopyComp"
+import { FieldTemplates } from "@/constants/FieldTemplates"
+import { CommandStore } from "@/stores/command"
 
 function OptionResult() {
-  const { extractedData, targetFields, setTargetFields, detectors, setDetectors } = CommandStore();
+  const { extractedData, targetFields, setTargetFields, detectors, setDetectors } = CommandStore()
   interface IData {
-    key: string | number;
-    value: string | number;
-    checked: boolean;
+    key: string | number
+    value: string | number
+    checked: boolean
   }
-  const [data, setData] = useState<IData[]>();
+  const [data, setData] = useState<IData[]>()
 
   useEffect(() => {
-    setData(Object.entries(extractedData).map(([key, value]) => ({ key, value: handleValue(value), checked: true })));
-  }, [extractedData]);
+    setData(Object.entries(extractedData).map(([key, value]) => ({ key, value: handleValue(value), checked: true })))
+  }, [extractedData])
 
   function handleValue(val: any) {
-    const v = val.toString();
-    return v.endsWith(",") ? v.slice(0, -1) : val;
+    const v = val.toString()
+    return v.endsWith(",") ? v.slice(0, -1) : val
   }
 
   const copyValue = useMemo(() => {
     if (!data) {
-      return {};
+      return {}
     }
-    const list: typeof extractedData = {};
+    const list: typeof extractedData = {}
     for (const { key, value, checked } of data) {
       if (checked) {
-        list[key] = value;
+        list[key] = value
       }
     }
-    return list;
-  }, [data]);
+    return list
+  }, [data])
 
   return (
     <Card className="border-0 shadow-lg bg-white/90 backdrop-blur">
@@ -56,7 +56,7 @@ function OptionResult() {
           <Input
             id="target-fields"
             value={targetFields}
-            onChange={e => setTargetFields(e.target.value)}
+            onChange={(e) => setTargetFields(e.target.value)}
             className="font-mono"
             placeholder="cityId,mboxCouponId,spuId"
           />
@@ -91,7 +91,7 @@ function OptionResult() {
                   checked={checked}
                   onCheckedChange={() =>
                     setDetectors(
-                      detectors.map(item => ({ ...item, checked: item.format === format ? !checked : item.checked })),
+                      detectors.map((item) => ({ ...item, checked: item.format === format ? !checked : item.checked }))
                     )
                   }
                 />
@@ -122,7 +122,9 @@ function OptionResult() {
                         id={key + idx.toString()}
                         checked={checked}
                         onCheckedChange={() =>
-                          setData(data.map(item => ({ ...item, checked: item.key === key ? !checked : item.checked })))
+                          setData(
+                            data.map((item) => ({ ...item, checked: item.key === key ? !checked : item.checked }))
+                          )
                         }
                       />
                       <Label htmlFor={key + idx.toString()} className="ml-2 flex-1 justify-between">
@@ -143,7 +145,7 @@ function OptionResult() {
         </div>
       </CardContent>
     </Card>
-  );
+  )
 }
 
-export default OptionResult;
+export default OptionResult

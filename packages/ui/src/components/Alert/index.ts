@@ -1,2 +1,2 @@
-'use client';
-export * from './alert';
+"use client"
+export * from "./alert"

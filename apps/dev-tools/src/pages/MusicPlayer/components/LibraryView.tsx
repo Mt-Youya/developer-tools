@@ -1,7 +1,6 @@
-import React from 'react'
-import { SongList } from './SongList'
-
-import type { Song } from '@/types/music'
+import type React from "react"
+import type { Song } from "@/types/music"
+import { SongList } from "./SongList"
 
 interface LibraryViewProps {
   songs: Song[]
@@ -21,7 +20,7 @@ export const LibraryView: React.FC<LibraryViewProps> = ({
   return (
     <div className="p-8">
       <h2 className="text-3xl font-bold mb-8">Your Library</h2>
-      
+
       <div className="bg-white dark:bg-gray-900 rounded-lg p-6">
         <div className="flex items-center justify-between mb-6">
           <div>
