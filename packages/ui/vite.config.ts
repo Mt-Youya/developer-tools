@@ -3,7 +3,7 @@ import { readdirSync } from "node:fs"
 import path, { resolve } from "node:path"
 import tailwindcss from "@tailwindcss/vite"
 import react from "@vitejs/plugin-react-swc"
-import { defineConfig, type PluginOption } from "vite"
+import { defineConfig } from "vite"
 import { oxlintConfig } from "../../configs/oxlint-config"
 
 // 获取 components 目录下的所有组件
