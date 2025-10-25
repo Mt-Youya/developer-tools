@@ -10,7 +10,7 @@ const defaultConf = defineConfig({
   plugins: [
     react(),
     tailwindcss() as PluginOption,
-    Inspect({ build: true, outputDir: ".vite-inspect" }),
+    // Inspect({ build: true, outputDir: ".vite-inspect" }),
     AutoImport({
       imports: ["react", "react-router", "react-router-dom"],
       include: [/\.[tj]sx?$/],
@@ -27,18 +27,6 @@ const defaultConf = defineConfig({
 
   optimizeDeps: {
     exclude: ["@ffmpeg/ffmpeg", "@ffmpeg/util"],
-  },
-
-  build: {
-    rollupOptions: {
-      external: ["react", "react-dom"],
-      output: {
-        globals: {
-          react: "React",
-          "react-dom": "ReactDOM",
-        },
-      },
-    },
   },
 
   // 预览服务器配置（用于预览构建结果）
