@@ -27,5 +27,6 @@ functions
 *.sw?
 
 coverage
+ffmpeg
 
 pnpm-lock.yaml
