@@ -2,5 +2,5 @@ name = "developer-tools"
 compatibility_date = "2025-10-25"
 
 [build]
-command = "corepack use pnpm@10.18.3 && pnpm install --recursive && pnpm build"
-pages_build_output_dir = "apps/dev-tools/dist"
+command = "pnpm install --frozen-lockfile && pnpm --filter dev-tools build"
+pages_build_output_dir = "/apps/dev-tools/dist"
