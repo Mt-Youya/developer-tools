@@ -19,7 +19,7 @@
   },
   "exports": {
     ".": "./src/index.ts",
-    "./style.css": "./dist/style.css",
+    "./style.css": "./src/style/global.css",
     "./Alert": "./src/components/Alert/index.ts",
     "./Badge": "./src/components/Badge/index.ts",
     "./Button": "./src/components/Button/index.ts",
