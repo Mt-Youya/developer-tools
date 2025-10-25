@@ -1,0 +1,5 @@
+name = "developer-tools"
+compatibility_date = "2025-10-25"
+
+[build]
+command = "corepack use pnpm@10.18.3 && pnpm install --recursive && pnpm build"
