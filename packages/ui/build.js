@@ -10,6 +10,9 @@ const __dirname = path.dirname(__filename)
 console.log("__dirname", __dirname)
 
 const cssRaw = fs.readFileSync(path.join(__dirname, "dist/style.css"), "utf8")
+console.log("cssRaw")
 
 const appPath = path.join(__dirname, "../../apps/dev-tools/src/style/global.css")
+console.log("appPath", appPath)
+
 fs.writeFileSync(appPath, cssRaw)
