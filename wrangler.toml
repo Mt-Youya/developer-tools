@@ -3,4 +3,5 @@ compatibility_date = "2025-10-25"
 
 [build]
 command = "pnpm install --frozen-lockfile && pnpm --filter dev-tools build"
+
 pages_build_output_dir = "/apps/dev-tools/dist"
