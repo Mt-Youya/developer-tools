@@ -4,7 +4,7 @@
   "description": "developer tools for meituan internal use",
   "scripts": {
     "dev": "pnpm --filter dev-tools dev",
-    "build": "pnpm -r run build",
+    "build": "pnpm -F ui build && pnpm -r run build",
     "preview": "pnpm build && pnpm -F dev-tools preview",
     "lint": "biome check ./packages ./apps",
     "lint:fix": "biome check --write ./packages ./apps",
