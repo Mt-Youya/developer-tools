@@ -10,7 +10,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "vite build --mode production",
+    "build": "node build.ts",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",

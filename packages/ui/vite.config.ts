@@ -39,15 +39,16 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": path.resolve(__dirname, "src"),
     },
   },
-  server: undefined,
   build: {
+    chunkSizeWarningLimit: 1024 * 4,
     outDir: "dist",
     lib: {
       entry,
-      formats: ["es"],
+      formats: ["es", "cjs"],
+      fileName: (f, e) => `${e}.${f === "es" ? "mjs" : f}`,
       cssFileName: "style",
     },
     minify: true,
