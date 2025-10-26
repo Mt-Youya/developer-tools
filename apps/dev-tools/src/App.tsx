@@ -1,18 +1,17 @@
-import { IS_DEV } from "@devtools/libs"
 import { Toaster } from "@devtools/ui/Sonner"
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
-import { LazyLoad } from "./components/LazyLoadComponent"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
 import BackToTop from "./layouts/BackToTop"
 import NavBar from "./layouts/NavBar"
 import AudioExtractor from "./pages/AudioExtractor"
+import BOGO from "./pages/BOGO"
 import CodeEditor from "./pages/Coding"
 import Contrast from "./pages/Contrast"
 import Home from "./pages/Home"
 import MusicPlayer from "./pages/MusicPlayer"
 import QRCodeGenerator from "./pages/QRCodeGenerator"
 import NotFound from "./pages/Results/404"
-import { devRoutes } from "./routes/devRoutes"
 import "./App.css"
+import { LazyLoad } from "./components/LazyLoadComponent"
 
 function App() {
   return (
@@ -21,20 +20,15 @@ function App() {
       <BrowserRouter>
         <NavBar>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/contrast-json" element={<Contrast />} />
-            <Route path="/qr-code-generator" element={<QRCodeGenerator />} />
-            <Route path="/coding" element={<CodeEditor />} />
-            <Route path="/audio-extractor" element={<AudioExtractor />} />
-            <Route path="/music-player" element={<MusicPlayer />} />
-            <Route path="/404" element={<NotFound />} />
-            <Route path="*" element={<NotFound />} />
-            {devRoutes.map((route) => (
-              <Route
-                path={route.path}
-                element={IS_DEV ? <LazyLoad component={route.component} /> : <Navigate to="/404" />}
-              />
-            ))}
+            <Route path="/" element={<LazyLoad component={Home} />} />
+            <Route path="/contrast-json" element={<LazyLoad component={Contrast} />} />
+            <Route path="/bogo" element={<LazyLoad component={BOGO} />} />
+            <Route path="/qr-code-generator" element={<LazyLoad component={QRCodeGenerator} />} />
+            <Route path="/coding" element={<LazyLoad component={CodeEditor} />} />
+            <Route path="/audio-extractor" element={<LazyLoad component={AudioExtractor} />} />
+            <Route path="/music-player" element={<LazyLoad component={MusicPlayer} />} />
+            <Route path="/404" element={<LazyLoad component={NotFound} />} />
+            <Route path="*" element={<LazyLoad component={NotFound} />} />
           </Routes>
         </NavBar>
       </BrowserRouter>
