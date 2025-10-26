@@ -9,8 +9,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.18.2",
+  "packageManager": "pnpm@10.19.0",
   "dependencies": {
+    "@devtools/shared": "workspace:*",
     "clsx": "^2.1.1",
     "tailwind-merge": "^3.3.1"
   }

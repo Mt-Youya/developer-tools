@@ -17,6 +17,9 @@
   "linter": {
     "enabled": true,
     "rules": {
+      "complexity": {
+        "noStaticOnlyClass": "off"
+      },
       "a11y": {
         "useMediaCaption": "off"
       },
