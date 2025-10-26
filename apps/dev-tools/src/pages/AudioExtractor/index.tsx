@@ -443,7 +443,7 @@ function AudioExtractor() {
 
         {/* Privacy Notice */}
         <Card className="bg-amber-50 border-amber-200">
-          <CardContent className="pt-6">
+          <CardContent>
             <p className="text-sm text-amber-800 text-center">
               🔒 所有处理都在您的浏览器本地完成，文件不会上传到服务器，保护您的隐私
             </p>

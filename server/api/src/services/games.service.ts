@@ -15,7 +15,6 @@ export class GameService {
     const cacheKey = `games:epic:${locale}:${country}`
 
     try {
-      // 检查缓存（缓存5分钟）
       const cached = await RedisService.getCachedApiResponse<Game[]>(cacheKey)
       if (cached) {
         return {
@@ -154,27 +153,47 @@ export class GameService {
         return {
           success: true,
           data: cached,
-          platform: "GOG",
+          platform: this.mapStoreIdToPlatform("7"),
           count: cached.length,
         }
       }
 
-      const response = await this.httpClient.get("https://www.gog.com/games/ajax/filtered", {
+      const response = await this.httpClient.get("https://catalog.gog.com/v1/catalog", {
         params: {
-          mediaType: "game",
-          price: "free",
-          sort: "popularity",
-          page: 1,
+          limit: "48",
+          tags: "is:freegame",
+          order: "desc:trending",
+          productType: "in:game,pack,dlc,extras",
+          page: "1",
+          countryCode: "IN",
+          locale: "zh-Hans",
+          currencyCode: "USD",
         },
       })
 
-      await RedisService.cacheApiResponse(cacheKey, response.data, 600)
+      const data = response.data?.products ?? []
+
+      const gamesData = data.map((game) => ({
+        id: `gog-${game.id}`,
+        title: game.title,
+        description: `免费游戏`,
+        url: game.storeLink,
+        platform: this.mapStoreIdToPlatform("7"),
+        image: game.logo,
+        originalPrice: 0,
+        discountPrice: 0,
+        startDate: "",
+        endDate: "",
+        genre: game.genres?.map((g) => g.name).join(",") || "限时免费",
+        developer: game.developer?.join(",") || "未知",
+      }))
+      await RedisService.cacheApiResponse(cacheKey, gamesData, 600)
 
       return {
         success: true,
-        data: response.data.products,
+        data: gamesData,
         platform: "GOG",
-        count: response.data.totalResults,
+        count: response.data.productCount,
       }
     } catch (error: any) {
       console.error("GOG API error:", error.message)
@@ -254,10 +273,8 @@ export class GameService {
     const cacheKey = "games:all"
 
     try {
-      // const cached = await RedisService.getCachedApiResponse<AllGamesResponse>(cacheKey)
-      // if (cached) {
-      //   return cached
-      // }
+      const cached = await RedisService.getCachedApiResponse<AllGamesResponse>(cacheKey)
+      if (cached) return cached
 
       const results = await Promise.allSettled([
         this.getEpicGames(),
@@ -268,10 +285,11 @@ export class GameService {
 
       const platformResults: { [key: string]: Game[] } = {}
       const counts: { [key: string]: number } = {}
-      const errors: Array<{ platform: string; error: string }> = []
+      const errors: { platform: string; error: string }[] = []
       let total = 0
 
-      results.forEach((result, index) => {
+      for (let index = 0; index < results.length; index++) {
+        const result = results[index]
         const platformNames = ["epic", "freetogame", "gog", "cheapshark"]
         const platformName = platformNames[index]
 
@@ -288,7 +306,7 @@ export class GameService {
             error: error?.message || "Unknown error",
           })
         }
-      })
+      }
 
       const response: AllGamesResponse = {
         success: true,

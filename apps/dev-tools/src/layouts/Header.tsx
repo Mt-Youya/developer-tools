@@ -17,7 +17,7 @@ function Header() {
   return (
     <>
       <Card className="border-0 shadow-lg bg-white/80 backdrop-blur">
-        <CardHeader className="pb-4">
+        <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent flex items-center">
               <Search className="mr-3 text-blue-500" size={32} />
