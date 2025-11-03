@@ -1,7 +1,4 @@
-import { IS_DEV } from "@devtools/libs"
-import { Button } from "@devtools/ui/Button"
-import { Link } from "react-router-dom"
-import Main from "@/layouts/Main"
+import Main from "@/pages/Home/components/Main"
 import GenerateCommand from "./components/GenerateCommand"
 import InputWorkSpace from "./components/InputWorkSpace"
 import OptionResult from "./components/OptionResult"

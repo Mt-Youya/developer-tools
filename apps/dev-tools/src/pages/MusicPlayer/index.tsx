@@ -39,14 +39,8 @@ function Play() {
   const [currentPlaylist, setCurrentPlaylist] = useState<Song[]>(songs)
   const [currentIndex, setCurrentIndex] = useState(0)
 
-  const FMA_API_BASE = "https://freemusicarchive.org/api/get"
-
-  const JAMENDO_CLIENT_ID = "cd43f5d1"
-  // Initialize with first song
   useEffect(() => {
-    fetch(
-      `/api/tracks/v3.0/tracks/?client_id=${JAMENDO_CLIENT_ID}&format=json&limit=${20}&order=popularity_total&include=musicinfo`
-    )
+    fetch(`/api/v1/music/tracks`)
       .then((res) => res.json())
       .then(({ results = [] }) => {
         const tracks = results.map((track: JamendoTrack) => convertJamendoToSong(track))
@@ -55,7 +49,7 @@ function Play() {
       })
   }, [])
 
-  const handleSongSelect = (song: Song) => {
+  function handleSongSelect(song: Song) {
     const index = currentPlaylist.findIndex((s) => s.id === song.id)
     setCurrentIndex(index)
     setCurrentSong(song)
@@ -80,7 +74,7 @@ function Play() {
     setIsPlaying(true)
   }
 
-  const handlePlaylistPlay = (playlist: Playlist) => {
+  function handlePlaylistPlay(playlist: Playlist) {
     setCurrentPlaylist(playlist.songs)
     setCurrentIndex(0)
     setCurrentSong(playlist.songs[0])

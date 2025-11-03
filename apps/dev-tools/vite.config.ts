@@ -37,6 +37,9 @@ function GameProxy(): ServerOptions["proxy"] {
     "/api/v1/games/cheapshark": {
       target,
     },
+    "/api/v1/music/tracks": {
+      target,
+    },
   }
 }
 
@@ -64,12 +67,9 @@ const defaultConf = defineConfig({
     exclude: ["@ffmpeg/ffmpeg", "@ffmpeg/util"],
   },
 
-  // 预览服务器配置（用于预览构建结果）
   preview: {
-    port: 4103,
     host: true,
   },
 })
 
-// export default mergeConfig(defaultConf, configs, true);
 export default defaultConf

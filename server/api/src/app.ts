@@ -10,6 +10,7 @@ import { errorHandler } from "./middlewares/errorHandler"
 import { loggerMiddleware } from "./middlewares/logger"
 import { rateLimitMiddleware } from "./middlewares/rateLimit"
 import { gamesRouter } from "./routes/games.routes"
+import { musicRouter } from "./routes/music.routes"
 import { logger } from "./utils/logger"
 
 export function createApp() {
@@ -35,7 +36,7 @@ export function createApp() {
   )
 
   // Redis 相关中间件
-  app.use(rateLimitMiddleware(6000, 3600))
+  app.use(rateLimitMiddleware(600000, 3600))
   app.use(cacheMiddleware(300))
 
   // API 路由
@@ -58,6 +59,7 @@ export function createApp() {
 
   // 业务路由
   apiRouter.use("/games", gamesRouter.routes(), gamesRouter.allowedMethods())
+  apiRouter.use("/music", musicRouter.routes(), musicRouter.allowedMethods())
 
   // apiRouter.use("/auth", authRouter.routes(), authRouter.allowedMethods())
   // apiRouter.use("/users", userRouter.routes(), userRouter.allowedMethods())

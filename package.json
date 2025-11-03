@@ -1,9 +1,10 @@
 {
-  "name": "dev-tools",
+  "name": "developer-tools",
   "version": "0.0.1",
   "description": "developer tools for meituan internal use",
   "scripts": {
-    "dev": "pnpm --filter dev-tools dev",
+    "dev": "pnpm -F api dev",
+    "dev:app": "pnpm -F dev-tools dev",
     "build": "pnpm -F ui build && pnpm -r run build",
     "preview": "pnpm build && pnpm -F dev-tools preview",
     "lint": "biome check ./packages ./apps",

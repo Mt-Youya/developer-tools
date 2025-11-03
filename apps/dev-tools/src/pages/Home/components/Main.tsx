@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from "react"
-import Instructions from "../pages/Home/components/Instructions"
 import Header from "./Header"
+import Instructions from "./Instructions"
 
 function Main({ children }: PropsWithChildren) {
   return (
