@@ -1,0 +1,89 @@
+import { Activity, forwardRef } from "react"
+import { useQRCode } from "../../hooks/useQRCode"
+import type { QRPropsSVG } from "./type"
+import {
+  DEFAULT_BACKGROUND_COLOR,
+  DEFAULT_FRONT_COLOR,
+  DEFAULT_LEVEL,
+  DEFAULT_MINVERSION,
+  DEFAULT_NEED_MARGIN,
+  DEFAULT_SIZE,
+  excavateModules,
+  generatePath,
+} from "./util"
+
+export const QRCodeSVG = forwardRef<SVGSVGElement, QRPropsSVG>((props, ref) => {
+  const {
+    value,
+    size = DEFAULT_SIZE,
+    level = DEFAULT_LEVEL,
+    bgColor = DEFAULT_BACKGROUND_COLOR,
+    fgColor = DEFAULT_FRONT_COLOR,
+    includeMargin = DEFAULT_NEED_MARGIN,
+    minVersion = DEFAULT_MINVERSION,
+    title,
+    marginSize,
+    imageSettings,
+    boostLevel,
+    ...otherProps
+  } = props
+
+  const { margin, cells, numCells, calculatedImageSettings } = useQRCode({
+    value,
+    level,
+    minVersion,
+    includeMargin,
+    marginSize,
+    imageSettings,
+    size,
+    boostLevel,
+  })
+
+  let cellsToDraw = cells
+  let image = null
+  if (imageSettings !== null && calculatedImageSettings !== null) {
+    if (calculatedImageSettings.excavation !== null) {
+      cellsToDraw = excavateModules(cells, calculatedImageSettings.excavation)
+    }
+
+    image = (
+      <image
+        href={imageSettings.src}
+        height={calculatedImageSettings.h}
+        width={calculatedImageSettings.w}
+        x={calculatedImageSettings.x + margin}
+        y={calculatedImageSettings.y + margin}
+        preserveAspectRatio="none"
+        opacity={calculatedImageSettings.opacity}
+        // when crossOrigin is not set, the image will be tainted
+        // and the canvas cannot be exported to an image
+        crossOrigin={calculatedImageSettings.crossOrigin}
+      />
+    )
+  }
+
+  const fgPath = generatePath(cellsToDraw, margin)
+
+  return (
+    <svg
+      role="img"
+      ref={ref}
+      height={size}
+      width={size}
+      viewBox={`0 0 ${numCells} ${numCells}`}
+      aria-label={title || "QR Code"}
+      {...otherProps}
+    >
+      <Activity mode={title ? "visible" : "hidden"}>
+        <title>{title}</title>
+      </Activity>
+      <path fill={bgColor} d={`M0,0 h${numCells}v${numCells}H0z`} shapeRendering="crispEdges" />
+      <path fill={fgColor} d={fgPath} shapeRendering="crispEdges" />
+      {image}
+    </svg>
+  )
+})
+
+if (process.env.NODE_ENV !== "production") {
+  QRCodeSVG.displayName = "QRCodeSVG"
+}

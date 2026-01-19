@@ -1,0 +1,12 @@
+import Router from "@koa/router"
+import { WeatherController } from "../controllers/weather.controller"
+import { cacheMiddleware } from "../middlewares/cache"
+import { rateLimitMiddleware } from "../middlewares/rateLimit"
+
+const weatherController = new WeatherController()
+
+export const weatherRouter = new Router()
+
+const gameRateLimit = rateLimitMiddleware(5, 60)
+
+weatherRouter.get("/getWeather", gameRateLimit, cacheMiddleware(600), weatherController.getWeather)
