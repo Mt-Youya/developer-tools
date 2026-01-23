@@ -1,5 +1,7 @@
 export * from "./constants"
 
+export * from "./react-element/interface"
+
 export * from "./games/interface"
 export * from "./weather/interface"
 

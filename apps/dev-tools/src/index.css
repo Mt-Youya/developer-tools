@@ -1,2 +1,15 @@
 @import "./style/global.css";
 @import "tailwindcss";
+
+@layer utilities {
+  .no-spinner {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+  .no-spinner::-webkit-inner-spin-button,
+  .no-spinner::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
