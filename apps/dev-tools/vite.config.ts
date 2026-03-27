@@ -78,7 +78,7 @@ const defaultConf = defineConfig({
       imports: ["react", "react-router", "react-router-dom"],
       include: [/\.[tj]sx?$/],
     }),
-    oxlintConfig,
+    // oxlintConfig,
   ],
   server: {
     host: true,

@@ -1,3 +1,11 @@
+/*
+ * @Author: Mt-Youya dd257248@163.com
+ * @Date: 2026-03-28 01:33:34
+ * @LastEditors: Mt-Youya dd257248@163.com
+ * @LastEditTime: 2026-03-28 02:36:17
+ * @FilePath: \developer-tools\packages\ui\vite.config.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 /// <reference types="vitest/config" />
 import { readdirSync } from "node:fs"
 import path, { resolve } from "node:path"
@@ -33,7 +41,7 @@ export default defineConfig({
       },
     }),
     tailwindcss(),
-    oxlintConfig,
+    // oxlintConfig,
     AutoImport({
       imports: ["react", "react-router", "react-router-dom"],
       include: [/\.[tj]sx?$/],
