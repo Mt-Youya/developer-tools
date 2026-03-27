@@ -13,6 +13,7 @@ try {
 }
 
 export function RobotModel(props: any) {
+  "use memo"
   const group = useRef<THREE.Group>(null)
   const { scene, animations } = useGLTF(MODEL_URL)
   const { actions, names } = useAnimations(animations, group)

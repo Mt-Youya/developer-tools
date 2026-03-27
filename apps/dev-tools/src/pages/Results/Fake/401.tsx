@@ -241,7 +241,7 @@ export function Atlas401Error() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-destructive/75 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-destructive"></span>
             </span>
-            {/** biome-ignore lint: false positive */}
+            {/** biome-ignore lint/suspicious/noCommentText: <explanation> */}
             SYSTEM ALERT // UNIDENTIFIED USER
           </div>
           <div className="h-px w-16 bg-border" />

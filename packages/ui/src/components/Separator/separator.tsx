@@ -2,6 +2,7 @@ import { Separator as SeparatorPrimitive } from "@base-ui/react/separator"
 import { cn } from "@devtools/libs"
 
 function Separator({ className, orientation = "horizontal", ...props }: SeparatorPrimitive.Props) {
+  "use memo"
   return (
     <SeparatorPrimitive
       data-slot="separator"

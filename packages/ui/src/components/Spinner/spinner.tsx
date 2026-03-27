@@ -33,6 +33,7 @@ export const spinnerVariants = cva("border-blue-600 border-t-transparent", {
 })
 
 export function Spinner({ size = "md", variant = "primary", className, withRing = false }: SpinnerProps) {
+  "use memo"
   return (
     <div className="relative inline-flex items-center justify-center">
       <Activity mode={withRing ? "visible" : "hidden"}>

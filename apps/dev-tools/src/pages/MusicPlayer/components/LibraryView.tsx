@@ -1,4 +1,3 @@
-import type React from "react"
 import type { Song } from "@/types/music"
 import { SongList } from "./SongList"
 
@@ -10,13 +9,8 @@ interface LibraryViewProps {
   onPlayPause: () => void
 }
 
-export const LibraryView: React.FC<LibraryViewProps> = ({
-  songs,
-  currentSong,
-  isPlaying,
-  onSongSelect,
-  onPlayPause,
-}) => {
+export function LibraryView({ songs, currentSong, isPlaying, onSongSelect, onPlayPause }: LibraryViewProps) {
+  "use memo"
   return (
     <div className="p-8">
       <h2 className="text-3xl font-bold mb-8">Your Library</h2>

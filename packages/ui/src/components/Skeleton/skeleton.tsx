@@ -1,11 +1,13 @@
 import { cn } from "@devtools/libs"
-import type { ComponentProps } from "react"
+import type { DIV } from "@devtools/shared"
 
-function Skeleton({ className, ...props }: ComponentProps<"div">) {
+function Skeleton({ className, ...props }: DIV) {
+  "use memo"
   return <div data-slot="skeleton" className={cn("bg-accent animate-pulse rounded-md", className)} {...props} />
 }
 
 function SkeletonCard() {
+  "use memo"
   return (
     <div className="p-5 h-10 space-y-3 relative z-20">
       <Skeleton className="h-12 w-3/5" style={{ animationDelay: "0ms" }} />
@@ -17,6 +19,7 @@ function SkeletonCard() {
 }
 
 function SkeletonAvatar() {
+  "use memo"
   return (
     <div className="flex items-center gap-4 p-5">
       <Skeleton className="w-12 h-12 animate-scale-in rounded-full" />

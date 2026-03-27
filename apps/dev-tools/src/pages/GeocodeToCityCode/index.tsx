@@ -1,3 +1,6 @@
+import { Button, Label } from "@devtools/ui"
+import { Check, Cloud, Copy, MapPin, Search } from "lucide-react"
+
 function GeocodeToCityCode() {
   const [latitude, setLatitude] = useState("")
   const [longitude, setLongitude] = useState()
@@ -43,7 +46,7 @@ function GeocodeToCityCode() {
     return null
   }
 
-  const handleConvert = async () => {
+  async function handleConvert() {
     setLoading(true)
     setError("")
     setResult(null)
@@ -52,7 +55,7 @@ function GeocodeToCityCode() {
       const lat = parseFloat(latitude)
       const lng = parseFloat(longitude)
 
-      if (Number.isNaN(lat) || Number.isNaN(lng)) {
+      if (isNaN(lat) || isNaN(lng)) {
         throw new Error("请输入有效的经纬度")
       }
 
@@ -76,19 +79,19 @@ function GeocodeToCityCode() {
         type: "city",
       })
     } catch (err) {
-      setError(err.message)
+      setError((err as Error).message)
     } finally {
       setLoading(false)
     }
   }
 
-  const handleCopy = (text) => {
+  function handleCopy(text) {
     navigator.clipboard.writeText(text)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
 
-  const handleUseCurrentLocation = () => {
+  function handleUseCurrentLocation() {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -122,7 +125,7 @@ function GeocodeToCityCode() {
           {/* 输入区域 */}
           <div className="space-y-4 mb-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">纬度 (Latitude)</label>
+              <Label className="block text-sm font-medium text-gray-700 mb-2">纬度 (Latitude)</Label>
               <input
                 type="text"
                 value={latitude}
@@ -133,7 +136,7 @@ function GeocodeToCityCode() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">经度 (Longitude)</label>
+              <Label className="block text-sm font-medium text-gray-700 mb-2">经度 (Longitude)</Label>
               <input
                 type="text"
                 value={longitude}
@@ -144,10 +147,9 @@ function GeocodeToCityCode() {
             </div>
 
             <div className="flex gap-3">
-              <button
-                type="button"
+              <Button
                 onClick={handleConvert}
-                disabled={loading}
+                loading={loading}
                 className="flex-1 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white font-medium py-3 px-6 rounded-lg transition flex items-center justify-center gap-2"
               >
                 {loading ? (
@@ -161,16 +163,15 @@ function GeocodeToCityCode() {
                     转换
                   </>
                 )}
-              </button>
+              </Button>
 
-              <button
-                type="button"
+              <Button
                 onClick={handleUseCurrentLocation}
                 className="bg-green-500 hover:bg-green-600 text-white font-medium py-3 px-6 rounded-lg transition flex items-center gap-2"
               >
                 <MapPin size={18} />
                 当前位置
-              </button>
+              </Button>
             </div>
           </div>
 
@@ -201,7 +202,6 @@ function GeocodeToCityCode() {
                   <div className="flex items-center justify-between">
                     <code className="text-2xl font-bold text-blue-600">{result.cityCode}</code>
                     <button
-                      type="button"
                       onClick={() => handleCopy(result.cityCode)}
                       className="bg-gray-100 hover:bg-gray-200 p-2 rounded-lg transition"
                       title="复制"

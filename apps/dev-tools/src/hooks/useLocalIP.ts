@@ -1,8 +1,8 @@
-import { ServerStore } from "@/stores/server"
+import { useServerStore } from "@/stores/server"
 import { getAllLocalIPs, getIPFromService, getLocalIP } from "@/utils/getLocalIP"
 
 export function useLocalIP() {
-  const { server, setServer } = ServerStore()
+  const { server, setServer } = useServerStore()
   async function getIPV4() {
     const ip = await getLocalIP()
     if (ip) {

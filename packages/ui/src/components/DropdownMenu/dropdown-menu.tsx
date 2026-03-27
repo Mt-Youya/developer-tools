@@ -8,14 +8,17 @@ import { CheckIcon, ChevronRightIcon } from "lucide-react"
 import type { ComponentProps } from "react"
 
 function DropdownMenu({ ...props }: MenuPrimitive.Root.Props) {
+  "use memo"
   return <MenuPrimitive.Root data-slot="dropdown-menu" {...props} />
 }
 
 function DropdownMenuPortal({ ...props }: MenuPrimitive.Portal.Props) {
+  "use memo"
   return <MenuPrimitive.Portal data-slot="dropdown-menu-portal" {...props} />
 }
 
 function DropdownMenuTrigger({ ...props }: MenuPrimitive.Trigger.Props) {
+  "use memo"
   return <MenuPrimitive.Trigger data-slot="dropdown-menu-trigger" {...props} />
 }
 
@@ -30,6 +33,7 @@ function DropdownMenuContent({
   className,
   ...props
 }: DropdownMenuContentProps) {
+  "use memo"
   return (
     <MenuPrimitive.Portal>
       <MenuPrimitive.Positioner
@@ -53,6 +57,7 @@ function DropdownMenuContent({
 }
 
 function DropdownMenuGroup({ ...props }: MenuPrimitive.Group.Props) {
+  "use memo"
   return <MenuPrimitive.Group data-slot="dropdown-menu-group" {...props} />
 }
 
@@ -61,6 +66,7 @@ type DropdownMenuLabelProps = MenuPrimitive.GroupLabel.Props & {
 }
 
 function DropdownMenuLabel({ className, inset, ...props }: DropdownMenuLabelProps) {
+  "use memo"
   return (
     <MenuPrimitive.GroupLabel
       data-slot="dropdown-menu-label"
@@ -77,6 +83,7 @@ type DropdownMenuItemProps = MenuPrimitive.Item.Props & {
 }
 
 function DropdownMenuItem({ className, inset, variant = "default", ...props }: DropdownMenuItemProps) {
+  "use memo"
   return (
     <MenuPrimitive.Item
       data-slot="dropdown-menu-item"
@@ -92,6 +99,7 @@ function DropdownMenuItem({ className, inset, variant = "default", ...props }: D
 }
 
 function DropdownMenuSub({ ...props }: MenuPrimitive.SubmenuRoot.Props) {
+  "use memo"
   return <MenuPrimitive.SubmenuRoot data-slot="dropdown-menu-sub" {...props} />
 }
 
@@ -100,6 +108,7 @@ type DropdownMenuSubTriggerProps = MenuPrimitive.SubmenuTrigger.Props & {
 }
 
 function DropdownMenuSubTrigger({ className, inset, children, ...props }: DropdownMenuSubTriggerProps) {
+  "use memo"
   return (
     <MenuPrimitive.SubmenuTrigger
       data-slot="dropdown-menu-sub-trigger"
@@ -124,6 +133,7 @@ function DropdownMenuSubContent({
   className,
   ...props
 }: ComponentProps<typeof DropdownMenuContent>) {
+  "use memo"
   return (
     <DropdownMenuContent
       data-slot="dropdown-menu-sub-content"
@@ -141,6 +151,7 @@ function DropdownMenuSubContent({
 }
 
 function DropdownMenuCheckboxItem({ className, children, checked, ...props }: MenuPrimitive.CheckboxItem.Props) {
+  "use memo"
   return (
     <MenuPrimitive.CheckboxItem
       data-slot="dropdown-menu-checkbox-item"
@@ -165,10 +176,12 @@ function DropdownMenuCheckboxItem({ className, children, checked, ...props }: Me
 }
 
 function DropdownMenuRadioGroup({ ...props }: MenuPrimitive.RadioGroup.Props) {
+  "use memo"
   return <MenuPrimitive.RadioGroup data-slot="dropdown-menu-radio-group" {...props} />
 }
 
 function DropdownMenuRadioItem({ className, children, ...props }: MenuPrimitive.RadioItem.Props) {
+  "use memo"
   return (
     <MenuPrimitive.RadioItem
       data-slot="dropdown-menu-radio-item"
@@ -192,6 +205,7 @@ function DropdownMenuRadioItem({ className, children, ...props }: MenuPrimitive.
 }
 
 function DropdownMenuSeparator({ className, ...props }: MenuPrimitive.Separator.Props) {
+  "use memo"
   return (
     <MenuPrimitive.Separator
       data-slot="dropdown-menu-separator"
@@ -202,6 +216,7 @@ function DropdownMenuSeparator({ className, ...props }: MenuPrimitive.Separator.
 }
 
 function DropdownMenuShortcut({ className, ...props }: SPAN) {
+  "use memo"
   return (
     <span
       data-slot="dropdown-menu-shortcut"

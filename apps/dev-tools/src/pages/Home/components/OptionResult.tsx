@@ -9,10 +9,10 @@ import { isEmpty } from "lodash-es"
 import { AlertCircle, Settings } from "lucide-react"
 import CopyComp from "@/components/CopyComp"
 import { FieldTemplates } from "@/constants/FieldTemplates"
-import { CommandStore } from "@/stores/command"
+import { useCommandStore } from "@/stores/command"
 
 function OptionResult() {
-  const { extractedData, targetFields, setTargetFields, detectors, setDetectors } = CommandStore()
+  const { extractedData, targetFields, setTargetFields, detectors, setDetectors } = useCommandStore()
   interface IData {
     key: string | number
     value: string | number

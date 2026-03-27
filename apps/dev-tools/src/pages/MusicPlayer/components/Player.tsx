@@ -2,8 +2,6 @@ import { Button } from "@devtools/ui/Button"
 import { Slider } from "@devtools/ui/Slider"
 import { formatTime } from "@devtools/utils"
 import { Heart, Pause, Play, Repeat, Shuffle, SkipBack, SkipForward, Volume2 } from "lucide-react"
-import type React from "react"
-import { useEffect, useRef, useState } from "react"
 
 import type { Song } from "@/types/music"
 
@@ -17,6 +15,7 @@ interface PlayerProps {
 }
 
 function Player({ currentSong, isPlaying, onPlayPause, onNext, onPrevious }: PlayerProps) {
+  "use memo"
   const audioRef = useRef<HTMLAudioElement>(null)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
@@ -149,7 +148,7 @@ function Player({ currentSong, isPlaying, onPlayPause, onNext, onPrevious }: Pla
             value={[currentTime]}
             max={duration || 100}
             step={0.1}
-            onValueChange={handleSeek}
+            onValueChange={(value) => handleSeek(value as number[])}
             className="w-full"
             disabled={isLoading}
           />
@@ -222,10 +221,10 @@ function Player({ currentSong, isPlaying, onPlayPause, onNext, onPrevious }: Pla
           <div className="flex items-center space-x-2 flex-1 justify-end">
             <Volume2 className="w-5 h-5 text-gray-500" />
             <Slider
-              value={[volume]}
+              value={volume}
               max={100}
               step={1}
-              onValueChange={(value) => setVolume(value[0])}
+              onValueChange={(value) => setVolume(value as number)}
               className="w-24"
             />
             <span className="text-xs text-gray-500 w-8">{volume}%</span>

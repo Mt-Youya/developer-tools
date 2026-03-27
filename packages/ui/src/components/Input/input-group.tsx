@@ -6,6 +6,7 @@ import { Input } from "../Input"
 import { Textarea } from "../Textarea"
 
 function InputGroup({ className, ...props }: FIELDSET) {
+  "use memo"
   return (
     <fieldset
       data-slot="input-group"
@@ -37,6 +38,7 @@ const inputGroupAddonVariants = cva(
 )
 type InputGroupAddonProps = DIV & VariantProps<typeof inputGroupAddonVariants>
 function InputGroupAddon({ className, align, ...props }: InputGroupAddonProps) {
+  "use memo"
   return (
     // biome-ignore lint: just click
     <div
@@ -81,6 +83,7 @@ function InputGroupButton({
   size = "xs",
   ...props
 }: InputGroupButtonProps) {
+  "use memo"
   return (
     <Button
       type={type}
@@ -93,6 +96,7 @@ function InputGroupButton({
 }
 
 function InputGroupText({ className, ...props }: SPAN) {
+  "use memo"
   return (
     <span
       className={cn(
@@ -105,6 +109,7 @@ function InputGroupText({ className, ...props }: SPAN) {
 }
 
 function InputGroupInput({ className, ...props }: INPUT) {
+  "use memo"
   return (
     <Input
       data-slot="input-group-control"
@@ -118,6 +123,7 @@ function InputGroupInput({ className, ...props }: INPUT) {
 }
 
 function InputGroupTextarea({ className, ...props }: TEXTAREA) {
+  "use memo"
   return (
     <Textarea
       data-slot="input-group-control"

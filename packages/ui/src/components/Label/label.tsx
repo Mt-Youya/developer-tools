@@ -4,6 +4,7 @@ import { cn } from "@devtools/libs"
 import type { LABEL } from "@devtools/shared"
 
 function Label({ className, ...props }: LABEL) {
+  "use memo"
   return (
     // biome-ignore lint: single component ui
     <label

@@ -7,6 +7,6 @@ const waybillController = new WaybillController()
 
 export const waybillRouter = new Router()
 
-const gameRateLimit = rateLimitMiddleware(5, 60)
+const gameRateLimit = rateLimitMiddleware()
 
 waybillRouter.get("/routes", gameRateLimit, cacheMiddleware(600), waybillController.getWaybillRoutes)

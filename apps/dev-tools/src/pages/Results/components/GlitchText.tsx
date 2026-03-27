@@ -11,6 +11,7 @@ interface GlitchTextProps {
  * Uses CSS clip-path animations simulated via multiple layers.
  */
 export function GlitchText({ text, className = "", size = "lg" }: GlitchTextProps) {
+  "use memo"
   const sizeClasses = {
     sm: "text-xl font-bold",
     md: "text-4xl font-black",

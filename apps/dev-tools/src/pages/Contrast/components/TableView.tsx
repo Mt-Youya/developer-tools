@@ -26,6 +26,7 @@ function flattenObject(obj: any, parentKey = "", result: Dictionary = {}) {
 }
 
 function TableView<T = any>({ jsonObjects }: { jsonObjects: T[] }) {
+  "use memo"
   const flattened = jsonObjects.map((obj) => flattenObject(obj))
   const keys = Array.from(new Set(flattened.flatMap((obj) => Object.keys(obj))))
 

@@ -13,6 +13,7 @@ interface Props {
   onHide: FavoritesProps["hideGame"]
 }
 function GameCard({ game, isFavorite = false, onToggleFavorite, onHide }: Props) {
+  "use memo"
   function formatDate(dateString = "") {
     if (!dateString) return ""
     return new Date(dateString).toLocaleDateString("zh-CN")

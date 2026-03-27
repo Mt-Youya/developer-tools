@@ -1,9 +1,9 @@
 import { fetchAllFreeGames, fetchEpicGames } from "@devtools/libs"
 import type { Game } from "@devtools/shared"
-import { useCallback, useEffect, useState } from "react"
 
 // 主要的免费游戏数据获取 Hook
 export function useFreeGames() {
+  "use memo"
   const [data, setData] = useState<Record<string, Game[]>>({
     epic: [],
     freetogame: [],
@@ -24,15 +24,8 @@ export function useFreeGames() {
 
     try {
       const result = await fetchAllFreeGames()
-      console.log("Fetched free games:", result)
 
-      setData({
-        epic: result.epic || [],
-        freetogame: result.freetogame || [],
-        steam: result.steam || [],
-        gog: result.gog || [],
-        cheapshark: result.cheapshark || [],
-      })
+      setData({ ...result })
 
       setLastUpdated(new Date())
 
@@ -63,6 +56,7 @@ export function useFreeGames() {
 
 // Epic Games 专用 Hook
 export function useEpicGames(params = {}) {
+  "use memo"
   const [games, setGames] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -96,6 +90,7 @@ export function useEpicGames(params = {}) {
 
 // 本地存储 Hook（用于缓存和用户设置）
 export function useLocalStorage(key, initialValue) {
+  "use memo"
   const [storedValue, setStoredValue] = useState(() => {
     try {
       const item = window.localStorage.getItem(key)
@@ -124,6 +119,7 @@ export function useLocalStorage(key, initialValue) {
 
 // 用户偏好设置 Hook
 export function useUserPreferences() {
+  "use memo"
   const [preferences, setPreferences] = useLocalStorage("userPreferences", {
     theme: "system", // light, dark, system
     language: "zh-CN",
@@ -179,6 +175,7 @@ export function useUserPreferences() {
 
 // 自动刷新 Hook
 export function useAutoRefresh(callback, interval = 30 * 60 * 1000, enabled = true) {
+  "use memo"
   useEffect(() => {
     if (!enabled || !callback) return
 

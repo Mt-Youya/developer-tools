@@ -8,6 +8,7 @@ import { Label } from "../Label"
 import { Separator } from "../Separator"
 
 function FieldSet({ className, ...props }: FIELDSET) {
+  "use memo"
   return (
     <fieldset
       data-slot="field-set"
@@ -21,6 +22,7 @@ function FieldSet({ className, ...props }: FIELDSET) {
 }
 
 function FieldLegend({ className, variant = "legend", ...props }: LEGEND & { variant?: "legend" | "label" }) {
+  "use memo"
   return (
     <legend
       data-slot="field-legend"
@@ -32,6 +34,7 @@ function FieldLegend({ className, variant = "legend", ...props }: LEGEND & { var
 }
 
 function FieldGroup({ className, ...props }: DIV) {
+  "use memo"
   return (
     <div
       data-slot="field-group"
@@ -60,6 +63,7 @@ const fieldVariants = cva("data-[invalid=true]:text-destructive gap-3 group/fiel
 })
 
 function Field({ className, orientation = "vertical", ...props }: FIELDSET & VariantProps<typeof fieldVariants>) {
+  "use memo"
   return (
     <fieldset
       data-slot="field"
@@ -71,6 +75,7 @@ function Field({ className, orientation = "vertical", ...props }: FIELDSET & Var
 }
 
 function FieldContent({ className, ...props }: DIV) {
+  "use memo"
   return (
     <div
       data-slot="field-content"
@@ -81,6 +86,7 @@ function FieldContent({ className, ...props }: DIV) {
 }
 
 function FieldLabel({ className, ...props }: React.ComponentProps<typeof Label>) {
+  "use memo"
   return (
     <Label
       data-slot="field-label"
@@ -95,6 +101,7 @@ function FieldLabel({ className, ...props }: React.ComponentProps<typeof Label>)
 }
 
 function FieldTitle({ className, ...props }: DIV) {
+  "use memo"
   return (
     <div
       data-slot="field-label"
@@ -108,6 +115,7 @@ function FieldTitle({ className, ...props }: DIV) {
 }
 
 function FieldDescription({ className, ...props }: PARAGRAPH) {
+  "use memo"
   return (
     <p
       data-slot="field-description"
@@ -123,6 +131,7 @@ function FieldDescription({ className, ...props }: PARAGRAPH) {
 }
 
 function FieldSeparator({ children, className, ...props }: DIV & PropsWithChildren) {
+  "use memo"
   return (
     <div
       data-slot="field-separator"
@@ -147,16 +156,9 @@ interface FieldErrorProps {
   errors?: ({ message?: string } | undefined)[]
 }
 function FieldError({ className, children, errors, ...props }: DIV & FieldErrorProps) {
+  "use memo"
   const content = useMemo(() => {
-    if (children) {
-      return children
-    }
-
-    if (!errors?.length) {
-      return null
-    }
-
-    const uniqueErrors = [...new Map(errors.map((error) => [error?.message, error])).values()]
+    const uniqueErrors = [...new Map(errors?.map((error) => [error?.message, error])).values()]
 
     if (uniqueErrors?.length === 1) {
       return uniqueErrors[0]?.message
@@ -167,9 +169,9 @@ function FieldError({ className, children, errors, ...props }: DIV & FieldErrorP
         {uniqueErrors.map((error, idx) => error?.message && <li key={`${idx}-${error.message}`}>{error.message}</li>)}
       </ul>
     )
-  }, [children, errors])
+  }, [errors])
 
-  if (!content) {
+  if (!errors?.length) {
     return null
   }
 
@@ -180,7 +182,7 @@ function FieldError({ className, children, errors, ...props }: DIV & FieldErrorP
       className={cn("text-destructive text-sm font-normal", className)}
       {...props}
     >
-      {content}
+      {children ?? content}
     </div>
   )
 }

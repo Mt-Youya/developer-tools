@@ -7,6 +7,6 @@ const weatherController = new WeatherController()
 
 export const weatherRouter = new Router()
 
-const gameRateLimit = rateLimitMiddleware(5, 60)
+const gameRateLimit = rateLimitMiddleware(300)
 
-weatherRouter.get("/getWeather", gameRateLimit, cacheMiddleware(600), weatherController.getWeather)
+weatherRouter.get("/getWeather", weatherController.getWeather)

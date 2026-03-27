@@ -2,12 +2,12 @@ import { Alert, AlertDescription } from "@devtools/ui/Alert"
 import { Card, CardContent, CardHeader, CardTitle } from "@devtools/ui/Card"
 import { AlertCircle, Play } from "lucide-react"
 import CopyComp from "@/components/CopyComp"
-import { CommandStore } from "@/stores/command"
-import { ServerStore } from "@/stores/server"
+import { useCommandStore } from "@/stores/command"
+import { useServerStore } from "@/stores/server"
 
 function GenerateCommand() {
-  const { baseCommand, extractedData, commandSuffix } = CommandStore()
-  const { server, port } = ServerStore()
+  const { baseCommand, extractedData, commandSuffix } = useCommandStore()
+  const { server, port } = useServerStore()
 
   // 生成最终命令
   const finalCommand = useMemo(() => {

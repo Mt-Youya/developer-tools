@@ -8,6 +8,7 @@ const SafeComponent = withErrorBoundary(RobotCanvas, {
   fallback: <div className="w-full h-full flex items-center justify-center text-red-500">3D Scene Failed to Load</div>,
 })
 export function ServerErrorPage() {
+  "use memo"
   const navigate = useNavigate()
   const [logs, setLogs] = useState<string[]>([
     "> SYSTEM CRITICAL FAILURE DETECTED",

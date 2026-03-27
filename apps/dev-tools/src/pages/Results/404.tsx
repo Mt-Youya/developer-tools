@@ -6,6 +6,7 @@ const RACCOON_VIDEO_URL =
   "https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/videos/generated/131e814c-2206-4271-99a9-67b4cc0630a6.mp4"
 
 function NotFoundPage() {
+  "use memo"
   const containerRef = useRef<HTMLDivElement>(null)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isHovering, setIsHovering] = useState(false)

@@ -2,7 +2,7 @@
 import { readdirSync } from "node:fs"
 import path, { resolve } from "node:path"
 import tailwindcss from "@tailwindcss/vite"
-import react from "@vitejs/plugin-react-swc"
+import react from "@vitejs/plugin-react"
 import AutoImport from "unplugin-auto-import/vite"
 import { defineConfig } from "vite"
 import { oxlintConfig } from "../../configs/oxlint-config"
@@ -27,7 +27,11 @@ const entry = components.reduce(
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    react(),
+    react({
+      babel: {
+        plugins: ["babel-plugin-react-compiler"],
+      },
+    }),
     tailwindcss(),
     oxlintConfig,
     AutoImport({

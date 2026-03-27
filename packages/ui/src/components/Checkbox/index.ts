@@ -1,2 +1,5 @@
 "use client"
+export * from "./animated-checkbox"
 export * from "./checkbox"
+export * from "./confetti-checkbox"
+export * from "./motion-checkbox"

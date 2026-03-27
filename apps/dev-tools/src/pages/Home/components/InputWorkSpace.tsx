@@ -5,7 +5,7 @@ import { Textarea } from "@devtools/ui/Textarea"
 import { Search } from "lucide-react"
 import { FieldTemplates } from "@/constants/FieldTemplates"
 import useCopy from "@/hooks/useCopy"
-import { CommandStore, type Dictionary } from "@/stores/command"
+import { useCommandStore, type Dictionary } from "@/stores/command"
 import { parseTextData } from "@/utils/parse"
 
 const sampleData = `
@@ -30,7 +30,7 @@ function assignKeysToValues(target: string[], source: Dictionary) {
 }
 
 function InputWorkSpace() {
-  const { setExtractedData, targetFields, detectors } = CommandStore()
+  const { setExtractedData, targetFields, detectors } = useCommandStore()
   const [inputText, setInputText] = useState("")
 
   // 字段提取逻辑

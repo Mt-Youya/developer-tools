@@ -1,21 +1,41 @@
-import type { FedoGroup, FedoVariable, NocodePillow, PillowCode } from "@devtools/shared"
-import { buildUrl, HttpMethod, MyFetch } from "./request"
+import type {
+  BundleVersionList,
+  DivaGroupVersions,
+  DivaVersionParams,
+  PillowCode,
+  PillowParams,
+} from "@devtools/shared"
+import { useMyFetch } from "@/hooks/useFetchHook"
+import { buildUrl, HttpMethod } from "./request"
 
-export function nocodeRequest(bundleConfigList: NocodePillow[]) {
-  return MyFetch<PillowCode>("/api/v1/fedo/nocodeRequest", {
-    method: HttpMethod.POST,
-    body: {
-      config: bundleConfigList,
-      source: "nocode",
-    },
-  })
+export function pillowRequest(headersInit: HeadersInit = {}) {
+  const MyFetch = useMyFetch()
+  return (bundleConfigList: PillowParams[], headers = headersInit) =>
+    MyFetch<PillowCode>("/api/v1/diva/pillowRequest", {
+      method: HttpMethod.POST,
+      headers,
+      body: {
+        config: bundleConfigList,
+        source: "nocode",
+      },
+    })
 }
 
-export function getFedoList(groupId?: string | number) {
-  const url = buildUrl("/api/v1/fedo/list", { groupId })
-  return MyFetch<FedoGroup[]>(url)
+export function getListVersions(headersInit: HeadersInit = {}) {
+  const MyFetch = useMyFetch()
+  return (params: DivaVersionParams, headers = headersInit) => {
+    const url = buildUrl("/api/v1/diva/listVersions", params)
+    return MyFetch<BundleVersionList>(url, { headers })
+  }
 }
 
-export function getFedoVariable(taskId: string | number) {
-  return MyFetch<FedoVariable>(`/api/v1/fedo/variable?taskId=${taskId}`)
+export function getGroupVersions(headersInit: HeadersInit = {}) {
+  const MyFetch = useMyFetch()
+  return (params: DivaGroupVersions, headers = headersInit) => {
+    return MyFetch<Record<string, BundleVersionList>>(`/api/v1/diva/groupVerions`, {
+      method: HttpMethod.POST,
+      headers,
+      body: params,
+    })
+  }
 }

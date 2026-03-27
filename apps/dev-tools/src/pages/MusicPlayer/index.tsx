@@ -33,6 +33,7 @@ export const convertJamendoToSong = (track: JamendoTrack) => ({
 // https://blog.csdn.net/weixin_42465759/article/details/138619479
 
 function Play() {
+  "use memo"
   const [activeView, setActiveView] = useState("home")
   const [currentSong, setCurrentSong] = useState<Song | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)

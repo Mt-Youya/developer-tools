@@ -13,6 +13,7 @@ import {
 } from "./util"
 
 export const QRCodeSVG = forwardRef<SVGSVGElement, QRPropsSVG>((props, ref) => {
+  "use memo"
   const {
     value,
     size = DEFAULT_SIZE,

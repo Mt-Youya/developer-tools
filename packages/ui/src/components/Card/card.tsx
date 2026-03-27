@@ -4,6 +4,7 @@ import type { DIV } from "@devtools/shared"
 export type CardProps = DIV & { size?: "default" | "sm" }
 
 function Card({ className, size = "default", ...props }: CardProps) {
+  "use memo"
   return (
     <div
       data-slot="card"
@@ -18,6 +19,7 @@ function Card({ className, size = "default", ...props }: CardProps) {
 }
 
 function CardHeader({ className, ...props }: DIV) {
+  "use memo"
   return (
     <div
       data-slot="card-header"
@@ -31,6 +33,7 @@ function CardHeader({ className, ...props }: DIV) {
 }
 
 function CardTitle({ className, ...props }: DIV) {
+  "use memo"
   return (
     <div
       data-slot="card-title"
@@ -41,10 +44,12 @@ function CardTitle({ className, ...props }: DIV) {
 }
 
 function CardDescription({ className, ...props }: DIV) {
+  "use memo"
   return <div data-slot="card-description" className={cn("text-muted-foreground text-sm", className)} {...props} />
 }
 
 function CardAction({ className, ...props }: DIV) {
+  "use memo"
   return (
     <div
       data-slot="card-action"

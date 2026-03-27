@@ -27,6 +27,7 @@ interface LogEntry {
   args?: any
 }
 export default function LogAnalyzerPage() {
+  "use memo"
   const [logText, setLogText] = useState("")
   const [parsedLogs, setParsedLogs] = useState<LogEntry[]>([])
   const [parseError, setParseError] = useState("")

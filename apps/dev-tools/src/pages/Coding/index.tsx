@@ -18,6 +18,7 @@ const themeOptions = [
 ]
 
 function CodeEditor() {
+  "use memo"
   const [language, setLanguage] = useState("javascript")
   const [theme, setTheme] = useState("github-dimmed")
   const [code, setCode] = useState("// 输入代码...")

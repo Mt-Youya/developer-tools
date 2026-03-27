@@ -5,6 +5,7 @@ import { Input } from "@devtools/ui/Input"
 import { CheckCircle2, Copy, ExternalLink, Link2 } from "lucide-react"
 
 export default function URLShortener() {
+  "use memo"
   const [longUrl, setLongUrl] = useState("")
   const [shortUrl, setShortUrl] = useState("")
   const [loading, setLoading] = useState(false)

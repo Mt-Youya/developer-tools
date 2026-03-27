@@ -39,3 +39,9 @@ export interface DailyForecast {
   tmp_max: string // 最高温度
   tmp_min: string // 最低温度
 }
+
+export interface WeatherParams {
+  location: string
+  lang?: "cn" | "en"
+  type?: "city" | "ip"
+}

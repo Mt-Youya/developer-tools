@@ -1,5 +1,7 @@
-import type { ResponseData } from "@devtools/shared"
+import type { AllGamesResponse, Game } from "@devtools/shared"
 import type { Context } from "koa"
+import { RedisService } from "src/services/redis.service"
+import { useCacheRequest } from "src/utils/isUseCacheRequest"
 import { GameService } from "../services/games.service"
 
 export class GameController {
@@ -9,17 +11,14 @@ export class GameController {
   getEpicGames = async (ctx: Context): Promise<void> => {
     try {
       const { locale = "zh-CN", country = "CN" } = ctx.query
-
-      const result = await this.gameProxyService.getEpicGames(locale as string, country as string)
-
-      const response: ResponseData = {
-        code: 200,
-        success: result.success,
-        data: result.data,
-        ...(result.error && { error: result.error }),
+      const cacheKey = `games:epic:${locale}:${country}`
+      const useCache = await useCacheRequest<Game[]>(ctx, cacheKey)
+      if (useCache) {
+        return
       }
-
-      ctx.body = response
+      const result = await this.gameProxyService.getEpicGames(locale as string, country as string)
+      ctx.body = result
+      RedisService.cacheResponseData(cacheKey, result, 300)
     } catch (error: any) {
       ctx.throw(500, `获取 Epic Games 数据失败: ${error.message}`)
     }
@@ -29,17 +28,14 @@ export class GameController {
   getFreeToGame = async (ctx: Context): Promise<void> => {
     try {
       const { platform = "pc" } = ctx.query
-
-      const result = await this.gameProxyService.getFreeToGame(platform as string)
-
-      const response: ResponseData = {
-        code: 200,
-        success: result.success,
-        data: result.data,
-        ...(result.error && { error: result.error }),
+      const cacheKey = `games:freetogame:${platform}`
+      const useCache = await useCacheRequest<Game[]>(ctx, cacheKey)
+      if (useCache) {
+        return
       }
-
-      ctx.body = response
+      const result = await this.gameProxyService.getFreeToGame(platform as string)
+      ctx.body = result
+      RedisService.cacheResponseData(cacheKey, result, 600)
     } catch (error: any) {
       ctx.throw(500, `获取 FreeToGame 数据失败: ${error.message}`)
     }
@@ -48,16 +44,14 @@ export class GameController {
   // 获取 GOG 免费游戏
   getGOGGames = async (ctx: Context): Promise<void> => {
     try {
-      const result = await this.gameProxyService.getGOGGames()
-
-      const response: ResponseData = {
-        code: 200,
-        success: result.success,
-        data: result.data,
-        ...(result.error && { error: result.error }),
+      const cacheKey = "games:gog"
+      const useCache = await useCacheRequest<Game[]>(ctx, cacheKey)
+      if (useCache) {
+        return
       }
-
-      ctx.body = response
+      const result = await this.gameProxyService.getGOGGames()
+      ctx.body = result
+      RedisService.cacheResponseData(cacheKey, result, 600)
     } catch (error: any) {
       ctx.throw(500, `获取 GOG 数据失败: ${error.message}`)
     }
@@ -66,16 +60,14 @@ export class GameController {
   // 获取 CheapShark 限时免费
   getCheapShark = async (ctx: Context): Promise<void> => {
     try {
-      const result = await this.gameProxyService.getCheapSharkFreeGames()
-
-      const response: ResponseData = {
-        code: 200,
-        success: result.success,
-        data: result.data,
-        ...(result.error && { error: result.error }),
+      const cacheKey = "games:cheapshark"
+      const useCache = await useCacheRequest<Game[]>(ctx, cacheKey)
+      if (useCache) {
+        return
       }
-
-      ctx.body = response
+      const result = await this.gameProxyService.getCheapSharkFreeGames()
+      ctx.body = result
+      RedisService.cacheResponseData(cacheKey, result, 300)
     } catch (error: any) {
       ctx.throw(500, `获取 CheapShark 数据失败: ${error.message}`)
     }
@@ -84,17 +76,14 @@ export class GameController {
   // 获取所有平台的免费游戏
   getAllGames = async (ctx: Context): Promise<void> => {
     try {
-      const result = await this.gameProxyService.getAllFreeGames()
-
-      const response: ResponseData = {
-        code: 200,
-        success: result.success,
-        data: result.data,
-        origins: result.originalResponses,
-        ...(result.errors && { errors: result.errors }),
+      const cacheKey = "games:all"
+      const useCache = await useCacheRequest<AllGamesResponse>(ctx, cacheKey)
+      if (useCache) {
+        return
       }
-
-      ctx.body = response
+      const result = await this.gameProxyService.getAllFreeGames()
+      ctx.body = result
+      RedisService.cacheResponseData(cacheKey, result, 120)
     } catch (error: any) {
       ctx.throw(500, `获取游戏数据失败: ${error.message}`)
     }

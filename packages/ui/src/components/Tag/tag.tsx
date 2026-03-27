@@ -17,13 +17,6 @@ interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
   className?: string
 }
 
-// Tag 标签的数据类型
-interface TagData {
-  id: number
-  label: string
-  variant: TagVariant
-}
-
 const tagVariants: Record<TagVariant, string> = {
   default: "bg-slate-100 text-slate-900 hover:bg-slate-200",
   primary: "bg-blue-100 text-blue-900 hover:bg-blue-200",
@@ -48,6 +41,7 @@ export function Tag({
   className = "",
   ...props
 }: TagProps) {
+  "use memo"
   const baseStyles = "inline-flex items-center gap-1 rounded-md font-medium transition-colors px-2"
   const variantStyles = tagVariants[variant] || tagVariants.default
   const sizeStyles = tagSizes[size] || tagSizes.md

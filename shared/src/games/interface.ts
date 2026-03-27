@@ -22,18 +22,24 @@ export interface GamePlatformResponse {
   platform: GamePlatform
   count: number
   error?: string
+  originalResponse: { [key: string]: any } | null
 }
 
 export interface AllGamesResponse {
   success: boolean
-  data: {
-    [platform in GamePlatform]: Game[]
-  }
-  counts: {
-    [platform in GamePlatform]: number
-  }
+  data:
+    | {
+        [platform in GamePlatform]: Game[]
+      }
+    | null
+  counts:
+    | {
+        [platform in GamePlatform]: number
+      }
+    | null
   total: number
   errors?: { platform: GamePlatform; error: string }[]
+  originalResponses: { [key: string]: any }
 }
 
 export type GamePlatform = "epic" | "gog" | "steam" | "freetogame" | "cheapshark"

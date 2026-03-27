@@ -2,6 +2,7 @@ import { cn } from "@devtools/libs"
 import type { TEXTAREA } from "@devtools/shared"
 
 function Textarea({ className, ...props }: TEXTAREA) {
+  "use memo"
   return (
     <textarea
       data-slot="textarea"

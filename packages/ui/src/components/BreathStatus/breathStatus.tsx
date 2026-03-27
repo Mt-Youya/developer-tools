@@ -59,22 +59,25 @@ interface BreathingStatusProps extends VariantProps<typeof breathingStatusVarian
 }
 
 function BreathingStatus({ status = "online", label = "在线", size = "md", className }: BreathingStatusProps) {
+  "use memo"
   const shouldAnimate = statusAnimateConfig[status]
   const classWrapper = breathingStatusVariants({ status, size })
 
   return (
     <div className={cn("inline-flex items-center gap-2", className)}>
       <div className="relative flex items-center justify-center">
-        {/* 外圈呼吸效果 - 仅在活跃状态显示 */}
-        {shouldAnimate && <div className={cn("absolute opacity-75 animate-ping", classWrapper)} />}
-        {/* 中圈脉动效果 - 仅在活跃状态显示 */}
         {shouldAnimate && (
-          <div
-            className={cn("absolute shadow-lg", statusShadows[status], classWrapper)}
-            style={{
-              animation: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-            }}
-          />
+          <>
+            {/* 外圈呼吸效果 - 仅在活跃状态显示 */}
+            <div className={cn("absolute opacity-75 animate-ping", classWrapper)} />
+            {/* 中圈脉动效果 - 仅在活跃状态显示 */}
+            <div
+              className={cn("absolute shadow-lg", statusShadows[status], classWrapper)}
+              style={{
+                animation: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+              }}
+            />
+          </>
         )}
         {/* 核心圆点 - 离线状态添加边框 */}
         <div className={cn("relative", classWrapper, !shouldAnimate && "ring-2 ring-gray-300 dark:ring-gray-600")} />

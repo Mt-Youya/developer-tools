@@ -19,13 +19,10 @@ function Barrier() {
   const meshRef = useRef<THREE.Mesh>(null)
 
   // Custom shader for the digital barrier
-  const uniforms = useMemo(
-    () => ({
-      uTime: { value: 0 },
-      uColor: { value: new THREE.Color("#ef4444") },
-    }),
-    []
-  )
+  const uniforms = {
+    uTime: { value: 0 },
+    uColor: { value: new THREE.Color("#ef4444") },
+  }
 
   useFrame((state) => {
     if (meshRef.current) {

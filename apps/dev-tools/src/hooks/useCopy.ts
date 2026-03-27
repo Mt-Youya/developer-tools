@@ -17,6 +17,7 @@ export function copyCode(value = "") {
 }
 
 export default function useCopy(text = "") {
+  "use memo"
   const [status, setStatus] = useState(false)
 
   function copyToClipboard(val = text) {

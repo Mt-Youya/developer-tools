@@ -1,16 +1,19 @@
-import { Button, type ButtonProps } from "@devtools/ui/Button";
-import { CheckCircle } from "lucide-react";
-import useCopy from "@/hooks/useCopy";
+import { Button, type ButtonProps } from "@devtools/ui/Button"
+import { CheckCircle } from "lucide-react"
+import type { ReactNode } from "react"
+import useCopy from "@/hooks/useCopy"
 
-export default function CopyComp({
-  copyValue = "",
-  text = "",
-  ...props
-}: ButtonProps & { copyValue: any; text: React.ReactNode }) {
-  const { status, copyToClipboard } = useCopy(copyValue);
+type CopyCompProps = {
+  copyValue: any
+  text: ReactNode
+} & ButtonProps
+
+export default function CopyComp({ copyValue = "", text = "", ...props }: CopyCompProps) {
+  "use memo"
+  const { status, copyToClipboard } = useCopy(copyValue)
 
   async function handleCopy(value: typeof copyValue) {
-    await copyToClipboard(value);
+    await copyToClipboard(value)
   }
 
   return (
@@ -24,5 +27,5 @@ export default function CopyComp({
         text
       )}
     </Button>
-  );
+  )
 }

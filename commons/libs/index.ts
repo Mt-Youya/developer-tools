@@ -1,3 +1,5 @@
 export * from "./src/envConf"
 export * from "./src/freegames"
+export * from "./src/ml"
+export * from "./src/speech"
 export * from "./src/utils"

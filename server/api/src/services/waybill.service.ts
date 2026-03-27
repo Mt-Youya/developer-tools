@@ -1,6 +1,5 @@
 import axios from "axios"
 import { isObject } from "lodash-es"
-import { RedisService } from "./redis.service"
 
 export class WaybillService {
   private httpClient = axios.create({
@@ -11,18 +10,7 @@ export class WaybillService {
   })
 
   async getWaywill(trackNo = "SF0252714495269", cookie = ""): Promise<any> {
-    const cacheKey = `waybill:${trackNo}:${cookie}`
-    console.log("waybill cacheKey:", cacheKey)
-
     try {
-      const cached = await RedisService.getCachedResponseData<any[]>(cacheKey)
-      if (cached) {
-        return {
-          success: true,
-          data: cached,
-        }
-      }
-
       const response = await this.httpClient.get(
         `https://www.sf-express.com/cn/sc/dynamic_function/waybill/#search/bill-number/#${trackNo}`,
         {
@@ -34,18 +22,9 @@ export class WaybillService {
         }
       )
 
-      console.log("waybill response: ", response)
-
-      // console.log(" response.data", response.data)
-
       const { result = [], success } = isObject(response.data)
         ? response.data
         : { result: response.data, success: true }
-
-      // 缓存结果
-      if (result?.length) {
-        await RedisService.cacheResponseData(cacheKey, result, 300)
-      }
 
       return {
         success,

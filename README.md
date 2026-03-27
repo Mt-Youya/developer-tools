@@ -87,14 +87,14 @@ source ~/.bashrc
 ```sql
 -- 👤 创建用户 (可自定义用户名和密码)
 CREATE USER yonjay WITH PASSWORD 'postgres'; 
--- 💡 区别：CREATE USER 等同于 CREATE ROLE ... WITH LOGIN，USER 默认带登录权限
+-- 💡 区别：CREATE USER 等同于 CREATE ROLE yonjay WITH LOGIN，USER 默认带登录权限
 
 -- 🗑️ 删除已存在的数据库 (如有)
 DROP DATABASE IF EXISTS devtools_server_db;
 
 -- 🆕 创建新数据库
 CREATE DATABASE devtools_server_db
-    WITH
+    WITH 
     OWNER = yonjay -- 注意改名字
     ENCODING = 'UTF8'
     LC_COLLATE = 'en_US.UTF-8'
@@ -135,7 +135,7 @@ ALTER USER yonjay WITH SUPERUSER;
 
 
 > **改完之后注意在 [.env](server/api/.env) 文件也改一下名字** 
-
+>> 注意每天应该换一下 [cookie.txt](server/api/cookie.txt)
 ---
 
 ## 🔴 Redis 配置

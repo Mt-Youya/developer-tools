@@ -3,22 +3,27 @@ import type * as React from "react"
 import { Drawer as DrawerPrimitive } from "vaul"
 
 function Drawer({ ...props }: React.ComponentProps<typeof DrawerPrimitive.Root>) {
+  "use memo"
   return <DrawerPrimitive.Root data-slot="drawer" {...props} />
 }
 
 function DrawerTrigger({ ...props }: React.ComponentProps<typeof DrawerPrimitive.Trigger>) {
+  "use memo"
   return <DrawerPrimitive.Trigger data-slot="drawer-trigger" {...props} />
 }
 
 function DrawerPortal({ ...props }: React.ComponentProps<typeof DrawerPrimitive.Portal>) {
+  "use memo"
   return <DrawerPrimitive.Portal data-slot="drawer-portal" {...props} />
 }
 
 function DrawerClose({ ...props }: React.ComponentProps<typeof DrawerPrimitive.Close>) {
+  "use memo"
   return <DrawerPrimitive.Close data-slot="drawer-close" {...props} />
 }
 
 function DrawerOverlay({ className, ...props }: React.ComponentProps<typeof DrawerPrimitive.Overlay>) {
+  "use memo"
   return (
     <DrawerPrimitive.Overlay
       data-slot="drawer-overlay"
@@ -32,6 +37,7 @@ function DrawerOverlay({ className, ...props }: React.ComponentProps<typeof Draw
 }
 
 function DrawerContent({ className, children, ...props }: React.ComponentProps<typeof DrawerPrimitive.Content>) {
+  "use memo"
   return (
     <DrawerPortal data-slot="drawer-portal">
       <DrawerOverlay />
@@ -55,6 +61,7 @@ function DrawerContent({ className, children, ...props }: React.ComponentProps<t
 }
 
 function DrawerHeader({ className, ...props }: React.ComponentProps<"div">) {
+  "use memo"
   return (
     <div
       data-slot="drawer-header"
@@ -68,10 +75,12 @@ function DrawerHeader({ className, ...props }: React.ComponentProps<"div">) {
 }
 
 function DrawerFooter({ className, ...props }: React.ComponentProps<"div">) {
+  "use memo"
   return <div data-slot="drawer-footer" className={cn("mt-auto flex flex-col gap-2 p-4", className)} {...props} />
 }
 
 function DrawerTitle({ className, ...props }: React.ComponentProps<typeof DrawerPrimitive.Title>) {
+  "use memo"
   return (
     <DrawerPrimitive.Title
       data-slot="drawer-title"
@@ -82,6 +91,7 @@ function DrawerTitle({ className, ...props }: React.ComponentProps<typeof Drawer
 }
 
 function DrawerDescription({ className, ...props }: React.ComponentProps<typeof DrawerPrimitive.Description>) {
+  "use memo"
   return (
     <DrawerPrimitive.Description
       data-slot="drawer-description"

@@ -11,11 +11,12 @@
  */
 
 import { cn } from "@devtools/libs"
-import { motion } from "framer-motion"
-import { ArrowLeft, Lock, RefreshCw } from "lucide-react"
+import { AnimatePresence, motion } from "framer-motion"
+import { AlertTriangle, ArrowLeft, Lock, RefreshCw, ShieldAlert } from "lucide-react"
 import type { ReactNode } from "react"
 
 function ScanlineOverlay() {
+  "use memo"
   return (
     <div className="pointer-events-none absolute inset-0 z-50 overflow-hidden opacity-[0.15]">
       <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] bg-repeat" />
@@ -34,6 +35,7 @@ function ScanlineOverlay() {
 }
 
 function GlitchText({ text, className }: { text: string; className?: string }) {
+  "use memo"
   return (
     <div className={cn("relative inline-block", className)}>
       <motion.span
@@ -84,6 +86,7 @@ function GlitchText({ text, className }: { text: string; className?: string }) {
 }
 
 function RoboticCore() {
+  "use memo"
   return (
     <div className="relative flex h-64 w-64 items-center justify-center">
       {/* Outer rotating ring */}
@@ -141,15 +144,14 @@ function RoboticCore() {
   )
 }
 
-function SciFiButton({
-  children,
-  variant = "primary",
-  onClick,
-}: {
+interface SciFiButtonProps {
   children: ReactNode
   variant?: "primary" | "secondary"
   onClick?: () => void
-}) {
+}
+
+function SciFiButton({ children, variant = "primary", onClick }: SciFiButtonProps) {
+  "use memo"
   return (
     <motion.button
       // whileHover={{ scale: 1.05 }}
@@ -173,6 +175,7 @@ function SciFiButton({
 }
 
 export default function UnauthorizedErrorPage() {
+  "use memo"
   const [typedText, setTypedText] = useState("")
   const fullText = "ACCESS DENIED // IDENTITY NOT VERIFIED"
 

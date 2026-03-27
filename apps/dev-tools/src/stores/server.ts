@@ -1,6 +1,6 @@
 import { create } from "zustand"
 
-interface ServerStore {
+interface useServerStore {
   server: string
   setServer: (server: string) => void
 
@@ -8,7 +8,7 @@ interface ServerStore {
   setPort: (port: number | string) => void
 }
 
-export const ServerStore = create<ServerStore>((set) => ({
+export const useServerStore = create<useServerStore>((set) => ({
   server: "127.0.0.1",
   setServer: (server: string) => set({ server }),
 

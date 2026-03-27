@@ -10,6 +10,7 @@ import { useRef, useState } from "react"
 import { copyCode } from "@/hooks/useCopy"
 
 function QRCodeGenerator() {
+  "use memo"
   const [url, setUrl] = useState("")
   const [qrCodeUrl, setQrCodeUrl] = useState("")
   const [error, setError] = useState("")

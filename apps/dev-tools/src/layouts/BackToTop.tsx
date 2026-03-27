@@ -1,6 +1,5 @@
 import { cn } from "@devtools/libs"
 import { cva } from "class-variance-authority"
-import { useRef, useState } from "react"
 
 const perimeter = 2 * 20 * Math.PI
 const { scrollTo } = window
@@ -19,6 +18,7 @@ function getPreciseScrollPercentage() {
 }
 
 function BackToTop() {
+  "use memo"
   const [rate, setRate] = useState(0)
   const toTopRef = useRef<HTMLButtonElement | null>(null)
 
@@ -37,10 +37,8 @@ function BackToTop() {
     {
       variants: {
         variant: {
-          default: "-translate-y-4 opacity-0",
-          secondary: "translate-12 opacity-100",
-          destructive: "",
-          outline: "",
+          default: "translate-y-4 opacity-0",
+          secondary: "-translate-y-12 opacity-100",
         },
       },
       defaultVariants: {
@@ -48,14 +46,13 @@ function BackToTop() {
       },
     }
   )
-
   return (
     <button
       ref={toTopRef}
       type="button"
       title="Back To Top"
       onClick={() => scrollTo({ top: 0, behavior: "smooth" })}
-      className={cn(classes({ variant: window.scrollY < 200 ? "default" : "secondary" }))}
+      className={cn(classes({ variant: window.scrollY > 200 ? "secondary" : "default" }))}
     >
       <svg className="absolute top-0 left-0 w-10.5 h-10.5">
         <title>Back To Top Icon</title>
@@ -71,7 +68,7 @@ function BackToTop() {
         />
       </svg>
       <svg
-        className="relative -top-1 -left-1 hover:repeat-infinite duration-1000 ease-in-out hover:-translateY-24"
+        className="relative -top-1 -left-1 animate-bounce"
         width="14"
         height="14"
         viewBox="0 0 14 14"

@@ -1,7 +1,7 @@
 import type { Context, Next } from "koa"
 import { RedisService } from "../services/redis.service"
 
-export function rateLimitMiddleware(maxRequests: number = 100, windowSeconds: number = 3600) {
+export function rateLimitMiddleware(maxRequests = 100, windowSeconds = 3600) {
   return async (ctx: Context, next: Next): Promise<void> => {
     const identifier = ctx.ip || ctx.request.ip
 

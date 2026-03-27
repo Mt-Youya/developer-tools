@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { HttpMethod, type MyFetchArgs } from "@/services/request"
 
 export function useMyFetch() {
+  "use memo"
   const navigate = useNavigate()
   return async function MyFetch<T>(...args: MyFetchArgs): APIResponse<T> {
     const [url, init] = args

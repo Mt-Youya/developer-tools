@@ -111,6 +111,7 @@ export function Status({
   dot = false,
   className = "",
 }: StatusProps) {
+  "use memo"
   const config = statusConfig[type]
   const Icon = config.icon
   const isProcessing = type === "processing"

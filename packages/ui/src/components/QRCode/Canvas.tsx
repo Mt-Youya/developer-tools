@@ -31,6 +31,7 @@ export const QRCodeCanvas = forwardRef<HTMLCanvasElement, QRPropsCanvas>(
     },
     ref
   ) => {
+    "use memo"
     const imgSrc = imageSettings?.src
     const _canvas = useRef<HTMLCanvasElement>(null)
     const _image = useRef<HTMLImageElement>(null)

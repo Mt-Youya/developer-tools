@@ -93,8 +93,15 @@ enum City {
 }
 
 type CityKey = keyof typeof City
-type CarType = "fuel" | "ev"
+
+enum CarEnum {
+  fuel = "燃油车",
+  ev = "新能源",
+}
+type CarType = keyof typeof CarEnum
+
 function CarPriceCalculator() {
+  "use memo"
   const [msrp, setMsrp] = useState("126900")
   const [discount, setDiscount] = useState("7000")
   const [selectedCity, setSelectedCity] = useState<CityKey>("beijing")
@@ -171,9 +178,9 @@ function CarPriceCalculator() {
 
                 <div className="space-y-2">
                   <Label htmlFor="carType">车辆类型</Label>
-                  <Select value={carType} onValueChange={(e: CarType) => setCarType(e)}>
+                  <Select value={carType} onValueChange={(e) => setCarType(e!)}>
                     <SelectTrigger id="carType">
-                      <SelectValue />
+                      <SelectValue>{CarEnum[carType]}</SelectValue>
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="fuel">燃油车</SelectItem>
@@ -187,16 +194,16 @@ function CarPriceCalculator() {
                     <MapPin className="w-4 h-4" />
                     购车城市
                   </Label>
-                  <Select value={selectedCity} onValueChange={(e: CityKey) => setSelectedCity(e)}>
+                  <Select value={selectedCity} onValueChange={(e) => setSelectedCity(e!)}>
                     <SelectTrigger id="city">
-                      <SelectValue />
+                      <SelectValue>{City[selectedCity]}</SelectValue>
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="beijing">北京</SelectItem>
-                      <SelectItem value="shanghai">上海</SelectItem>
-                      <SelectItem value="shenzhen">深圳</SelectItem>
-                      <SelectItem value="guangzhou">广州</SelectItem>
-                      <SelectItem value="hangzhou">杭州</SelectItem>
+                      {Object.entries(City).map(([key, val], idx) => (
+                        <SelectItem key={idx} value={key}>
+                          {val}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </div>

@@ -127,3 +127,9 @@
     @apply font-sans;
   }
 }
+
+@property --button-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: -75deg;
+}

@@ -5,7 +5,11 @@ const API_BASE = "/api/v1"
 // 简化的通用请求函数
 async function apiRequest<T>(endpoint: string): Promise<ResponseData<T>> {
   try {
-    const response = await fetch(`${API_BASE}${endpoint}`)
+    const response = await fetch(`${API_BASE}${endpoint}`, {
+      // headers: {
+      //   "Cache-Control": "no-store",
+      // },
+    })
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)

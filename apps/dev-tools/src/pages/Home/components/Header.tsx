@@ -5,12 +5,12 @@ import { Input } from "@devtools/ui/Input"
 import { Label } from "@devtools/ui/Label"
 import { Search, Settings } from "lucide-react"
 import { useLocalIP } from "@/hooks/useLocalIP"
-import { CommandStore } from "@/stores/command"
-import { ServerStore } from "@/stores/server"
+import { useCommandStore } from "@/stores/command"
+import { useServerStore } from "@/stores/server"
 
 function Header() {
-  const { baseCommand, setBaseCommand, commandSuffix, setCommandSuffix } = CommandStore()
-  const { port, setPort } = ServerStore()
+  const { baseCommand, setBaseCommand, commandSuffix, setCommandSuffix } = useCommandStore()
+  const { port, setPort } = useServerStore()
   const [showSettings, setShowSettings] = useState(false)
   const [ipv4, setIpv4] = useLocalIP()
 

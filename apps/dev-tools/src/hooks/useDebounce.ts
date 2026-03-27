@@ -8,6 +8,7 @@ export function useDebounce<T extends (...args: any[]) => any>(
   callback: T,
   delay: number = 300
 ): (...args: Parameters<T>) => void {
+  "use memo"
   const timeoutRef = useRef<NodeJS.Timeout>(null)
 
   return useCallback(
@@ -35,27 +36,25 @@ export function useDebounceWithCancel<T extends (...args: any[]) => any>(
   callback: T,
   delay: number = 300
 ): [(...args: Parameters<T>) => void, () => void] {
+  "use memo"
   const timeoutRef = useRef<NodeJS.Timeout>(null)
 
-  const debouncedFunction = useCallback(
-    (...args: Parameters<T>) => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current)
-      }
+  function debouncedFunction(...args: Parameters<T>) {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+    }
 
-      timeoutRef.current = setTimeout(() => {
-        callback(...args)
-      }, delay)
-    },
-    [callback, delay]
-  )
+    timeoutRef.current = setTimeout(() => {
+      callback(...args)
+    }, delay)
+  }
 
-  const cancel = useCallback(() => {
+  function cancel() {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current)
       timeoutRef.current = null
     }
-  }, [])
+  }
 
   return [debouncedFunction, cancel]
 }

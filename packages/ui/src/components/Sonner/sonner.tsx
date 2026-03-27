@@ -3,7 +3,8 @@ import { Toaster as Sonner, type ToasterProps } from "sonner"
 
 export * from "sonner"
 
-const Toaster = ({ ...props }: ToasterProps) => {
+function Toaster(props: ToasterProps) {
+  "use memo"
   const { theme = "system" } = useTheme()
 
   return (

@@ -5,6 +5,7 @@ import { Suspense } from "react"
 import { RobotModel } from "./Robot3D"
 
 export function RobotCanvas({ className }: { className?: string }) {
+  "use memo"
   return (
     <div className={cn("w-full h-full", className)}>
       <Canvas shadows dpr={[1, 2]}>

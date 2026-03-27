@@ -1,3 +1,4 @@
+import cors from "@koa/cors"
 import Router from "@koa/router"
 import Koa from "koa"
 import bodyParser from "koa-bodyparser"
@@ -8,10 +9,11 @@ import { cacheMiddleware } from "./middlewares/cache"
 import { errorHandler } from "./middlewares/errorHandler"
 import { loggerMiddleware } from "./middlewares/logger"
 import { rateLimitMiddleware } from "./middlewares/rateLimit"
-import { fedoRouter } from "./routes/fedo.routes"
 import { gamesRouter } from "./routes/games.routes"
 import { musicRouter } from "./routes/music.routes"
+import { sbtaobaoRouter } from "./routes/sbtaobao.routes"
 import { waybillRouter } from "./routes/waybill.routes"
+import { weatherRouter } from "./routes/weather.routes"
 import { logger } from "./utils/logger"
 
 export function createApp() {
@@ -21,12 +23,12 @@ export function createApp() {
   app.use(loggerMiddleware)
   app.use(helmet())
   app.use(compress())
-  // app.use(
-  //   cors({
-  //     origin: config.cors.origin,
-  //     credentials: true,
-  //   })
-  // )
+  app.use(
+    cors({
+      origin: config.cors.origin,
+      credentials: true,
+    })
+  )
   app.use(
     bodyParser({
       enableTypes: ["json", "form"],
@@ -61,7 +63,8 @@ export function createApp() {
   apiRouter.use("/games", gamesRouter.routes(), gamesRouter.allowedMethods())
   apiRouter.use("/music", musicRouter.routes(), musicRouter.allowedMethods())
   apiRouter.use("/waybill", waybillRouter.routes(), waybillRouter.allowedMethods())
-  apiRouter.use("/fedo", fedoRouter.routes(), fedoRouter.allowedMethods())
+  apiRouter.use("/weather", weatherRouter.routes(), weatherRouter.allowedMethods())
+  apiRouter.use("/sbtb", sbtaobaoRouter.routes(), sbtaobaoRouter.allowedMethods())
 
   // apiRouter.use("/auth", authRouter.routes(), authRouter.allowedMethods())
   // apiRouter.use("/users", userRouter.routes(), userRouter.allowedMethods())

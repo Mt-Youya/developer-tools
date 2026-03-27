@@ -1,6 +1,5 @@
-import type { AllGamesResponse, Game, GamePlatformResponse } from "@devtools/shared"
+import type { AllGamesResponse, Game, GamePlatform, GamePlatformResponse } from "@devtools/shared"
 import axios from "axios"
-import { RedisService } from "./redis.service"
 
 export class GameService {
   private httpClient = axios.create({
@@ -12,19 +11,7 @@ export class GameService {
 
   // Epic Games 免费游戏
   async getEpicGames(locale: string = "zh-CN", country: string = "CN"): Promise<GamePlatformResponse> {
-    const _cacheKey = `games:epic:${locale}:${country}`
-
     try {
-      const cached = await RedisService.getCachedResponseData<Game[]>(_cacheKey)
-      if (cached) {
-        return {
-          success: true,
-          data: cached,
-          platform: "epic",
-          count: cached.length,
-        }
-      }
-
       const response = await this.httpClient.get(
         "https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions",
         {
@@ -62,9 +49,6 @@ export class GameService {
           developer: game?.seller?.name || "未知",
         }))
 
-      // 缓存结果
-      // await RedisService.cacheResponseData(cacheKey, processedGames, 300)
-
       return {
         success: true,
         data: processedGames,
@@ -80,25 +64,14 @@ export class GameService {
         platform: "epic",
         count: 0,
         error: this.getErrorMessage(error),
+        originalResponse: null,
       }
     }
   }
 
   // FreeToGame 免费游戏
   async getFreeToGame(platform: string = "pc"): Promise<GamePlatformResponse> {
-    const _cacheKey = `games:freetogame:${platform}`
-
     try {
-      const cached = await RedisService.getCachedResponseData<Game[]>(_cacheKey)
-      if (cached) {
-        return {
-          success: true,
-          data: cached,
-          platform: "FreeToGame",
-          count: cached.length,
-        }
-      }
-
       const response = await this.httpClient.get("https://www.freetogame.com/api/games", {
         params: {
           platform,
@@ -125,12 +98,10 @@ export class GameService {
         releaseDate: game.release_date,
       }))
 
-      await RedisService.cacheResponseData(_cacheKey, processedGames, 600)
-
       return {
         success: true,
         data: processedGames,
-        platform: "FreeToGame",
+        platform: "freetogame",
         count: processedGames.length,
         originalResponse: response.data,
       }
@@ -139,28 +110,17 @@ export class GameService {
       return {
         success: false,
         data: [],
-        platform: "FreeToGame",
+        platform: "freetogame",
         count: 0,
         error: this.getErrorMessage(error),
+        originalResponse: null,
       }
     }
   }
 
   // GOG 免费游戏
   async getGOGGames(): Promise<GamePlatformResponse> {
-    const _cacheKey = "games:gog"
-
     try {
-      const cached = await RedisService.getCachedResponseData<Game[]>(cacheKey)
-      if (cached) {
-        return {
-          success: true,
-          data: cached,
-          platform: this.mapStoreIdToPlatform("7"),
-          count: cached.length,
-        }
-      }
-
       const response = await this.httpClient.get("https://catalog.gog.com/v1/catalog", {
         params: {
           limit: "48",
@@ -176,10 +136,10 @@ export class GameService {
 
       const data = response.data?.products ?? []
 
-      const gamesData = data.map((game) => ({
+      const gamesData = data.map((game: any) => ({
         id: `gog-${game.id}`,
         title: game.title,
-        description: game.tags?.map((n) => n.name).join(", "),
+        description: game.tags?.map((n: any) => n.name).join(", "),
         url: game.storeLink,
         platform: this.mapStoreIdToPlatform("7"),
         image: game.logo,
@@ -188,15 +148,14 @@ export class GameService {
         startDate: "",
         endDate: "",
         releaseDate: game.releaseDate,
-        genre: game.genres?.map((g) => g.name).join(",") || "限时免费",
+        genre: game.genres?.map((g: any) => g.name).join(",") || "限时免费",
         developer: game.developers?.join(",") || "未知",
       }))
-      // await RedisService.cacheResponseData(cacheKey, gamesData, 600)
 
       return {
         success: true,
         data: gamesData,
-        platform: "GOG",
+        platform: "gog",
         count: response.data.productCount,
         originalResponse: response.data,
       }
@@ -205,28 +164,17 @@ export class GameService {
       return {
         success: false,
         data: [],
-        platform: "GOG",
+        platform: "gog",
         count: 0,
         error: this.getErrorMessage(error),
+        originalResponse: null,
       }
     }
   }
 
   // CheapShark 限时免费
   async getCheapSharkFreeGames(): Promise<GamePlatformResponse> {
-    const _cacheKey = "games:cheapshark"
-
     try {
-      const cached = await RedisService.getCachedResponseData<Game[]>(_cacheKey)
-      if (cached) {
-        return {
-          success: true,
-          data: cached,
-          platform: "CheapShark",
-          count: cached.length,
-        }
-      }
-
       const response = await this.httpClient.get("https://www.cheapshark.com/api/1.0/deals", {
         params: {
           upperPrice: 0,
@@ -253,12 +201,10 @@ export class GameService {
           developer: game.developer || "未知",
         }))
 
-      await RedisService.cacheResponseData(_cacheKey, processedGames, 300)
-
       return {
         success: true,
         data: processedGames,
-        platform: "CheapShark",
+        platform: "cheapshark",
         count: processedGames.length,
         originalResponse: response.data,
       }
@@ -267,21 +213,17 @@ export class GameService {
       return {
         success: false,
         data: [],
-        platform: "CheapShark",
+        platform: "cheapshark",
         count: 0,
         error: this.getErrorMessage(error),
+        originalResponse: null,
       }
     }
   }
 
   // 获取所有平台的游戏
   async getAllFreeGames(): Promise<AllGamesResponse> {
-    const _cacheKey = "games:all"
-
     try {
-      const cached = await RedisService.getCachedResponseData<AllGamesResponse>(_cacheKey)
-      if (cached) return cached
-
       const results = await Promise.allSettled([
         this.getEpicGames(),
         this.getFreeToGame(),
@@ -289,20 +231,32 @@ export class GameService {
         this.getCheapSharkFreeGames(),
       ])
 
-      const platformResults: { [key: string]: Game[] } = {}
+      const platformResults: { [platform in GamePlatform]: Game[] } = {
+        epic: [],
+        steam: [],
+        freetogame: [],
+        gog: [],
+        cheapshark: [],
+      }
       const originalResponses: { [key: string]: any } = {}
-      const counts: { [key: string]: number } = {}
-      const errors: { platform: string; error: string }[] = []
+      const counts: { [platform in GamePlatform]: number } = {
+        epic: 0,
+        gog: 0,
+        steam: 0,
+        freetogame: 0,
+        cheapshark: 0,
+      }
+      const errors: { platform: GamePlatform; error: string }[] = []
       let total = 0
 
       for (let index = 0; index < results.length; index++) {
         const result = results[index]
-        const platformNames = ["epic", "freetogame", "gog", "cheapshark"]
+        const platformNames = ["epic", "freetogame", "gog", "cheapshark"] as const
         const platformName = platformNames[index]
 
         if (result.status === "fulfilled" && result.value.success) {
           platformResults[platformName] = result.value.data
-          originalResponses[platformName] = result.value?.originalResponse ?? result.originalResponse
+          originalResponses[platformName] = result.value.originalResponse
           counts[platformName] = result.value.count
           total += result.value.count
         } else {
@@ -316,7 +270,7 @@ export class GameService {
         }
       }
 
-      const response: AllGamesResponse = {
+      return {
         success: true,
         data: platformResults,
         originalResponses,
@@ -324,24 +278,20 @@ export class GameService {
         total,
         ...(errors.length > 0 && { errors }),
       }
-
-      // 缓存所有游戏数据2分钟
-      await RedisService.cacheResponseData(_cacheKey, response, 120)
-
-      return response
     } catch (error: any) {
       console.error("Get all games error:", error.message)
       return {
         success: false,
-        data: {},
-        counts: {},
+        data: null,
+        counts: null,
         total: 0,
+        // @ts-expect-error
         errors: [{ platform: "all", error: this.getErrorMessage(error) }],
       }
     }
   }
 
-  private mapStoreIdToPlatform(storeId: string): string {
+  mapStoreIdToPlatform(storeId: string): GamePlatform {
     const storeMap: { [key: string]: string } = {
       "1": "Steam",
       "2": "GamersGate",
@@ -376,7 +326,7 @@ export class GameService {
       "31": "Blizzard Shop",
       "32": "AllYouPlay",
     }
-    return storeMap[storeId] || "Other"
+    return (storeMap[storeId] as GamePlatform) || "other"
   }
 
   private getErrorMessage(error: any): string {

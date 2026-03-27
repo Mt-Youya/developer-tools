@@ -1,5 +1,4 @@
 import axios from "axios"
-import { RedisService } from "./redis.service"
 
 export class MusicService {
   private httpClient = axios.create({
@@ -10,19 +9,7 @@ export class MusicService {
   })
 
   async getTracks(client_id = "cd43f5d1", limit = 20): Promise<any> {
-    const cacheKey = `tracks:${client_id}:${limit}`
-
     try {
-      const cached = await RedisService.getCachedResponseData<any[]>(cacheKey)
-      if (cached) {
-        return {
-          success: true,
-          data: cached,
-          platform: "Jamendo",
-          count: cached?.length,
-        }
-      }
-
       const response = await this.httpClient.get("https://api.jamendo.com", {
         params: {
           client_id,
@@ -33,17 +20,9 @@ export class MusicService {
         },
       })
 
-      // console.log(" response.data", response.data)
-
       const { results = [], headers = {} } = response.data
-      // console.log("headers", headers)
       const { status } = headers
       const success = status === "success"
-
-      // 缓存结果
-      if (results.length) {
-        await RedisService.cacheResponseData(cacheKey, results, 300)
-      }
 
       return {
         success,

@@ -13,9 +13,8 @@ export class RedisService {
   // 限流
   private static readonly RATE_LIMIT_PREFIX = "rate_limit:"
 
-  static get TTL() {
-    return RedisService.API_CACHE_TTL
-  }
+  // 会话缓存
+  private static readonly SESSION_CACHE_TTL = 86400 // 24小时
 
   // 用户缓存方法
   static async cacheUser(user: any) {
@@ -34,7 +33,7 @@ export class RedisService {
   }
 
   // 会话管理
-  static async setUserSession(userId: string, sessionData: any, ttl = 86400) {
+  static async setUserSession(userId: string, sessionData: any, ttl = RedisService.SESSION_CACHE_TTL) {
     const key = `${RedisService.USER_SESSION_PREFIX}${userId}`
     await redis.set(key, sessionData, ttl)
   }
@@ -50,7 +49,7 @@ export class RedisService {
   }
 
   // API 缓存
-  static async cacheResponseData<T = any>(key: string, data: T, ttl = RedisService.TTL) {
+  static async cacheResponseData<T = any>(key: string, data: T, ttl = RedisService.API_CACHE_TTL) {
     const cacheKey = `${RedisService.API_CACHE_PREFIX}${key}`
     await redis.set(cacheKey, data, ttl)
   }

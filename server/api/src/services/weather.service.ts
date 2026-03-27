@@ -1,6 +1,5 @@
-import type { ResponseData, WeatherResponse } from "@devtools/shared"
+import type { ResponseData, WeatherParams, WeatherResponse } from "@devtools/shared"
 import axios from "axios"
-import { RedisService } from "./redis.service"
 
 type ResultData = ResponseData<WeatherResponse>
 export class WeatherService {
@@ -11,19 +10,8 @@ export class WeatherService {
     },
   })
 
-  async getWeather(location = "101010300") {
-    const cacheKey = `location:${location}`
-    console.log("weather cacheKey:", cacheKey)
-
+  async getWeather(location: WeatherParams["location"] = "101010300") {
     try {
-      const cached = await RedisService.getCachedResponseData<WeatherResponse>(cacheKey)
-      if (cached) {
-        return {
-          success: true,
-          data: cached,
-        }
-      }
-
       const response = await this.httpClient.get<ResultData>(`https://api.codelife.cc/api/getWeather`, {
         params: {
           lang: "cn",
@@ -32,16 +20,8 @@ export class WeatherService {
         },
       })
 
-      console.log("Weather response: ", response)
-
       const { data, code, msg } = response.data
-
       const success = code === 200
-      // 缓存结果
-      if (success) {
-        await RedisService.cacheResponseData(cacheKey, data, 300)
-      }
-
       return {
         success,
         data,

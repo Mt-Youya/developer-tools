@@ -8,10 +8,12 @@ import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "
 const Combobox = ComboboxPrimitive.Root
 
 function ComboboxValue({ ...props }: ComboboxPrimitive.Value.Props) {
+  "use memo"
   return <ComboboxPrimitive.Value data-slot="combobox-value" {...props} />
 }
 
 function ComboboxTrigger({ className, children, ...props }: ComboboxPrimitive.Trigger.Props) {
+  "use memo"
   return (
     <ComboboxPrimitive.Trigger
       data-slot="combobox-trigger"
@@ -25,6 +27,7 @@ function ComboboxTrigger({ className, children, ...props }: ComboboxPrimitive.Tr
 }
 
 function ComboboxClear({ className, ...props }: ComboboxPrimitive.Clear.Props) {
+  "use memo"
   return (
     <ComboboxPrimitive.Clear
       data-slot="combobox-clear"
@@ -49,6 +52,7 @@ function ComboboxInput({
   showClear = false,
   ...props
 }: ComboboxInputProps) {
+  "use memo"
   return (
     <InputGroup className={cn("w-auto", className)}>
       <ComboboxPrimitive.Input render={<InputGroupInput disabled={disabled} />} {...props} />
@@ -83,6 +87,7 @@ function ComboboxContent({
   anchor,
   ...props
 }: ComboboxContentProps) {
+  "use memo"
   return (
     <ComboboxPrimitive.Portal>
       <ComboboxPrimitive.Positioner
@@ -108,6 +113,7 @@ function ComboboxContent({
 }
 
 function ComboboxList({ className, ...props }: ComboboxPrimitive.List.Props) {
+  "use memo"
   return (
     <ComboboxPrimitive.List
       data-slot="combobox-list"
@@ -121,6 +127,7 @@ function ComboboxList({ className, ...props }: ComboboxPrimitive.List.Props) {
 }
 
 function ComboboxItem({ className, children, ...props }: ComboboxPrimitive.Item.Props) {
+  "use memo"
   return (
     <ComboboxPrimitive.Item
       data-slot="combobox-item"
@@ -141,10 +148,12 @@ function ComboboxItem({ className, children, ...props }: ComboboxPrimitive.Item.
 }
 
 function ComboboxGroup({ className, ...props }: ComboboxPrimitive.Group.Props) {
+  "use memo"
   return <ComboboxPrimitive.Group data-slot="combobox-group" className={cn(className)} {...props} />
 }
 
 function ComboboxLabel({ className, ...props }: ComboboxPrimitive.GroupLabel.Props) {
+  "use memo"
   return (
     <ComboboxPrimitive.GroupLabel
       data-slot="combobox-label"
@@ -155,10 +164,12 @@ function ComboboxLabel({ className, ...props }: ComboboxPrimitive.GroupLabel.Pro
 }
 
 function ComboboxCollection({ ...props }: ComboboxPrimitive.Collection.Props) {
+  "use memo"
   return <ComboboxPrimitive.Collection data-slot="combobox-collection" {...props} />
 }
 
 function ComboboxEmpty({ className, ...props }: ComboboxPrimitive.Empty.Props) {
+  "use memo"
   return (
     <ComboboxPrimitive.Empty
       data-slot="combobox-empty"
@@ -172,6 +183,7 @@ function ComboboxEmpty({ className, ...props }: ComboboxPrimitive.Empty.Props) {
 }
 
 function ComboboxSeparator({ className, ...props }: ComboboxPrimitive.Separator.Props) {
+  "use memo"
   return (
     <ComboboxPrimitive.Separator
       data-slot="combobox-separator"
@@ -185,6 +197,7 @@ function ComboboxChips({
   className,
   ...props
 }: React.ComponentPropsWithRef<typeof ComboboxPrimitive.Chips> & ComboboxPrimitive.Chips.Props) {
+  "use memo"
   return (
     <ComboboxPrimitive.Chips
       data-slot="combobox-chips"
@@ -205,6 +218,7 @@ function ComboboxChip({
 }: ComboboxPrimitive.Chip.Props & {
   showRemove?: boolean
 }) {
+  "use memo"
   return (
     <ComboboxPrimitive.Chip
       data-slot="combobox-chip"
@@ -229,6 +243,7 @@ function ComboboxChip({
 }
 
 function ComboboxChipsInput({ className, ...props }: ComboboxPrimitive.Input.Props) {
+  "use memo"
   return (
     <ComboboxPrimitive.Input
       data-slot="combobox-chip-input"

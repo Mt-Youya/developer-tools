@@ -7,7 +7,7 @@ const gameController = new GameController()
 export const gamesRouter = new Router()
 
 // 游戏接口限流：每分钟最多60次请求
-const _gameRateLimit = rateLimitMiddleware(5, 60)
+const _gameRateLimit = rateLimitMiddleware()
 
 // 为不同平台设置不同的缓存时间
 gamesRouter

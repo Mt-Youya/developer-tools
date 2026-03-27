@@ -1,9 +1,9 @@
 import fs from "node:fs"
 import path, { extname } from "node:path"
 import tailwindcss from "@tailwindcss/vite"
-import react from "@vitejs/plugin-react-swc"
+import react from "@vitejs/plugin-react"
 import AutoImport from "unplugin-auto-import/vite"
-import { defineConfig, type PluginOption, type ServerOptions } from "vite"
+import { defineConfig, type ServerOptions } from "vite"
 import Inspect from "vite-plugin-inspect"
 import { oxlintConfig } from "../../configs/oxlint-config"
 
@@ -41,16 +41,38 @@ function ServerProxy(): ServerOptions["proxy"] {
     "/api/v1/waybill/routes": {
       target,
     },
+    "/api/v1/diva/listVersions": {
+      target,
+    },
+    "/api/v1/diva/groupVerions": {
+      target,
+    },
+    "/api/v1/diva/pillowRequest": {
+      target,
+    },
     "/api/v1/weather/getWeather": {
       target,
+    },
+    "/api/v1/catpaw": {
+      target: "http://localhost:3000",
+    },
+    "/api/v1/getOrgPages": {
+      target: "http://localhost:3000",
+    },
+    "/api/v1/getOrgModule": {
+      target: "http://localhost:3000",
     },
   }
 }
 const cssExts = [".css", ".less", ".scss", "sass", ".stylus"]
 const defaultConf = defineConfig({
   plugins: [
-    react(),
-    tailwindcss() as PluginOption,
+    react({
+      babel: {
+        plugins: [["babel-plugin-react-compiler"]],
+      },
+    }),
+    tailwindcss(),
     Inspect({ build: true, outputDir: ".vite-inspect" }),
     AutoImport({
       imports: ["react", "react-router", "react-router-dom"],

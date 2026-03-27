@@ -11,7 +11,8 @@ import { downloadURL } from "@devtools/utils"
 import { FFmpeg } from "@ffmpeg/ffmpeg"
 import { fetchFile, toBlobURL } from "@ffmpeg/util"
 import { AlertCircle, Download, Loader2, Music, Scissors, Upload, Video } from "lucide-react"
-import { type PropsWithChildren, useEffect, useRef, useState } from "react"
+import type { PropsWithChildren } from "react"
+import { useTimeout } from "@/hooks/useTimeout"
 
 interface AudioFormat {
   value: string
@@ -29,15 +30,16 @@ const AUDIO_FORMATS: AudioFormat[] = [
 ]
 
 function AudioExtractor() {
+  "use memo"
   const [loaded, setLoaded] = useState(false)
   const [videoFile, setVideoFile] = useState<File | null>(null)
   const [outputFormat, setOutputFormat] = useState<string>("mp3")
-  const [progress, setProgress] = useState<number>(0)
+  const [progress, setProgress] = useState(0)
   const [processing, setProcessing] = useState(false)
   const [extractedAudioUrl, setExtractedAudioUrl] = useState<string | null>(null)
-  const [videoDuration, setVideoDuration] = useState<number>(0)
-  const [startTime, setStartTime] = useState<number>(0)
-  const [endTime, setEndTime] = useState<number>(0)
+  const [videoDuration, setVideoDuration] = useState(0)
+  const [startTime, setStartTime] = useState(0)
+  const [endTime, setEndTime] = useState(0)
   const [enableTrim, setEnableTrim] = useState(false)
   const [loadError, setLoadError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -79,16 +81,16 @@ function AudioExtractor() {
 
       const oneThird = +((1 / 3) * 100).toFixed(2)
 
-      setFfmpegProgress((prev) => (prev > 100 ? 0 : prev + oneThird))
+      setFfmpegProgress((prev) => (prev >= 99 ? 0 : prev + oneThird))
 
       const wasmURL = await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, "application/wasm")
       console.log("Wasm Blob URL created:", wasmURL)
-      setFfmpegProgress((prev) => (prev > 100 ? 0 : prev + oneThird))
+      setFfmpegProgress((prev) => (prev >= 99 ? 0 : prev + oneThird))
 
       const workerBaseURL = loadError ? LocalFFmpeg : "https://cdn.jsdelivr.net/npm/@ffmpeg/core-mt@0.12.10/dist/esm"
       const workerURL = await toBlobURL(`${workerBaseURL}/ffmpeg-core.worker.js`, "text/javascript")
       console.log("Worker Blob URL created:", wasmURL)
-      setFfmpegProgress((prev) => (prev > 100 ? 0 : prev + oneThird))
+      setFfmpegProgress((prev) => (prev >= 99 ? 0 : prev + oneThird))
 
       console.log("Loading FFmpeg...")
       await ffmpeg.load({
@@ -97,11 +99,12 @@ function AudioExtractor() {
         workerURL,
       })
       setFfmpegProgress(() => 100)
-
+      useTimeout(() => {
+        setLoaded(true)
+        setLoadError(null)
+        setIsLoading(false)
+      })
       console.log("FFmpeg loaded successfully!")
-      setLoaded(true)
-      setLoadError(null)
-      setIsLoading(false)
     } catch (error) {
       console.error("Failed to load FFmpeg:", error)
       setLoadError(
@@ -112,30 +115,34 @@ function AudioExtractor() {
       setIsLoading(false)
       loadFFmpeg()
     } finally {
-      setFfmpegProgress(() => 0)
+      useTimeout(() => setFfmpegProgress(() => 0))
     }
   }
 
   function handleFileSelect(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
-    if (file) {
-      setVideoFile(file)
-      setExtractedAudioUrl(null)
-      setProgress(0)
 
-      const video = document.createElement("video")
-      video.preload = "metadata"
-      video.onloadedmetadata = () => {
-        setVideoDuration(video.duration)
-        setEndTime(video.duration)
-        URL.revokeObjectURL(video.src)
-      }
-      video.onerror = () => {
-        console.error("无法加载视频元数据")
-        URL.revokeObjectURL(video.src)
-      }
-      video.src = URL.createObjectURL(file)
+    if (!file) {
+      return
     }
+
+    setVideoFile(file)
+    setExtractedAudioUrl(null)
+    setProgress(0)
+
+    const video = document.createElement("video")
+    video.preload = "metadata"
+    video.onloadedmetadata = () => {
+      setVideoDuration(video.duration)
+      setEndTime(video.duration)
+      URL.revokeObjectURL(video.src)
+    }
+    video.onerror = () => {
+      console.error("无法加载视频元数据")
+      URL.revokeObjectURL(video.src)
+    }
+    video.src = URL.createObjectURL(file)
+    e.target.value = ""
   }
 
   function formatTime(seconds: number) {
@@ -259,36 +266,27 @@ function AudioExtractor() {
           </CardHeader>
           <CardContent className="space-y-6">
             {/* File Upload */}
-            <div className="space-y-2">
+            <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-purple-500 transition-colors">
               <Label htmlFor="video-upload" className="cursor-pointer">
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-purple-500 transition-colors">
-                  {videoFile ? (
-                    <div className="space-y-2">
-                      <Video className="w-12 h-12 mx-auto text-purple-600" />
-                      <p className="text-sm font-medium">{videoFile.name}</p>
-                      <p className="text-xs text-gray-500">
-                        {(videoFile.size / 1024 / 1024).toFixed(2)} MB
-                        {videoDuration > 0 && ` • ${formatTime(videoDuration)}`}
-                      </p>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={(e) => {
-                          e.preventDefault()
-                          resetState()
-                        }}
-                      >
-                        重新选择
-                      </Button>
-                    </div>
-                  ) : (
-                    <div className="space-y-2">
-                      <Upload className="w-12 h-12 mx-auto text-gray-400" />
-                      <p className="text-sm text-gray-600">点击上传或拖拽视频文件</p>
-                      <p className="text-xs text-gray-500">支持最大 2GB 的视频文件</p>
-                    </div>
-                  )}
-                </div>
+                {videoFile ? (
+                  <div className="space-y-2 flex-1">
+                    <Video className="w-12 h-12 mx-auto text-purple-600" />
+                    <p className="text-sm font-medium">{videoFile.name}</p>
+                    <p className="text-xs text-gray-500">
+                      {(videoFile.size / 1024 / 1024).toFixed(2)} MB
+                      {videoDuration > 0 && ` • ${formatTime(videoDuration)}`}
+                    </p>
+                    <Button variant="outline" size="sm" onClick={resetState}>
+                      重新选择
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="space-y-2 flex-1">
+                    <Upload className="w-12 h-12 mx-auto text-gray-400" />
+                    <p className="text-sm text-gray-600">点击上传或拖拽视频文件</p>
+                    <p className="text-xs text-gray-500">支持最大 2GB 的视频文件</p>
+                  </div>
+                )}
               </Label>
               <Input
                 id="video-upload"
@@ -333,8 +331,8 @@ function AudioExtractor() {
                     <div className="space-y-2">
                       <Label>开始时间: {formatTime(startTime)}</Label>
                       <Slider
-                        value={[startTime]}
-                        onValueChange={([value]) => setStartTime(Math.min(value, endTime - 1))}
+                        value={startTime}
+                        onValueChange={(value) => setStartTime(Math.min(value as number, endTime - 1))}
                         max={videoDuration}
                         step={0.1}
                         className="w-full"
@@ -344,8 +342,8 @@ function AudioExtractor() {
                     <div className="space-y-2">
                       <Label>结束时间: {formatTime(endTime)}</Label>
                       <Slider
-                        value={[endTime]}
-                        onValueChange={([value]) => setEndTime(Math.max(value, startTime + 1))}
+                        value={endTime}
+                        onValueChange={(value) => setEndTime(Math.max(value as number, startTime + 1))}
                         max={videoDuration}
                         step={0.1}
                         className="w-full"

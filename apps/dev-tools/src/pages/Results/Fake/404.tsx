@@ -87,17 +87,15 @@ function RobotBody() {
 
 function FloatingFragments() {
   const count = 30
-  const fragments = useMemo(() => {
-    return new Array(count).fill(0).map(() => ({
-      position: [(Math.random() - 0.5) * 10, (Math.random() - 0.5) * 10, (Math.random() - 0.5) * 6] as [
-        number,
-        number,
-        number,
-      ],
-      scale: Math.random() * 0.2 + 0.05,
-      rotation: [Math.random() * Math.PI, Math.random() * Math.PI, 0] as [number, number, number],
-    }))
-  }, [])
+  const fragments = new Array(count).fill(0).map(() => ({
+    position: [(Math.random() - 0.5) * 10, (Math.random() - 0.5) * 10, (Math.random() - 0.5) * 6] as [
+      number,
+      number,
+      number,
+    ],
+    scale: Math.random() * 0.2 + 0.05,
+    rotation: [Math.random() * Math.PI, Math.random() * Math.PI, 0] as [number, number, number],
+  }))
 
   return (
     <group>
@@ -161,7 +159,7 @@ export default function AtlasErrorPage() {
         <header className="absolute top-0 left-0 w-full p-8 flex justify-between items-center text-xs tracking-[0.2em] text-cyan-500/60 uppercase">
           <div className="flex items-center gap-2">
             <Terminal className="w-4 h-4" />
-            {/** biome-ignore lint: false positive */}
+            {/** biome-ignore lint/suspicious/noCommentText: <explanation> */}
             <span>Atlas Core // System Monitor</span>
           </div>
           <div className="flex items-center gap-4">

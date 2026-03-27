@@ -4,6 +4,7 @@ interface TreeNodeProps {
 }
 
 function TreeNode({ nodeKey, values }: TreeNodeProps) {
+  "use memo"
   const [expanded, setExpanded] = useState(true)
   const isObjectOrArray = values.some((val) => typeof val === "object" && val !== null)
 

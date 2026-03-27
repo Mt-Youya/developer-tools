@@ -1,0 +1,391 @@
+developer-tools/
+├── .DS_Store
+├── .gitignore
+├── .npmrc
+├── .oxlintrc.json
+├── .vscode/
+│   └── settings.json
+├── README.md
+├── apps/
+│   └── dev-tools/
+│       ├── auto-imports.d.ts
+│       ├── components.json
+│       ├── index.html
+│       ├── package.json
+│       ├── public/
+│       │   ├── assets/
+│       │   │   ├── .DS_Store
+│       │   │   └── images/
+│       │   │       └── image-placeholder.png
+│       │   └── ffmpeg/
+│       ├── src/
+│       │   ├── App.css
+│       │   ├── App.tsx
+│       │   ├── components/
+│       │   │   ├── CopyComp.tsx
+│       │   │   └── LazyLoadComponent.tsx
+│       │   ├── constants/
+│       │   │   ├── FieldTemplates.ts
+│       │   │   └── FormatDetectors.ts
+│       │   ├── hooks/
+│       │   │   ├── useCopy.ts
+│       │   │   ├── useDebounce.ts
+│       │   │   ├── useFreeGames.ts
+│       │   │   └── useLocalIP.ts
+│       │   ├── index.css
+│       │   ├── layouts/
+│       │   │   ├── BackToTop.tsx
+│       │   │   └── NavBar.tsx
+│       │   ├── main.tsx
+│       │   ├── pages/
+│       │   │   ├── .DS_Store
+│       │   │   ├── AudioExtractor/
+│       │   │   │   └── index.tsx
+│       │   │   ├── BOGO/
+│       │   │   │   ├── components/
+│       │   │   │   │   └── GameCard.tsx
+│       │   │   │   └── index.tsx
+│       │   │   ├── Coding/
+│       │   │   │   └── index.tsx
+│       │   │   ├── Contrast/
+│       │   │   │   ├── components/
+│       │   │   │   │   ├── TableView.tsx
+│       │   │   │   │   ├── TreeNode.tsx
+│       │   │   │   │   └── TreeView.tsx
+│       │   │   │   └── index.tsx
+│       │   │   ├── DeepDataQuery/
+│       │   │   │   └── index.tsx
+│       │   │   ├── Home/
+│       │   │   │   ├── components/
+│       │   │   │   │   ├── GenerateCommand.tsx
+│       │   │   │   │   ├── Header.tsx
+│       │   │   │   │   ├── InputWorkSpace.tsx
+│       │   │   │   │   ├── Instructions.tsx
+│       │   │   │   │   ├── Main.tsx
+│       │   │   │   │   └── OptionResult.tsx
+│       │   │   │   └── index.tsx
+│       │   │   ├── LogAnalyzerPage/
+│       │   │   │   └── index.tsx
+│       │   │   ├── MusicPlayer/
+│       │   │   │   ├── Mobile/
+│       │   │   │   │   └── MPlayer.tsx
+│       │   │   │   ├── components/
+│       │   │   │   │   ├── HomeView.tsx
+│       │   │   │   │   ├── LibraryView.tsx
+│       │   │   │   │   ├── Player.tsx
+│       │   │   │   │   ├── PlaylistCard.tsx
+│       │   │   │   │   ├── SearchVIew.tsx
+│       │   │   │   │   ├── SideBar.tsx
+│       │   │   │   │   └── SongList.tsx
+│       │   │   │   ├── data/
+│       │   │   │   │   └── mockMusic.ts
+│       │   │   │   └── index.tsx
+│       │   │   ├── QRCodeGenerator/
+│       │   │   │   └── index.tsx
+│       │   │   ├── Results/
+│       │   │   │   ├── 404.tsx
+│       │   │   │   └── 500.tsx
+│       │   │   └── URLShortener/
+│       │   │       └── index.tsx
+│       │   ├── routes/
+│       │   │   ├── devRoutes.ts
+│       │   │   └── router.ts
+│       │   ├── stores/
+│       │   │   ├── command.ts
+│       │   │   └── server.ts
+│       │   ├── style/
+│       │   │   └── global.css
+│       │   ├── types/
+│       │   │   ├── music.ts
+│       │   │   ├── type.d.ts
+│       │   │   └── utils.ts
+│       │   ├── utils/
+│       │   │   ├── getLocalIP.ts
+│       │   │   ├── idleCallback.ts
+│       │   │   ├── parse.ts
+│       │   │   └── svgToPng.ts
+│       │   └── vite-env.d.ts
+│       ├── tsconfig.app.json
+│       ├── tsconfig.json
+│       ├── tsconfig.node.json
+│       └── vite.config.ts
+├── biome.json
+├── commons/
+│   ├── common/
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   ├── tsconfig.json
+│   │   └── vite.config.ts
+│   ├── configs/
+│   │   ├── tsconfig.app.json
+│   │   ├── tsconfig.json
+│   │   ├── tsconfig.node.json
+│   │   └── vite.config.ts
+│   ├── libs/
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   │   ├── envConf.ts
+│   │   │   ├── freegames.ts
+│   │   │   ├── games-dev.ts
+│   │   │   └── utils.ts
+│   │   └── tsconfig.json
+│   └── utils/
+│       ├── index.ts
+│       ├── package.json
+│       ├── src/
+│       │   ├── base64ToUnitArray.ts
+│       │   ├── downloadWithURL.ts
+│       │   ├── formatTime.ts
+│       │   └── is.ts
+│       ├── tsconfig.app.json
+│       ├── tsconfig.json
+│       ├── tsconfig.node.json
+│       ├── vite-env.d.ts
+│       └── vite.config.ts
+├── configs/
+│   ├── oxlint-config.ts
+│   ├── tsconfig.app.json
+│   ├── tsconfig.base.json
+│   ├── tsconfig.json
+│   └── tsconfig.node.json
+├── directory-tree.txt
+├── docker/
+│   ├── docker-compose.yaml
+│   └── nginx.conf
+├── functions/
+│   └── api/
+│       ├── epic.ts
+│       ├── free-games.ts
+│       ├── gog.ts
+│       └── steam.ts
+├── internal/
+│   ├── base.json
+│   └── library.json
+├── oxlint-typescript.json
+├── package.json
+├── packages/
+│   ├── .DS_Store
+│   └── ui/
+│       ├── .DS_Store
+│       ├── auto-imports.d.ts
+│       ├── build.js
+│       ├── components.json
+│       ├── main.ts
+│       ├── package.json
+│       ├── src/
+│       │   ├── __test__/
+│       │   │   ├── setup.ts
+│       │   │   └── util.tsx
+│       │   ├── components/
+│       │   │   ├── Alert/
+│       │   │   │   ├── alert.test.tsx
+│       │   │   │   ├── alert.tsx
+│       │   │   │   └── index.ts
+│       │   │   ├── Badge/
+│       │   │   │   ├── badge.test.tsx
+│       │   │   │   ├── badge.tsx
+│       │   │   │   └── index.ts
+│       │   │   ├── Button/
+│       │   │   │   ├── button.test.tsx
+│       │   │   │   ├── button.tsx
+│       │   │   │   └── index.ts
+│       │   │   ├── Card/
+│       │   │   │   ├── card.test.tsx
+│       │   │   │   ├── card.tsx
+│       │   │   │   └── index.ts
+│       │   │   ├── Checkbox/
+│       │   │   │   ├── checkbox.test.tsx
+│       │   │   │   ├── checkbox.tsx
+│       │   │   │   └── index.ts
+│       │   │   ├── Collapsible/
+│       │   │   │   ├── collapsible.test.tsx
+│       │   │   │   ├── collapsible.tsx
+│       │   │   │   └── index.ts
+│       │   │   ├── Drawer/
+│       │   │   │   ├── drawer.test.tsx
+│       │   │   │   ├── drawer.tsx
+│       │   │   │   └── index.ts
+│       │   │   ├── DropdownMenu/
+│       │   │   │   ├── dropdown-menu.test.tsx
+│       │   │   │   ├── dropdown-menu.tsx
+│       │   │   │   └── index.ts
+│       │   │   ├── Input/
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── input.test.tsx
+│       │   │   │   └── input.tsx
+│       │   │   ├── Label/
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── label.test.tsx
+│       │   │   │   └── label.tsx
+│       │   │   ├── Loader/
+│       │   │   │   ├── index.ts
+│       │   │   │   └── loader.tsx
+│       │   │   ├── Progress/
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── progress.test.tsx
+│       │   │   │   └── progress.tsx
+│       │   │   ├── QRCode/
+│       │   │   │   ├── Canvas.test.tsx
+│       │   │   │   ├── Canvas.tsx
+│       │   │   │   ├── QRCode.ts
+│       │   │   │   ├── SVG.test.tsx
+│       │   │   │   ├── SVG.tsx
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── type.d.ts
+│       │   │   │   ├── useQRCode.ts
+│       │   │   │   └── util.ts
+│       │   │   ├── ScrollArea/
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── scroll-area.test.tsx
+│       │   │   │   └── scroll-area.tsx
+│       │   │   ├── Select/
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── select.test.tsx
+│       │   │   │   └── select.tsx
+│       │   │   ├── Separator/
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── separator.test.tsx
+│       │   │   │   └── separator.tsx
+│       │   │   ├── Slider/
+│       │   │   │   ├── index.ts
+│       │   │   │   └── slider.tsx
+│       │   │   ├── Sonner/
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── sonner.test.tsx
+│       │   │   │   └── sonner.tsx
+│       │   │   ├── Table/
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── table.test.tsx
+│       │   │   │   └── table.tsx
+│       │   │   ├── Tabs/
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── tabs.test.tsx
+│       │   │   │   └── tabs.tsx
+│       │   │   ├── Textarea/
+│       │   │   │   ├── index.ts
+│       │   │   │   ├── textarea.test.tsx
+│       │   │   │   └── textarea.tsx
+│       │   │   └── Tooltip/
+│       │   │       ├── index.ts
+│       │   │       ├── tooltip.test.tsx
+│       │   │       └── tooltip.tsx
+│       │   ├── hooks/
+│       │   │   └── useQRCode.ts
+│       │   ├── index.ts
+│       │   ├── lib/
+│       │   │   └── utils.ts
+│       │   ├── style/
+│       │   │   └── global.css
+│       │   └── vite-env.d.ts
+│       ├── tsconfig.app.json
+│       ├── tsconfig.json
+│       ├── tsconfig.node.json
+│       └── vite.config.ts
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── proxys/
+│   └── middleware/
+│       ├── package.json
+│       └── vite.config.ts
+├── scripts/
+│   ├── autoCreateShadcnComp.ts
+│   ├── fisrt-run/
+│   │   ├── base.sh
+│   │   └── cloud-linux.sh
+│   ├── generateDirectoryTree.ts
+│   ├── generateExports.ts
+│   ├── git-hooks/
+│   │   └── pre-commit.sh
+│   ├── install-hooks.sh
+│   ├── removePkg.ts
+│   ├── run-dev.sh
+│   ├── server-dev.sh
+│   ├── shadcnAdd.ts
+│   ├── updateAllDeps.sh
+│   └── updatePkg.ts
+├── server/
+│   ├── api/
+│   │   ├── .env
+│   │   ├── README.md
+│   │   ├── __test__/
+│   │   │   ├── db_setup.ts
+│   │   │   ├── redis_setup.ts
+│   │   │   └── routes_setup.ts
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   ├── src/
+│   │   │   ├── app.ts
+│   │   │   ├── config/
+│   │   │   │   └── index.ts
+│   │   │   ├── controllers/
+│   │   │   │   ├── auth.controller.ts
+│   │   │   │   ├── games.controller.ts
+│   │   │   │   ├── music.controller.ts
+│   │   │   │   ├── user.controller.ts
+│   │   │   │   └── waybill.controller.ts
+│   │   │   ├── db/
+│   │   │   │   ├── connection.ts
+│   │   │   │   ├── migrate.ts
+│   │   │   │   ├── migrations/
+│   │   │   │   │   └── 001_create_users.sql
+│   │   │   │   └── seed.ts
+│   │   │   ├── index.ts
+│   │   │   ├── middlewares/
+│   │   │   │   ├── auth.ts
+│   │   │   │   ├── cache.ts
+│   │   │   │   ├── errorHandler.ts
+│   │   │   │   ├── logger.ts
+│   │   │   │   ├── rateLimit.ts
+│   │   │   │   └── validate.ts
+│   │   │   ├── redis/
+│   │   │   │   └── connection.ts
+│   │   │   ├── repositories/
+│   │   │   │   ├── BaseRepository.ts
+│   │   │   │   └── UserRepository.ts
+│   │   │   ├── routes/
+│   │   │   │   ├── auth.routes.ts
+│   │   │   │   ├── games.routes.ts
+│   │   │   │   ├── music.routes.ts
+│   │   │   │   ├── user.routes.ts
+│   │   │   │   └── waybill.routes.ts
+│   │   │   ├── services/
+│   │   │   │   ├── auth.service.ts
+│   │   │   │   ├── games.service.ts
+│   │   │   │   ├── music.service.ts
+│   │   │   │   ├── redis.service.ts
+│   │   │   │   ├── user.service.ts
+│   │   │   │   └── waybill.service.ts
+│   │   │   └── utils/
+│   │   │       ├── checkProcess.ts
+│   │   │       ├── errors.ts
+│   │   │       ├── is.ts
+│   │   │       ├── jwt.ts
+│   │   │       ├── logger.ts
+│   │   │       └── password.ts
+│   │   └── tsconfig.json
+│   ├── main/
+│   │   ├── index.ts
+│   │   └── package.json
+│   ├── middlewares/
+│   │   ├── index.ts
+│   │   ├── musicMiddleware.ts
+│   │   └── package.json
+│   └── utils/
+│       ├── index.ts
+│       └── package.json
+├── shared/
+│   ├── package.json
+│   ├── src/
+│   │   ├── games/
+│   │   │   └── interface.ts
+│   │   ├── index.ts
+│   │   └── services/
+│   │       ├── request.ts
+│   │       └── responese.ts
+│   ├── tsconfig.app.json
+│   ├── tsconfig.json
+│   └── tsconfig.node.json
+└── types/
+    └── auto-imports.d.ts

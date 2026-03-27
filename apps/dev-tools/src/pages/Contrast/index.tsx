@@ -5,6 +5,7 @@ import TableView from "./components/TableView"
 import TreeView from "./components/TreeView"
 
 export default function JSONComparer() {
+  "use memo"
   const [jsonInputs, setJsonInputs] = useState(["", ""])
   const [jsonObjects, setJsonObjects] = useState<any[]>([])
   const [mode, setMode] = useState("table")

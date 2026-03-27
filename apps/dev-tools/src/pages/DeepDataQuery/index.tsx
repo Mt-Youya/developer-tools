@@ -129,6 +129,7 @@ interface ResultItemProps {
 
 // 结果项组件
 function ResultItem({ result, onCopy }: ResultItemProps) {
+  "use memo"
   const [expanded, setExpanded] = useState(false)
   const [copied, setCopied] = useState(false)
 
@@ -212,6 +213,7 @@ function ResultItem({ result, onCopy }: ResultItemProps) {
 
 // 主组件
 function DeepDataQuery() {
+  "use memo"
   const [searchTerm, setSearchTerm] = useState("")
   const [caseSensitive, setCaseSensitive] = useState(false)
   const [inputData, setInputData] = useState("")

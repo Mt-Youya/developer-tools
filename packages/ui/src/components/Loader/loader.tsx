@@ -46,6 +46,7 @@ export function Loader({
   fullscreen = false,
   className,
 }: LoaderProps) {
+  "use memo"
   const containerClasses = cn(
     "flex flex-col items-center justify-center",
     overlay && "fixed inset-0 bg-black/50 z-[9999] animate-fade-in backdrop-blur-sm",
@@ -160,7 +161,7 @@ export function LoaderDemo() {
         <h2 className="mb-4 text-xl font-semibold text-gray-800">按钮变体（悬停缩放 & 阴影）</h2>
         <div className="p-6 bg-gray-50 rounded-lg space-y-4 transition-all duration-300 hover:shadow-lg">
           <div className="flex flex-wrap gap-3">
-            <Button variant="primary">Primary</Button>
+            <Button variant="default">Primary</Button>
             <Button variant="secondary">Secondary</Button>
             <Button variant="outline">Outline</Button>
             <Button variant="ghost">Ghost</Button>
@@ -177,7 +178,7 @@ export function LoaderDemo() {
       <section className="mb-10 animate-fade-in" style={{ animationDelay: "500ms" }}>
         <h2 className="mb-4 text-xl font-semibold text-gray-800">加载按钮（平滑过渡）</h2>
         <div className="p-6 bg-gray-50 rounded-lg flex flex-wrap gap-3 transition-all duration-300 hover:shadow-lg">
-          <Button loading={buttonLoading} onClick={handleButtonClick} variant="primary">
+          <Button loading={buttonLoading} onClick={handleButtonClick} variant="default">
             {buttonLoading ? "提交中..." : "点击提交"}
           </Button>
           <Button loading={buttonLoading} onClick={handleButtonClick} variant="secondary">

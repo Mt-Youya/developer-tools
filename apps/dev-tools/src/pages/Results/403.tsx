@@ -1,5 +1,5 @@
 import { cn } from "@devtools/libs"
-import { Float, MeshReflectorMaterial, PerspectiveCamera } from "@react-three/drei"
+import { Environment, Float, MeshReflectorMaterial, PerspectiveCamera, Stars, Text } from "@react-three/drei"
 import { Canvas, useFrame } from "@react-three/fiber"
 import { Bloom, ChromaticAberration, EffectComposer, Noise } from "@react-three/postprocessing"
 import { motion } from "framer-motion"
@@ -14,6 +14,7 @@ interface LaserBeamProps {
 }
 
 function LaserBeam({ position, color = "#ff0000", delay = 0 }: LaserBeamProps) {
+  "use memo"
   const meshRef = useRef<Mesh>(null)
 
   useFrame((state) => {
@@ -44,7 +45,8 @@ function LaserBeam({ position, color = "#ff0000", delay = 0 }: LaserBeamProps) {
 }
 
 function LaserGrid() {
-  const lasers = useMemo(() => {
+  "use memo"
+  const lasers = (() => {
     const items = []
     // Create a circular barrier
     const count = 12
@@ -60,12 +62,13 @@ function LaserGrid() {
       items.push(<LaserBeam key={i} position={[x, 0, z - 2]} color="#ff003c" delay={i * 0.5} />)
     }
     return items
-  }, [])
+  })()
 
   return <group>{lasers}</group>
 }
 
 function SecurityDrone() {
+  "use memo"
   const groupRef = useRef<Group>(null)
 
   useFrame((state) => {
@@ -90,6 +93,7 @@ function SecurityDrone() {
 }
 
 function Floor() {
+  "use memo"
   return (
     <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]}>
       <planeGeometry args={[50, 50]} />
@@ -111,6 +115,7 @@ function Floor() {
 }
 
 function Scene() {
+  "use memo"
   return (
     <>
       <PerspectiveCamera makeDefault position={[0, 1, 8]} fov={50} />
@@ -152,6 +157,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 function CyberButton({ children, variant = "primary", icon, className, ...props }: ButtonProps) {
+  "use memo"
   return (
     <button
       className={cn(
@@ -187,6 +193,7 @@ function CyberButton({ children, variant = "primary", icon, className, ...props 
 }
 
 export default function ForbiddenPage() {
+  "use memo"
   return (
     <div className="relative h-screen w-full overflow-hidden bg-[#30064a7a] text-foreground font-mono selection:bg-primary selection:text-black">
       {/* 3D Background */}

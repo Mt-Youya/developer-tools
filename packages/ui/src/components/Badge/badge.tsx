@@ -25,6 +25,7 @@ const badgeVariants = cva(
 
 type BadgeProps = useRender.ComponentProps<"span"> & VariantProps<typeof badgeVariants>
 function Badge({ className, variant = "default", render, ...props }: BadgeProps) {
+  "use memo"
   return useRender({
     defaultTagName: "span",
     props: mergeProps<"span">(

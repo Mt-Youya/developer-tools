@@ -24,7 +24,7 @@ interface CommandState {
   setDetectors: (detectors: DetectorsType[]) => void
 }
 
-export const CommandStore = create<CommandState>((set) => ({
+export const useCommandStore = create<CommandState>((set) => ({
   baseCommand: `hdc shell "aa start -U 'protocol://www.example.com/?server=http://`,
   setBaseCommand: (baseCommand: string) => set({ baseCommand }),
 
